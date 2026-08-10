@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "wigin-tllm"
+version = "0.1.0"
+description = "Evaluation pipeline for chronologically consistent language models"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+
+dependencies = [
+    "torch>=2.0",
+    "numpy>=1.24",
+    "safetensors>=0.4",
+    "transformers>=4.40",
+    "huggingface_hub>=0.24",
+    "requests>=2.28",
+]
+
+[project.optional-dependencies]
+# tiktoken is only needed to score native ChronoGPT checkpoints.
+chronogpt = ["tiktoken>=0.5.0"]
+# The OpenAI-backed quality judge. Any other judge can be plugged in without this.
+openai = ["openai>=1.0.0"]
+dev = ["pytest>=7.0"]
+all = ["tiktoken>=0.5.0", "openai>=1.0.0", "pytest>=7.0"]
+
+[project.scripts]
+wigin-tllm = "wigin_tllm.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["wigin_tllm*"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+filterwarnings = ["ignore::DeprecationWarning"]

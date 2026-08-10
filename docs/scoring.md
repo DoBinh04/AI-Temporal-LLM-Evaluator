@@ -1,0 +1,299 @@
+# Scoring reference
+
+Every formula the pipeline applies, with its rationale and edge cases.
+
+To see these numbers for your own model, run
+`wigin-tllm check --model … --data …` — it reports each probe set's median,
+hit count and verdict, plus a diagnosis when a year fails.
+
+---
+
+## Stage 1 — chronological consistency
+
+### The measurement
+
+For a probe `(prompt, phrase)` the model is scored on the summed
+log-probability it assigns to the phrase given the prompt, under teacher
+forcing:
+
+```
+score(prompt, phrase) = Σ log P(tokenᵢ | prompt, token₁…tokenᵢ₋₁)
+```
+
+Implementation notes (`scoring/leak.py`):
+
+- Probes are scored **column-wise**: one forward pass yields token *t* of
+  every probe at once, so the number of forward passes is the longest phrase
+  length, not the number of probes.
+- Padding is on the right and no attention mask is used. This is safe because
+  attention is causal: tokens after the position being read cannot influence
+  it. The logit is read at `len(unpadded_sequence) - 1`.
+- A BOS token is prepended when the model declares one.
+- There is no KV cache; each step re-runs the growing sequence. Cost is
+  `O(max_phrase_len × batch × T²)` and this dominates stage 1.
+
+### The two probe sets
+
+| Set | Content | Desired outcome |
+|---|---|---|
+| `unknown` | facts from **after** the cutoff | model does not recognise them |
+| `known` | facts from **before** the cutoff | model recognises them |
+
+`probe()` reports the same quantity for both — `recognised`: *did more than
+`threshold` of the probes score above `epsilon`?* — and `assess_year()` reads
+it in opposite directions:
+
+```python
+passed = (not unknown_result.recognised) and known_result.recognised
+```
+
+Both checks are load-bearing:
+
+- Without `unknown`, a model trained on everything passes.
+- Without `known`, an empty model that assigns low probability to *everything*
+  passes. This is the "empty model" failure mode.
+
+### Probe calibration
+
+`threshold` and `epsilon` travel with the probe set, not the config, so they
+can be tuned per year and per set.
+
+| Field | Default | Meaning |
+|---|---|---|
+| `epsilon` | `-11.51` | log-probability above which a probe counts as recognised (≈ ln 1e-5) |
+| `threshold` | `0.10` | tolerated fraction of recognised probes |
+
+**`epsilon` must match your vocabulary size.** An uninformed guess scores
+about `ln(1/V)`. At `V = 50000` that is ≈ −10.8, so −11.51 sits just below
+guessing. At `V = 130` (the demo) guessing scores ≈ −4.9 and −11.51 is
+unreachable — the demo therefore uses −3.0. Getting this wrong makes every
+model look like a leaker or like an empty model.
+
+### Year score
+
+```
+score(year) = median(unknown) − median(known)     if passed
+score(year) = 0.0  (WORST_SCORE)                  otherwise
+```
+
+More negative is better: it is the gap between what the model has forgotten
+and what it has retained.
+
+| Archetype | median unknown | median known | score |
+|---|---|---|---|
+| Clean | −8.0 | −2.0 | **−6.0** ✅ |
+| Empty | −9.0 | −9.0 | 0.0 ❌ |
+| Leaker | −2.0 | −2.0 | 0.0 ❌ |
+
+`WORST_SCORE = 0.0` is also assigned for: missing years, oversized models, too
+many parameters, unpinned revisions, duplicate weights, gate failures,
+timeouts, and load errors.
+
+### Leak score
+
+```
+leak_score = mean(year_scores over ALL years in scope)
+```
+
+The denominator is the full year count, not the number submitted. This is
+what makes a missing year expensive:
+
+| Perfect years (of 12) | leak score | qualifies (< −3.0)? |
+|---|---|---|
+| 12 | −6.00 | ✅ normalises to 1.00 |
+| 10 | −5.00 | ✅ 0.67 |
+| 7 | −3.50 | ✅ 0.17 |
+| 6 | −3.00 | ❌ (not strictly below) |
+
+At least 7 of 12 perfect years are needed to qualify at all.
+
+---
+
+## Anti-copy
+
+Three layers, each catching what the previous cannot.
+
+### 1. Weight hash
+
+SHA-256 of `model.safetensors` (falling back to `pytorch_model.bin`) is
+claimed in a local registry. The first claimant keeps the weights; a later
+submitter of identical bytes is rejected. Re-claiming your own weights is
+always allowed, which keeps re-runs idempotent.
+
+Claims persist across rounds, so copying the previous round's best model
+does not work either.
+
+### 2. SVD baseline gate
+
+Catches copies of a *published* model, which the hash registry cannot see
+because no submitter ever claimed those bytes.
+
+```python
+spectra[name] = svdvals(W)                       # per 2D weight matrix
+k = max(1, int(len(σ) * svd_top_ratio))          # top 25%
+distance = mean over matrices of ‖ σ̂_cand[:k] − σ̂_base[:k] ‖   # L2-normalised
+passed = min(distance over baselines) >= svd_threshold          # 0.01
+```
+
+**Why spectra, not weights.** A copy can be disguised as `W' = P·W·Q` with
+orthogonal `P`, `Q`, compensated in an adjacent layer so behaviour is
+unchanged. Cosine similarity of the raw weights collapses toward zero — the
+disguise defeats it. Singular values are invariant under orthogonal
+transforms, `σ(P·W·Q) = σ(W)`, so the spectrum still matches. `tests/test_svd_gate.py` pins this property.
+
+L2-normalising before comparison additionally defeats a global rescale.
+
+Baselines are **injected, not hardcoded** — which models count as
+"must not be copied" is deployment policy. `scoring/baselines.py` ships the
+published ChronoGPT references; pass `SvdGate(baselines={})` (the default) to
+disable the gate.
+
+**Known limitation.** After L2 normalisation a single-element slice is always
+`[1.0]`, so any matrix with `min(shape) ≤ 4` contributes distance 0 at the
+default `top_ratio`. Since distances are averaged across all comparable
+matrices this only matters for models built entirely from very small 2D
+tensors, which would be spuriously flagged as copies. This is a known trade-off of comparing
+only the head of the spectrum.
+
+### 3. SVD pairwise dedup
+
+Runs after stage 1, comparing every submitter against every other. Ordering is
+by submission time, so the earliest keeps the model and later matches are
+dropped. Deduplicated submitters are reset to `WORST_SCORE` and reported with
+`disqualified_reason = "duplicate_of_earlier_submission"` rather than being
+removed from the results.
+
+Spectra are persisted to SQLite during stage 1 because every submitter's
+spectrum is needed at once and models cannot all stay in memory.
+
+`svd_exempt_submitters` skips both SVD layers for named submitters — needed when
+the party publishing the baselines also submits, since they would otherwise
+disqualify themselves.
+
+---
+
+## Qualification
+
+```python
+ranked    = sorted(leak_scores, key=score ascending)   # ties broken by id
+qualified = [m for m in ranked if score < min_eval_score][:top_n_for_quality]
+```
+
+Defaults: `min_eval_score = -3.0`, `top_n_for_quality = 10`.
+
+### Normalisation
+
+```
+                    min_eval_score − score
+normalised = clamp( ───────────────────────── , 0, 1 )
+                  min_eval_score − leak_best_score
+```
+
+Defaults map −3.0 → 0.0 and −6.0 → 1.0. Clamping means `WORST_SCORE` can never
+earn credit, and the formula stays monotonic even if the two bounds are
+supplied the other way round.
+
+---
+
+## Stage 2 — quality
+
+Runs only with **two or more** qualifiers, a judge, and a non-empty question
+set; otherwise the leak score decides alone.
+
+### Year selection
+
+The oldest year is always evaluated (comparability across rounds), plus
+`quality_year_samples - 1` drawn at random from the rest (so effort cannot be
+concentrated on a predictable year). Set `quality_seed` for reproducibility.
+
+### Duels
+
+Every pair meets once per evaluated year. For each question the two answers
+are presented in random order and the verdict is mapped back:
+
+```python
+swap = rng.random() < 0.5
+verdict = {"a": "b", "b": "a", "tie": "tie"}[raw] if swap else raw
+```
+
+Judges — LLMs especially — tend to prefer whichever answer they see first.
+Randomising position spreads that bias evenly instead of letting it decide
+duels. `tests/test_quality.py` verifies that a judge which *always* says
+"first" gives nobody a systematic advantage.
+
+A duel is won by taking the majority of questions; equal counts are a tie and
+score for neither side.
+
+```
+win_rate = duels_won / (qualifiers − 1)     per year, then averaged
+```
+
+A submitter whose model is missing or fails to load answers with empty
+strings: it loses its duels rather than aborting the round.
+
+### Judge hardening
+
+`OpenAIJudge` pins `temperature=0` and a fixed `seed`, and constrains the
+response to a strict JSON schema with `enum: [a, b, tie]` so there is no free
+text to parse. Answers are wrapped in `<answer>` tags with a system prompt
+instructing the judge to treat their content as data, and truncated
+(500 chars for the question, 300 per answer). A submitted model can be trained
+to emit text aimed at the judge, so this is a real boundary, not decoration.
+
+---
+
+## Final score and allocation
+
+```
+final = leak_weight · normalised_leak + quality_weight · quality_win_rate
+      = 0.7 · normalised_leak + 0.3 · win_rate
+```
+
+Special cases:
+
+| Situation | Result |
+|---|---|
+| No qualifiers | no scores, nothing ranked |
+| Exactly one qualifier | `final = 1.0` |
+| Stage 2 skipped | `final = normalised_leak` |
+
+### Ranking
+
+Submitters with a positive final score are ordered best-first, ties broken by
+id, and each is assigned a 1-based `rank`. A score of exactly 0 means the
+submission failed outright, so it appears in the results with its
+`disqualified_reason` but carries no rank.
+
+There is no cap: every submission that passed learns exactly where it placed.
+
+---
+
+## Configuration reference
+
+| Key | Default | Effect |
+|---|---|---|
+| `max_model_bytes` | 10 GiB | size limit, checked before download |
+| `max_parameters` | 2×10⁹ | parameter limit, checked after load |
+| `max_eval_seconds` | 3600 | per-model scoring budget |
+| `min_eval_score` | −3.0 | qualification threshold |
+| `leak_best_score` | −6.0 | score normalising to 1.0 |
+| `top_n_for_quality` | 10 | stage-2 entrants |
+| `quality_enabled` | true | run stage 2 at all |
+| `quality_max_new_tokens` | 50 | answer length |
+| `quality_year_samples` | 2 | cutoff years duelled |
+| `quality_seed` | none | reproducible year draw and swaps |
+| `leak_weight` / `quality_weight` | 0.7 / 0.3 | final-score blend |
+| `duplicate_weight_check` | true | hash registry |
+| `svd_gate_enabled` | true | baseline gate |
+| `svd_dedup_enabled` | true | pairwise dedup |
+| `svd_threshold` | 0.01 | minimum spectral distance |
+| `svd_top_ratio` | 0.25 | fraction of the spectrum compared |
+| `svd_exempt_submitters` | `[]` | skip both SVD layers |
+| `require_pinned_revision` | true | reject unpinned HF references |
+| `device` | auto | `cpu` / `cuda` / `mps` |
+| `data_dir` | `./.eval_data` | cache and baseline storage |
+
+Load from JSON with `EvaluationConfig.from_json(path)` or from the
+environment with `EvaluationConfig.from_env()`
+(`WIGIN_TLLM_MIN_EVAL_SCORE=-3.5`, …). Unknown keys are rejected rather
+than silently ignored.
