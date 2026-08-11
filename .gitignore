@@ -7,6 +7,4 @@ dist/
 .venv/
 venv/
 .pytest_cache/
-.eval_data/
-*.db
 examples/_generated/

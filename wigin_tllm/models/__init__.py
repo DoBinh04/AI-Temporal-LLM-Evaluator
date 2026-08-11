@@ -9,7 +9,6 @@ from .store import (
     get_model_size_bytes,
     resolve_model,
     verify_pinned_revision,
-    weight_hash,
 )
 
 __all__ = [
@@ -22,5 +21,4 @@ __all__ = [
     "get_model_size_bytes",
     "resolve_model",
     "verify_pinned_revision",
-    "weight_hash",
 ]

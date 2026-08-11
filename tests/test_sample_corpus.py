@@ -12,7 +12,7 @@ import json
 import os
 
 from wigin_tllm.config import EvaluationConfig
-from wigin_tllm.corpus import KNOWN, UNKNOWN, Corpus, load_facts
+from wigin_tllm.corpus import Corpus, load_facts
 from wigin_tllm.scoring.prompt_generator import CATEGORIES
 
 SAMPLE = os.path.join(os.path.dirname(__file__), "..", "examples", "sample")

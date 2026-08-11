@@ -326,31 +326,3 @@ def _rate_above(scores: Sequence[float], epsilon: float) -> float:
     if not scores:
         return 0.0
     return sum(1 for s in scores if s > epsilon) / len(scores)
-
-
-def inspect(corpus: Corpus, model, device, config: EvaluationConfig) -> CalibrationReport:
-    """Measure an existing corpus against a model, without changing it.
-
-    Answers the question a corpus author actually has: does this probe set
-    separate a model that respects the cutoff from one that does not, and by
-    how much?
-    """
-    from .scoring.leak import probe
-
-    calibrations = []
-    for year in corpus.years():
-        unknown, known = corpus.probes_for(year)
-        unknown_result = probe(model, device, unknown)
-        known_result = probe(model, device, known)
-        calibrations.append(
-            YearCalibration(
-                year=year,
-                epsilon=known.epsilon,
-                threshold=known.threshold,
-                known_rate=known_result.ratio,
-                unknown_rate=unknown_result.ratio,
-                known_threshold=known.threshold,
-                unknown_threshold=unknown.threshold,
-            )
-        )
-    return CalibrationReport(years=calibrations, reference="reference model")

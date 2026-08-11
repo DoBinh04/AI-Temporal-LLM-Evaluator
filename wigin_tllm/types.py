@@ -219,13 +219,16 @@ class YearAssessment:
 
 @dataclass
 class YearScore:
-    """One year of a consistency run, with the reason behind the verdict."""
+    """One year of a consistency run, with the reason behind the verdict.
+
+    `assessment` is None when the year never reached the probes — the SVD
+    gate rejected it — in which case `diagnosis` carries the reason.
+    """
 
     year: int
     model_ref: str
     assessment: Optional[YearAssessment] = None
     diagnosis: str = ""
-    error: str = ""
 
     @property
     def passed(self) -> bool:

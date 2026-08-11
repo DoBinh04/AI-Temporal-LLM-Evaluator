@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-
-
 from .benchmark import BenchmarkReport
 from .benchmark.artifact import FAIL, OK, SKIP, WARN, ArtifactReport
 from .benchmark.consistency import ConsistencyReport

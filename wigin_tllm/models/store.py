@@ -8,7 +8,6 @@ exit codes because exceptions do not cross a process boundary.
 
 from __future__ import annotations
 
-import hashlib
 import logging
 import multiprocessing as mp
 import os
@@ -23,8 +22,6 @@ logger = logging.getLogger(__name__)
 
 if os.environ.get("HF_DEBUG", "").lower() in ("1", "true"):
     logging.getLogger("huggingface_hub").setLevel(logging.DEBUG)
-
-WEIGHT_FILENAMES = ("model.safetensors", "pytorch_model.bin")
 
 EXIT_OK = 0
 EXIT_ERROR = 1
@@ -61,19 +58,6 @@ def free_device_memory() -> None:
 
 def count_model_params(model) -> int:
     return sum(p.numel() for p in model.parameters())
-
-
-def weight_hash(model_path: str) -> str:
-    """SHA-256 of the model's weight file — the identity used for anti-copy."""
-    for name in WEIGHT_FILENAMES:
-        candidate = os.path.join(model_path, name)
-        if os.path.exists(candidate):
-            h = hashlib.sha256()
-            with open(candidate, "rb") as f:
-                for chunk in iter(lambda: f.read(1024 * 1024), b""):
-                    h.update(chunk)
-            return h.hexdigest()
-    raise FileNotFoundError(f"No weight file ({' or '.join(WEIGHT_FILENAMES)}) in {model_path}")
 
 
 def _dir_size(path: str) -> int:

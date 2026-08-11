@@ -84,6 +84,9 @@ each other.
 
 ## Traps that cost points quietly
 
+- **An unpinned reference scores zero.** A HuggingFace model must be pinned
+  as `owner/repo@<40-char-commit-sha>` — a branch name, even one that looks
+  like a SHA, can be repointed after the fact and fails all of its years.
 - **Custom architectures must be merged first.** Models load with
   `trust_remote_code=False`, so an architecture that is not already in
   `models/architectures/` cannot be scored at all.
