@@ -13,7 +13,7 @@ data/
 │       └── unknown.json     facts from after the cutoff
 ├── submissions/
 │   └── 1.json               one file per round
-├── quality_questions.json   optional — stage 2 questions
+├── completion_prompts.json  optional — stage 2 prompts (usually generated)
 ├── results/                 written: full round outcome
 │   └── 1.json
 └── eval_details/            written: one line per (submitter, year)
@@ -117,19 +117,32 @@ model.safetensors    weights (pytorch_model.bin is read but discouraged)
 tokenizer.json       plus tokenizer_config.json etc.
 ```
 
-## `quality_questions.json`
+## `completion_prompts.json`
+
+Normally written by `wigin-tllm prompts`, which generates a fresh set each
+round. Committing a fixed set is possible but not advised: a static set is
+learnable, and a model tuned to it scores well without being better.
 
 ```json
 {
-  "questions": [
-    { "prompt": "what caused the 2008 financial crisis", "reference": "subprime mortgage lending" }
+  "prompts": [
+    {
+      "prompt": "The process by which plants convert sunlight into sugar is called",
+      "category": "world_knowledge",
+      "reference": ""
+    }
   ]
 }
 ```
 
-A bare list is also accepted. `reference` is optional and ignored by LLM
-judges; `ReferenceOverlapJudge` uses it as the expected answer. With no
-questions, stage 2 is skipped.
+| Field | Required | Meaning |
+|---|---|---|
+| `prompt` | yes | incomplete text the model must continue — not a question |
+| `category` | no | which skill it targets; see [scoring.md](scoring.md#prompts) |
+| `reference` | no | expected continuation; used only by `ReferenceOverlapJudge` |
+
+A bare list is also accepted. With no prompts and no generator configured,
+stage 2 is skipped.
 
 ## `results/<round>.json` (written)
 
@@ -189,7 +202,7 @@ One JSON object per line, appended as each year finishes:
 | GET | `/years?round_id=1` | `{"years": [...]}` |
 | GET | `/benchmark/<year>?kind=unknown` | benchmark object |
 | GET | `/submissions/<round>` | list or `{"submissions": …}` |
-| GET | `/quality/questions` | `{"questions": [...]}` |
+| GET | `/quality/prompts` | `{"prompts": [...]}` |
 | POST | `/eval/detail` | `{"round": 1, ...year evaluation}` |
 | POST | `/eval/results` | `{"round": 1, "results": {...}}` |
 

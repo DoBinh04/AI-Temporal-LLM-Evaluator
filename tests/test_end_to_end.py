@@ -239,10 +239,10 @@ def demo_tree(tmp_path_factory):
     )
     (root / "round.json").write_text(json.dumps({"current_round": 1}))
     (root / "years.json").write_text(json.dumps(YEARS))
-    (root / "quality_questions.json").write_text(
+    (root / "completion_prompts.json").write_text(
         json.dumps(
             {
-                "questions": [
+                "prompts": [
                     {"prompt": "in alpha year the probe reached", "reference": "mars"},
                     {"prompt": "in alpha year the treaty was signed in", "reference": "lisbon"},
                 ]

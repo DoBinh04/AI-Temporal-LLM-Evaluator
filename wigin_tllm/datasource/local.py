@@ -10,7 +10,7 @@ Expected layout (only `benchmarks/` and `submissions/` are required)::
       benchmarks/2013/known.json
       submissions/1.json             [{"submitter_id": ..., "models": {...},
                                        "submitted_at": "2026-07-01T08:00:00"}]
-      quality_questions.json         {"questions": [{"prompt": ...}]}
+      completion_prompts.json        {"prompts": [{"prompt": ..., "category": ...}]}
       results/1.json                 (written by the pipeline)
       eval_details/1.jsonl           (written by the pipeline, one row per year)
 """
@@ -22,7 +22,7 @@ import logging
 import os
 from dataclasses import asdict
 
-from ..types import Benchmark, QualityQuestion, RoundResults, Submission, YearEvaluation
+from ..types import Benchmark, CompletionPrompt, RoundResults, Submission, YearEvaluation
 from .base import DataSource
 
 logger = logging.getLogger(__name__)
@@ -85,11 +85,21 @@ class LocalDataSource(DataSource):
             for entry in raw
         ]
 
-    def get_quality_questions(self) -> list[QualityQuestion]:
-        data = self._read_json("quality_questions.json", default={"questions": []})
-        questions = data["questions"] if isinstance(data, dict) else data
-        return [QualityQuestion.from_dict(q) if isinstance(q, dict) else QualityQuestion(str(q))
-                for q in questions]
+    def get_completion_prompts(self) -> list[CompletionPrompt]:
+        data = self._read_json("completion_prompts.json", default={"prompts": []})
+        raw = data["prompts"] if isinstance(data, dict) else data
+        return [
+            CompletionPrompt.from_dict(p) if isinstance(p, dict) else CompletionPrompt(str(p))
+            for p in raw
+        ]
+
+    def save_completion_prompts(self, prompts: list[CompletionPrompt]) -> str:
+        """Write a generated prompt set so the round can be reproduced."""
+        path = self._path("completion_prompts.json")
+        with open(path, "w") as f:
+            json.dump({"prompts": [asdict(p) for p in prompts]}, f, indent=2)
+        logger.info(f"Wrote {len(prompts)} prompts to {path}")
+        return path
 
     # ── outputs ──────────────────────────────────────────────────────────
 

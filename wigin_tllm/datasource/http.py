@@ -15,7 +15,7 @@ import requests
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
-from ..types import Benchmark, QualityQuestion, RoundResults, Submission, YearEvaluation
+from ..types import Benchmark, CompletionPrompt, RoundResults, Submission, YearEvaluation
 from .base import DataSource
 
 logger = logging.getLogger(__name__)
@@ -94,11 +94,11 @@ class HttpDataSource(DataSource):
             for e in entries
         ]
 
-    def get_quality_questions(self) -> list[QualityQuestion]:
+    def get_completion_prompts(self) -> list[CompletionPrompt]:
         try:
-            return [QualityQuestion.from_dict(q) for q in self._get("/quality/questions")["questions"]]
+            return [CompletionPrompt.from_dict(p) for p in self._get("/quality/prompts")["prompts"]]
         except requests.RequestException as e:
-            logger.error(f"Could not fetch quality questions: {type(e).__name__} — skipping stage 2")
+            logger.error(f"Could not fetch stage-2 prompts: {type(e).__name__} — skipping stage 2")
             return []
 
     # ── outputs ──────────────────────────────────────────────────────────

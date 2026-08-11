@@ -23,6 +23,7 @@ wigin_tllm/
 │   ├── leak.py         Stage 1 log-probability scoring
 │   ├── svd_gate.py     Spectral anti-copy (baseline gate + pairwise dedup)
 │   ├── judge.py        Judge interface and implementations
+│   ├── prompt_generator.py  Per-round stage-2 prompt generation
 │   ├── quality.py      Stage 2 round-robin tournament
 │   ├── aggregate.py    Qualification, blending, ranking
 │   └── baselines.py    Optional published reference models
@@ -39,7 +40,7 @@ wigin_tllm/
 ```
                     ┌──────────────┐
                     │  DataSource  │  years, probe sets, submissions,
-                    └──────┬───────┘  questions  (local dir / HTTP / memory)
+                    └──────┬───────┘  prompts  (local dir / HTTP / memory)
                            │
                            ▼
         ┌──────────────────────────────────────────┐
@@ -64,7 +65,7 @@ wigin_tllm/
               └─────────────┬───────────────┘
                             ▼
     ╔═══════════════ STAGE 2 ═══════════════════════════════╗
-    ║  AnswerProvider generates answers per year            ║
+    ║  prompts generated for the round, completions per year    ║
     ║  round-robin duels, Judge decides, A/B swapped        ║
     ╚═══════════════════════┬═══════════════════════════════╝
                             ▼

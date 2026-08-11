@@ -2,7 +2,7 @@
 
 Everything the pipeline needs from the outside world goes through this one
 interface: which years to score, the probe sets, who submitted what, the
-quality questions, and where results go.
+stage-2 prompts, and where results go.
 
 Keeping it an interface means the pipeline can run against a local
 directory, a remote service, or an in-memory fixture without any change to
@@ -14,7 +14,7 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from typing import Iterable
 
-from ..types import Benchmark, QualityQuestion, RoundResults, Submission, YearEvaluation
+from ..types import Benchmark, CompletionPrompt, RoundResults, Submission, YearEvaluation
 
 
 class DataSource(ABC):
@@ -44,8 +44,8 @@ class DataSource(ABC):
     def get_submissions(self, round_id: int) -> list[Submission]:
         """All submissions captured for this round."""
 
-    def get_quality_questions(self) -> list[QualityQuestion]:
-        """Open-ended questions for stage 2. Empty list disables stage 2."""
+    def get_completion_prompts(self) -> list[CompletionPrompt]:
+        """Stored stage-2 prompts. Empty when they are generated per round."""
         return []
 
     # ── Outputs ──────────────────────────────────────────────────────────

@@ -33,7 +33,8 @@ from .models.store import (
 from .scoring.aggregate import build_round_results, mean_year_score, qualify, rank
 from .scoring.judge import Judge
 from .scoring.leak import assess_year
-from .scoring.quality import ModelAnswerProvider, run_quality_duels
+from .scoring.prompt_generator import PromptGenerator
+from .scoring.quality import ModelCompletionProvider, run_quality_duels
 from .scoring.svd_gate import SvdGate, dedup_by_svd, svd_spectra
 from .storage import EvaluationStore
 from .types import (
@@ -372,6 +373,7 @@ def run_evaluation(
     svd_gate: Optional[SvdGate] = None,
     store: Optional[EvaluationStore] = None,
     submitter_filter: Optional[Sequence[str]] = None,
+    prompt_generator: Optional[PromptGenerator] = None,
     force: bool = False,
 ) -> RoundResults:
     """Run one full evaluation round and return its results.
@@ -435,7 +437,8 @@ def run_evaluation(
 
         qualification = qualify(consistency.eligible, config)
         win_rates = _run_quality_stage(
-            datasource, submissions, qualification.ids, years, config, judge, device
+            datasource, submissions, qualification.ids, years, config, judge, device,
+            prompt_generator, round_id,
         )
         ranking = rank(qualification, win_rates, config)
 
@@ -508,6 +511,28 @@ def _apply_dedup(
             )
 
 
+def _stage2_prompts(
+    datasource: DataSource,
+    generator: Optional[PromptGenerator],
+    round_id: int,
+) -> list:
+    """Get this round's prompts, generating them if a generator is configured.
+
+    Prompts are generated fresh per round rather than read from a fixed file:
+    a static set would be learnable, and a model tuned to it would score well
+    without being better. A configured generator returning nothing is fatal —
+    silently falling back to no stage 2 would quietly change what the round
+    measures.
+    """
+    if generator is None:
+        return datasource.get_completion_prompts()
+
+    prompts = generator.generate(round_id)
+    if not prompts:
+        raise EvaluationError("Prompt generation produced nothing; aborting round")
+    return prompts
+
+
 def _run_quality_stage(
     datasource: DataSource,
     submissions: Sequence[Submission],
@@ -516,6 +541,8 @@ def _run_quality_stage(
     config: EvaluationConfig,
     judge: Optional[Judge],
     device,
+    generator: Optional[PromptGenerator] = None,
+    round_id: int = 0,
 ) -> Optional[dict[str, float]]:
     """Run quality duels, or return None when there is no usable signal."""
     if not config.quality_enabled:
@@ -528,18 +555,18 @@ def _run_quality_stage(
         logger.warning("No judge configured, skipping stage 2")
         return None
 
-    questions = datasource.get_quality_questions()
-    if not questions:
-        logger.warning("No quality questions available, skipping stage 2")
+    prompts = _stage2_prompts(datasource, generator, round_id)
+    if not prompts:
+        logger.warning("No stage-2 prompts available, skipping stage 2")
         return None
 
-    logger.info("=== Stage 2: quality duels ===")
-    provider = ModelAnswerProvider(
+    logger.info(f"=== Stage 2: quality duels over {len(prompts)} prompts ===")
+    provider = ModelCompletionProvider(
         {s.submitter_id: s for s in submissions}, device, config.quality_max_new_tokens
     )
     return run_quality_duels(
         entrants,
-        questions,
+        prompts,
         years,
         provider,
         judge,

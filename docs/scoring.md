@@ -197,8 +197,40 @@ supplied the other way round.
 
 ## Stage 2 — quality
 
-Runs only with **two or more** qualifiers, a judge, and a non-empty question
+Runs only with **two or more** qualifiers, a judge, and a non-empty prompt
 set; otherwise the leak score decides alone.
+
+### Prompts
+
+Stage 2 does not ask questions — it hands the model **incomplete text to
+continue**. That is what a language model does natively, so a base checkpoint
+and an instruction-tuned one can be compared on the same footing.
+
+Prompts are generated fresh for each round by an LLM across eight categories:
+
+| Category | Tests |
+|---|---|
+| `reading_comprehension` | understanding a short passage |
+| `language_understanding` | context, tone and intent |
+| `world_knowledge` | science, geography, history |
+| `commonsense_reasoning` | everyday physical and social sense |
+| `language_modeling` | coherent narrative continuation |
+| `causal_reasoning` | cause and effect |
+| `logical_inference` | drawing a conclusion from premises |
+| `temporal_reasoning` | order and sequence of events |
+
+Two properties matter:
+
+- **Fresh per round.** A fixed set would be learnable, and a model tuned to it
+  would score well without being better.
+- **Timeless.** No dates, no recent events. A prompt about 2019 is
+  unanswerable for a model with a 2015 cutoff, and stage 2 measures quality,
+  not chronology — that is stage 1's job.
+
+Generation samples at `temperature=1.0` because the goal is variety, with one
+request per category. Pass a seed to make a round reproducible. If generation
+is configured and yields nothing the round aborts rather than quietly skipping
+stage 2, which would change what the round measures.
 
 ### Year selection
 
@@ -208,7 +240,7 @@ concentrated on a predictable year). Set `quality_seed` for reproducibility.
 
 ### Duels
 
-Every pair meets once per evaluated year. For each question the two answers
+Every pair meets once per evaluated year. For each prompt the two completions
 are presented in random order and the verdict is mapped back:
 
 ```python
@@ -216,29 +248,32 @@ swap = rng.random() < 0.5
 verdict = {"a": "b", "b": "a", "tie": "tie"}[raw] if swap else raw
 ```
 
-Judges — LLMs especially — tend to prefer whichever answer they see first.
+Judges — LLMs especially — tend to prefer whichever completion they see first.
 Randomising position spreads that bias evenly instead of letting it decide
 duels. `tests/test_quality.py` verifies that a judge which *always* says
 "first" gives nobody a systematic advantage.
 
-A duel is won by taking the majority of questions; equal counts are a tie and
+A duel is won by taking the majority of prompts; equal counts are a tie and
 score for neither side.
 
 ```
 win_rate = duels_won / (qualifiers − 1)     per year, then averaged
 ```
 
-A submitter whose model is missing or fails to load answers with empty
-strings: it loses its duels rather than aborting the round.
+A submitter whose model is missing or fails to load yields empty
+completions: it loses its duels rather than aborting the round.
 
 ### Judge hardening
 
 `OpenAIJudge` pins `temperature=0` and a fixed `seed`, and constrains the
 response to a strict JSON schema with `enum: [a, b, tie]` so there is no free
-text to parse. Answers are wrapped in `<answer>` tags with a system prompt
-instructing the judge to treat their content as data, and truncated
-(500 chars for the question, 300 per answer). A submitted model can be trained
-to emit text aimed at the judge, so this is a real boundary, not decoration.
+text to parse. It scores on factual accuracy, how naturally the text
+continues, coherence, and knowledge demonstrated.
+
+Completions are wrapped in `<completion>` tags with a system prompt
+instructing the judge to treat their content as data, and truncated (500 chars
+for the prompt, 300 per completion). A submitted model can be trained to emit
+text aimed at the judge, so this is a real boundary, not decoration.
 
 ---
 
@@ -279,7 +314,7 @@ There is no cap: every submission that passed learns exactly where it placed.
 | `leak_best_score` | −6.0 | score normalising to 1.0 |
 | `top_n_for_quality` | 10 | stage-2 entrants |
 | `quality_enabled` | true | run stage 2 at all |
-| `quality_max_new_tokens` | 50 | answer length |
+| `quality_max_new_tokens` | 50 | completion length |
 | `quality_year_samples` | 2 | cutoff years duelled |
 | `quality_seed` | none | reproducible year draw and swaps |
 | `leak_weight` / `quality_weight` | 0.7 / 0.3 | final-score blend |

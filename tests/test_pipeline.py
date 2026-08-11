@@ -18,7 +18,7 @@ from wigin_tllm.models.loader import ModelLoadError  # noqa: E402
 from wigin_tllm.pipeline import EvaluationError, run_evaluation  # noqa: E402
 from wigin_tllm.scoring.judge import ScriptedJudge  # noqa: E402
 from wigin_tllm.scoring.svd_gate import SvdGate  # noqa: E402
-from wigin_tllm.types import ProbeResult, QualityQuestion, YearAssessment  # noqa: E402
+from wigin_tllm.types import ProbeResult, CompletionPrompt, YearAssessment  # noqa: E402
 
 from conftest import YEARS, make_submission  # noqa: E402
 
@@ -129,10 +129,10 @@ def stack(monkeypatch, tmp_path):
     return s
 
 
-def source(submissions, benchmarks, questions=None):
+def source(submissions, benchmarks, prompts=None):
     return InMemoryDataSource(
         years=YEARS, benchmarks=benchmarks, submissions=submissions,
-        questions=questions or [], current_round=1,
+        prompts=prompts or [], current_round=1,
     )
 
 
@@ -445,7 +445,7 @@ def test_stage2_runs_when_several_submitters_qualify(stack, config, benchmarks, 
         make_submission("alice", "2026-07-01T08:00:00"),
         make_submission("bob", "2026-07-01T09:00:00"),
     ]
-    src = source(subs, benchmarks, questions=[QualityQuestion("q", "r")])
+    src = source(subs, benchmarks, prompts=[CompletionPrompt("q", "r")])
     results = run(src, config, tmp_path, judge=ScriptedJudge(["a"]))
 
     assert sorted(captured["submitters"]) == ["alice", "bob"]
@@ -459,7 +459,7 @@ def test_stage2_is_skipped_without_a_judge(stack, config, benchmarks, tmp_path):
         make_submission("alice", "2026-07-01T08:00:00"),
         make_submission("bob", "2026-07-01T09:00:00"),
     ]
-    src = source(subs, benchmarks, questions=[QualityQuestion("q", "r")])
+    src = source(subs, benchmarks, prompts=[CompletionPrompt("q", "r")])
     results = run(src, config, tmp_path, judge=None)
     assert result_for(results, "alice").quality_win_rate == 0.0
     # With no quality signal the leak score alone decides.
@@ -483,7 +483,7 @@ def test_stage2_can_be_disabled(stack, config, benchmarks, tmp_path, monkeypatch
         make_submission("alice", "2026-07-01T08:00:00"),
         make_submission("bob", "2026-07-01T09:00:00"),
     ]
-    src = source(subs, benchmarks, questions=[QualityQuestion("q", "r")])
+    src = source(subs, benchmarks, prompts=[CompletionPrompt("q", "r")])
     run(src, config, tmp_path, judge=ScriptedJudge(["a"]))
 
 
@@ -521,3 +521,65 @@ def test_deduplicated_submitter_cannot_qualify(stack, config, benchmarks, tmp_pa
     mimic = result_for(results, "mimic")
     assert mimic.disqualified_reason == "duplicate_of_earlier_submission"
     assert not mimic.qualified
+
+
+# ─── stage-2 prompt generation ───────────────────────────────────────────
+
+
+def test_generated_prompts_are_used_for_the_duels(stack, config, benchmarks, tmp_path, monkeypatch):
+    """A configured generator replaces whatever the data source holds."""
+    from wigin_tllm.scoring.prompt_generator import StaticPromptGenerator
+
+    seen = {}
+
+    def fake_duels(submitter_ids, prompts, years, provider, judge, rng=None, year_samples=2):
+        seen["prompts"] = [p.prompt for p in prompts]
+        return {s: 0.0 for s in submitter_ids}
+
+    monkeypatch.setattr("wigin_tllm.pipeline.run_quality_duels", fake_duels)
+
+    subs = [
+        make_submission("alice", "2026-07-01T08:00:00"),
+        make_submission("bob", "2026-07-01T09:00:00"),
+    ]
+    src = source(subs, benchmarks, prompts=[CompletionPrompt("stored prompt")])
+    run(
+        src, config, tmp_path,
+        judge=ScriptedJudge(["a"]),
+        prompt_generator=StaticPromptGenerator([CompletionPrompt("generated prompt")]),
+    )
+    assert seen["prompts"] == ["generated prompt"]
+
+
+def test_stored_prompts_are_used_when_no_generator_is_configured(
+    stack, config, benchmarks, tmp_path, monkeypatch
+):
+    seen = {}
+
+    def fake_duels(submitter_ids, prompts, years, provider, judge, rng=None, year_samples=2):
+        seen["prompts"] = [p.prompt for p in prompts]
+        return {s: 0.0 for s in submitter_ids}
+
+    monkeypatch.setattr("wigin_tllm.pipeline.run_quality_duels", fake_duels)
+
+    subs = [
+        make_submission("alice", "2026-07-01T08:00:00"),
+        make_submission("bob", "2026-07-01T09:00:00"),
+    ]
+    src = source(subs, benchmarks, prompts=[CompletionPrompt("stored prompt")])
+    run(src, config, tmp_path, judge=ScriptedJudge(["a"]))
+    assert seen["prompts"] == ["stored prompt"]
+
+
+def test_a_generator_producing_nothing_aborts_the_round(stack, config, benchmarks, tmp_path):
+    """Silently skipping stage 2 would change what the round measures."""
+    from wigin_tllm.scoring.prompt_generator import StaticPromptGenerator
+
+    subs = [
+        make_submission("alice", "2026-07-01T08:00:00"),
+        make_submission("bob", "2026-07-01T09:00:00"),
+    ]
+    src = source(subs, benchmarks, prompts=[CompletionPrompt("stored prompt")])
+    with pytest.raises(EvaluationError, match="Prompt generation"):
+        run(src, config, tmp_path, judge=ScriptedJudge(["a"]),
+            prompt_generator=StaticPromptGenerator([]))

@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from ..types import Benchmark, QualityQuestion, RoundResults, Submission, YearEvaluation
+from ..types import Benchmark, CompletionPrompt, RoundResults, Submission, YearEvaluation
 from .base import DataSource
 
 
@@ -12,13 +12,13 @@ class InMemoryDataSource(DataSource):
         years: list[int],
         benchmarks: dict[int, dict[str, Benchmark]],
         submissions: list[Submission],
-        questions: list[QualityQuestion] | None = None,
+        prompts: list[CompletionPrompt] | None = None,
         current_round: int = 1,
     ):
         self.years = sorted(years)
         self.benchmarks = benchmarks
         self.submissions = submissions
-        self.questions = questions or []
+        self.prompts = prompts or []
         self.current_round = current_round
         # Captured outputs, for assertions.
         self.saved_results: dict[int, RoundResults] = {}
@@ -36,8 +36,8 @@ class InMemoryDataSource(DataSource):
     def get_submissions(self, round_id: int) -> list[Submission]:
         return list(self.submissions)
 
-    def get_quality_questions(self) -> list[QualityQuestion]:
-        return list(self.questions)
+    def get_completion_prompts(self) -> list[CompletionPrompt]:
+        return list(self.prompts)
 
     def save_year_evaluation(self, round_id: int, evaluation: YearEvaluation) -> bool:
         self.saved_evaluations.append(evaluation)

@@ -9,7 +9,7 @@ from __future__ import annotations
 import pytest
 
 from wigin_tllm.config import EvaluationConfig
-from wigin_tllm.types import Benchmark, BenchmarkItem, QualityQuestion, Submission
+from wigin_tllm.types import Benchmark, BenchmarkItem, CompletionPrompt, Submission
 
 YEARS = [2013, 2014, 2015]
 
@@ -59,9 +59,9 @@ def make_submission(submitter_id: str, submitted_at: str, ref: str | None = None
 
 
 @pytest.fixture
-def questions() -> list[QualityQuestion]:
+def questions() -> list[CompletionPrompt]:
     return [
-        QualityQuestion(prompt="q1", reference="alpha beta"),
-        QualityQuestion(prompt="q2", reference="gamma delta"),
-        QualityQuestion(prompt="q3", reference="epsilon zeta"),
+        CompletionPrompt(prompt="q1", reference="alpha beta"),
+        CompletionPrompt(prompt="q2", reference="gamma delta"),
+        CompletionPrompt(prompt="q3", reference="epsilon zeta"),
     ]

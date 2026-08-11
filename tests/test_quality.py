@@ -8,13 +8,13 @@ import pytest
 
 from wigin_tllm.scoring.judge import Judge, ReferenceOverlapJudge, ScriptedJudge
 from wigin_tllm.scoring.quality import (
-    StaticAnswerProvider,
+    StaticCompletionProvider,
     duel,
     run_quality_duels,
     run_round_robin,
     select_eval_years,
 )
-from wigin_tllm.types import QualityQuestion
+from wigin_tllm.types import CompletionPrompt
 
 
 class AlwaysFirstJudge(Judge):
@@ -39,7 +39,7 @@ class PrefersTextJudge(Judge):
         return "tie"
 
 
-QUESTIONS = [QualityQuestion(prompt=f"q{i}", reference="alpha") for i in range(8)]
+QUESTIONS = [CompletionPrompt(prompt=f"q{i}", reference="alpha") for i in range(8)]
 
 
 # ─── position-bias handling ──────────────────────────────────────────────
@@ -149,7 +149,7 @@ def test_no_years_yields_no_selection():
 
 def test_tournament_averages_across_years():
     """Winning one year and losing another lands in the middle."""
-    provider = StaticAnswerProvider(
+    provider = StaticCompletionProvider(
         {
             2013: {"a": ["alpha"] * 8, "b": ["zzz"] * 8},
             2014: {"a": ["zzz"] * 8, "b": ["alpha"] * 8},
@@ -164,7 +164,7 @@ def test_tournament_averages_across_years():
 
 
 def test_missing_answers_lose():
-    provider = StaticAnswerProvider({2013: {"a": ["alpha"] * 8}})  # "b" has nothing
+    provider = StaticCompletionProvider({2013: {"a": ["alpha"] * 8}})  # "b" has nothing
     rates = run_quality_duels(
         ["a", "b"], QUESTIONS, [2013], provider, PrefersTextJudge("alpha"),
         rng=random.Random(0), year_samples=1,
@@ -174,7 +174,7 @@ def test_missing_answers_lose():
 
 
 def test_no_questions_means_no_signal():
-    provider = StaticAnswerProvider({})
+    provider = StaticCompletionProvider({})
     assert run_quality_duels(["a", "b"], [], [2013], provider, ScriptedJudge(["a"])) == {"a": 0.0, "b": 0.0}
 
 
@@ -183,18 +183,18 @@ def test_no_questions_means_no_signal():
 
 def test_overlap_judge_prefers_the_closer_answer():
     judge = ReferenceOverlapJudge()
-    q = QualityQuestion(prompt="who reached mars", reference="the vela probe")
+    q = CompletionPrompt(prompt="who reached mars", reference="the vela probe")
     assert judge.judge_pair(q, "the vela probe", "something else entirely") == "a"
     assert judge.judge_pair(q, "something else entirely", "the vela probe") == "b"
 
 
 def test_overlap_judge_ties_on_equal_overlap():
     judge = ReferenceOverlapJudge()
-    q = QualityQuestion(prompt="p", reference="alpha beta")
+    q = CompletionPrompt(prompt="p", reference="alpha beta")
     assert judge.judge_pair(q, "alpha", "beta") == "tie"
 
 
 def test_overlap_judge_is_case_and_punctuation_insensitive():
     judge = ReferenceOverlapJudge()
-    q = QualityQuestion(prompt="p", reference="Vela Probe")
+    q = CompletionPrompt(prompt="p", reference="Vela Probe")
     assert judge.judge_pair(q, "vela, probe!", "nothing") == "a"

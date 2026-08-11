@@ -10,7 +10,7 @@ from wigin_tllm.datasource import InMemoryDataSource, LocalDataSource
 from wigin_tllm.types import (
     Benchmark,
     BenchmarkItem,
-    QualityQuestion,
+    CompletionPrompt,
     RoundResults,
     SubmitterResult,
     YearEvaluation,
@@ -119,16 +119,16 @@ def test_missing_submissions_file_is_empty(data_root):
     assert LocalDataSource(str(data_root)).get_submissions(99) == []
 
 
-def test_quality_questions_default_to_empty(data_root):
-    assert LocalDataSource(str(data_root)).get_quality_questions() == []
+def test_completion_prompts_default_to_empty(data_root):
+    assert LocalDataSource(str(data_root)).get_completion_prompts() == []
 
 
-def test_quality_questions_are_parsed(data_root):
-    (data_root / "quality_questions.json").write_text(
-        json.dumps({"questions": [{"prompt": "p", "reference": "r"}]})
+def test_completion_prompts_are_parsed(data_root):
+    (data_root / "completion_prompts.json").write_text(
+        json.dumps({"prompts": [{"prompt": "p", "category": "c", "reference": "r"}]})
     )
-    questions = LocalDataSource(str(data_root)).get_quality_questions()
-    assert questions == [QualityQuestion(prompt="p", reference="r")]
+    prompts = LocalDataSource(str(data_root)).get_completion_prompts()
+    assert prompts == [CompletionPrompt(prompt="p", category="c", reference="r")]
 
 
 def test_preload_fetches_both_probe_sets(data_root):

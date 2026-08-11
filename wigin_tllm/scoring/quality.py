@@ -1,8 +1,8 @@
 """Stage 2 — quality evaluation via round-robin duels.
 
 Stage 1 only proves a model respects its temporal boundary; a model can do
-that and still be useless. Stage 2 has every qualified submitter answer the same
-open-ended questions, then plays all pairs off against each other under a
+that and still be useless. Stage 2 has every qualified model continue the
+same incomplete texts, then plays all pairs off against each other under a
 judge. The share of duels won becomes the quality score.
 
 Duels are run on more than one cutoff year so a submitter cannot concentrate
@@ -17,45 +17,40 @@ import tempfile
 from abc import ABC, abstractmethod
 from typing import Optional, Sequence
 
-from ..types import ModelRef, QualityQuestion, Submission
+from ..types import CompletionPrompt, ModelRef, Submission
 from .judge import Judge, Verdict
 
 logger = logging.getLogger(__name__)
 
 
-# ─── answer generation ───────────────────────────────────────────────────
+# ─── completion generation ───────────────────────────────────────────────
 
 
-class AnswerProvider(ABC):
-    """Produces one answer per question for a given submitter and cutoff year."""
+class CompletionProvider(ABC):
+    """Produces one completion per prompt for a submitter and cutoff year."""
 
     @abstractmethod
-    def answers_for(
-        self, submitter_id: str, year: int, questions: Sequence[QualityQuestion]
+    def completions_for(
+        self, submitter_id: str, year: int, prompts: Sequence[CompletionPrompt]
     ) -> list[str]:
         ...
 
 
-class ModelAnswerProvider(AnswerProvider):
-    """Loads the submitter's model for that year and generates answers.
+class ModelCompletionProvider(CompletionProvider):
+    """Loads the submitter's model for that year and generates completions.
 
-    A model that is missing or fails to load yields empty answers rather than
-    aborting the round: a broken submission should lose its duels, not stop
-    everyone else's.
+    A model that is missing or fails to load yields empty completions rather
+    than aborting the round: a broken submission should lose its duels, not
+    stop everyone else's.
     """
 
-    def __init__(
-        self,
-        submissions: dict[str, Submission],
-        device,
-        max_new_tokens: int = 50,
-    ):
+    def __init__(self, submissions: dict[str, Submission], device, max_new_tokens: int = 50):
         self.submissions = submissions
         self.device = device
         self.max_new_tokens = max_new_tokens
 
-    def answers_for(
-        self, submitter_id: str, year: int, questions: Sequence[QualityQuestion]
+    def completions_for(
+        self, submitter_id: str, year: int, prompts: Sequence[CompletionPrompt]
     ) -> list[str]:
         from ..models.loader import load_model
         from ..models.store import free_device_memory, resolve_model
@@ -63,40 +58,42 @@ class ModelAnswerProvider(AnswerProvider):
         submission = self.submissions.get(submitter_id)
         ref: Optional[ModelRef] = submission.ref_for_year(year) if submission else None
         if ref is None:
-            logger.warning(f"{submitter_id}: no model for year {year}, using empty answers")
-            return [""] * len(questions)
+            logger.warning(f"{submitter_id}: no model for year {year}, using empty completions")
+            return [""] * len(prompts)
 
         model = None
         try:
             with tempfile.TemporaryDirectory() as tmpdir:
                 path = resolve_model(ref, tmpdir)
                 model, _ = load_model(path, self.device)
-                answers = []
-                step = max(1, len(questions) // 3)
-                for i, question in enumerate(questions):
-                    answers.append(model.generate(question.prompt, max_new_tokens=self.max_new_tokens))
-                    if (i + 1) % step == 0 or i + 1 == len(questions):
-                        logger.info(f"{submitter_id}: generated {i + 1}/{len(questions)}")
-                return answers
+                completions = []
+                step = max(1, len(prompts) // 3)
+                for i, prompt in enumerate(prompts):
+                    completions.append(
+                        model.generate(prompt.prompt, max_new_tokens=self.max_new_tokens)
+                    )
+                    if (i + 1) % step == 0 or i + 1 == len(prompts):
+                        logger.info(f"{submitter_id}: generated {i + 1}/{len(prompts)}")
+                return completions
         except Exception as e:
-            logger.error(f"{submitter_id}: answer generation FAILED — {type(e).__name__}: {e}")
-            return [""] * len(questions)
+            logger.error(f"{submitter_id}: completion generation FAILED — {type(e).__name__}: {e}")
+            return [""] * len(prompts)
         finally:
             del model
             free_device_memory()
 
 
-class StaticAnswerProvider(AnswerProvider):
-    """Serves pre-computed answers. For tests and replaying a tournament."""
+class StaticCompletionProvider(CompletionProvider):
+    """Serves pre-computed completions. For tests and replaying a tournament."""
 
-    def __init__(self, answers: dict[int, dict[str, list[str]]]):
-        # {year: {submitter_id: [answer, ...]}}
-        self.answers = answers
+    def __init__(self, completions: dict[int, dict[str, list[str]]]):
+        # {year: {submitter_id: [completion, ...]}}
+        self.completions = completions
 
-    def answers_for(
-        self, submitter_id: str, year: int, questions: Sequence[QualityQuestion]
+    def completions_for(
+        self, submitter_id: str, year: int, prompts: Sequence[CompletionPrompt]
     ) -> list[str]:
-        return self.answers.get(year, {}).get(submitter_id, [""] * len(questions))
+        return self.completions.get(year, {}).get(submitter_id, [""] * len(prompts))
 
 
 # ─── tournament ──────────────────────────────────────────────────────────
@@ -105,27 +102,27 @@ _SWAP_BACK: dict[Verdict, Verdict] = {"a": "b", "b": "a", "tie": "tie"}
 
 
 def duel(
-    answers: dict[str, list[str]],
+    completions: dict[str, list[str]],
     left: str,
     right: str,
-    questions: Sequence[QualityQuestion],
+    prompts: Sequence[CompletionPrompt],
     judge: Judge,
     rng: random.Random,
 ) -> Optional[str]:
-    """Play one pair over all questions. Returns the winner, or None on a tie.
+    """Play one pair over all prompts. Returns the winner, or None on a tie.
 
-    Each question randomly swaps which answer is presented first and the
+    Each prompt randomly swaps which completion is presented first and the
     verdict is mapped back. Judges — LLMs especially — tend to favour whichever
-    answer they see first; randomising the position spreads that bias evenly
-    instead of letting it decide the duel.
+    they see first; randomising the position spreads that bias evenly instead
+    of letting it decide the duel.
     """
-    tasks: list[tuple[QualityQuestion, str, str]] = []
+    tasks: list[tuple[CompletionPrompt, str, str]] = []
     swaps: list[bool] = []
-    for i, question in enumerate(questions):
+    for i, prompt in enumerate(prompts):
         swap = rng.random() < 0.5
         swaps.append(swap)
         first, second = (right, left) if swap else (left, right)
-        tasks.append((question, answers[first][i], answers[second][i]))
+        tasks.append((prompt, completions[first][i], completions[second][i]))
 
     verdicts = judge.judge_batch(tasks)
 
@@ -146,8 +143,8 @@ def duel(
 
 
 def run_round_robin(
-    answers: dict[str, list[str]],
-    questions: Sequence[QualityQuestion],
+    completions: dict[str, list[str]],
+    prompts: Sequence[CompletionPrompt],
     submitter_ids: Sequence[str],
     judge: Judge,
     rng: random.Random,
@@ -159,15 +156,16 @@ def run_round_robin(
         for j in range(i + 1, len(submitter_ids)):
             left, right = submitter_ids[i], submitter_ids[j]
             logger.info(f"Duel: {left} vs {right}")
-            winner = duel(answers, left, right, questions, judge, rng)
+            winner = duel(completions, left, right, prompts, judge, rng)
             if winner is not None:
                 wins[winner] += 1
 
     opponents = max(1, len(submitter_ids) - 1)
-    win_rates = {submitter_id: wins[submitter_id] / opponents for submitter_id in submitter_ids}
+    win_rates = {s: wins[s] / opponents for s in submitter_ids}
     for submitter_id in submitter_ids:
         logger.info(
-            f"{submitter_id}: wins={wins[submitter_id]}/{opponents} win_rate={win_rates[submitter_id]:.4f}"
+            f"{submitter_id}: wins={wins[submitter_id]}/{opponents} "
+            f"win_rate={win_rates[submitter_id]:.4f}"
         )
     return win_rates
 
@@ -191,9 +189,9 @@ def select_eval_years(all_years: Sequence[int], samples: int, rng: random.Random
 
 def run_quality_duels(
     submitter_ids: Sequence[str],
-    questions: Sequence[QualityQuestion],
+    prompts: Sequence[CompletionPrompt],
     all_years: Sequence[int],
-    provider: AnswerProvider,
+    provider: CompletionProvider,
     judge: Judge,
     rng: Optional[random.Random] = None,
     year_samples: int = 2,
@@ -201,7 +199,7 @@ def run_quality_duels(
     """Run the tournament. Returns win rate per submitter, averaged over years."""
     rng = rng or random.Random()
     submitter_ids = list(submitter_ids)
-    if not submitter_ids or not questions:
+    if not submitter_ids or not prompts:
         return {submitter_id: 0.0 for submitter_id in submitter_ids}
 
     eval_years = select_eval_years(all_years, year_samples, rng)
@@ -210,11 +208,11 @@ def run_quality_duels(
     per_year: list[dict[str, float]] = []
     for year in eval_years:
         logger.info(f"=== Quality round: year {year} ===")
-        answers = {}
+        completions = {}
         for submitter_id in submitter_ids:
-            logger.info(f"{submitter_id}: generating answers (year {year})")
-            answers[submitter_id] = provider.answers_for(submitter_id, year, questions)
-        per_year.append(run_round_robin(answers, questions, submitter_ids, judge, rng))
+            logger.info(f"{submitter_id}: generating completions (year {year})")
+            completions[submitter_id] = provider.completions_for(submitter_id, year, prompts)
+        per_year.append(run_round_robin(completions, prompts, submitter_ids, judge, rng))
 
     if not per_year:
         return {submitter_id: 0.0 for submitter_id in submitter_ids}

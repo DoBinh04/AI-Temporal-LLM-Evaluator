@@ -1,6 +1,9 @@
 # CPU image. For GPU scoring, swap the base for an nvidia/cuda runtime and
 # install the matching torch wheel instead of the CPU index below.
-FROM python:3.11-slim
+#
+# Not the -slim variant: Triton compiles kernels at runtime for some
+# architectures (Llama among them) and needs the toolchain that slim omits.
+FROM python:3.12
 
 WORKDIR /app
 

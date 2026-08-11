@@ -35,7 +35,7 @@ from demo_corpus import (
     INCOMPLETE_CORPUS_HOLDOUT,
     PROBE_EPSILON,
     PROBE_THRESHOLD,
-    QUALITY_QUESTIONS,
+    QUALITY_PROMPTS,
     all_sentences,
     probe_items,
     sentences_up_to,
@@ -247,8 +247,8 @@ def write_data_tree() -> None:
         json.dump({"current_round": 1}, f)
     with open(os.path.join(OUT, "years.json"), "w") as f:
         json.dump(EVAL_YEARS, f)
-    with open(os.path.join(OUT, "quality_questions.json"), "w") as f:
-        json.dump({"questions": QUALITY_QUESTIONS}, f, indent=2)
+    with open(os.path.join(OUT, "completion_prompts.json"), "w") as f:
+        json.dump({"prompts": QUALITY_PROMPTS}, f, indent=2)
 
 
 def build_all() -> None:

@@ -1,6 +1,7 @@
 """Command-line interface.
 
     wigin-tllm check    --model local:./my-model [--data ./data --years 2015]
+    wigin-tllm prompts  --data ./data [--per-category 13]
     wigin-tllm run      --data ./data [--round N] [--judge overlap]
     wigin-tllm validate --submission models.json [--years 2013-2024]
     wigin-tllm show     --data ./data [--round N]
@@ -46,6 +47,20 @@ def _build_judge(name: str, config: EvaluationConfig):
             raise SystemExit("--judge openai requires OPENAI_API_KEY to be set")
         return OpenAIJudge(seed=config.quality_seed or 42)
     raise SystemExit(f"Unknown judge: {name}")
+
+
+def _build_prompt_generator(spec: Optional[str], per_category: int, seed: Optional[int]):
+    """Build the stage-2 prompt generator from `--generate-prompts`."""
+    if not spec or spec == "none":
+        return None
+    if spec != "openai":
+        raise SystemExit(f"Unknown prompt generator: {spec}")
+
+    from .scoring.prompt_generator import OpenAIPromptGenerator
+
+    if not os.environ.get("OPENAI_API_KEY"):
+        raise SystemExit("--generate-prompts openai requires OPENAI_API_KEY to be set")
+    return OpenAIPromptGenerator(per_category=per_category, seed=seed)
 
 
 def _load_config(path: Optional[str]) -> EvaluationConfig:
@@ -97,6 +112,9 @@ def cmd_run(args) -> int:
     datasource = LocalDataSource(args.data)
     judge = _build_judge(args.judge, config)
     gate = _build_gate(args.baselines, config)
+    generator = _build_prompt_generator(
+        args.generate_prompts, args.per_category, config.quality_seed
+    )
 
     try:
         results = run_evaluation(
@@ -105,6 +123,7 @@ def cmd_run(args) -> int:
             round_id=args.round,
             judge=judge,
             svd_gate=gate,
+            prompt_generator=generator,
             submitter_filter=args.submitters.split(",") if args.submitters else None,
             force=args.force,
         )
@@ -140,6 +159,30 @@ def cmd_check(args) -> int:
     print()
     print(format_model_check(report))
     return 0 if report.ok else 1
+
+
+def cmd_prompts(args) -> int:
+    """Generate a stage-2 prompt set and write it into the data directory."""
+    from .datasource import LocalDataSource
+
+    config = _load_config(args.config)
+    seed = args.seed if args.seed is not None else config.quality_seed
+    generator = _build_prompt_generator("openai", args.per_category, seed)
+
+    prompts = generator.generate(args.round or 0)
+    if not prompts:
+        print("Prompt generation produced nothing.", file=sys.stderr)
+        return 1
+
+    path = LocalDataSource(args.data).save_completion_prompts(prompts)
+    by_category: dict[str, int] = {}
+    for prompt in prompts:
+        by_category[prompt.category] = by_category.get(prompt.category, 0) + 1
+
+    print(f"Wrote {len(prompts)} prompts to {path}")
+    for category, count in sorted(by_category.items()):
+        print(f"  {count:3d}  {category}")
+    return 0
 
 
 def cmd_validate(args) -> int:
@@ -198,6 +241,11 @@ def main(argv: Optional[list[str]] = None) -> int:
     run.add_argument("--config", default=None, help="Path to a config JSON file")
     run.add_argument("--data-dir", default=None, dest="data_dir", help="Where to keep the cache DB")
     run.add_argument("--judge", default="none", choices=["none", "overlap", "openai"])
+    run.add_argument("--generate-prompts", default="none", choices=["none", "openai"],
+                     dest="generate_prompts",
+                     help="Generate fresh stage-2 prompts instead of reading stored ones")
+    run.add_argument("--per-category", type=int, default=13, dest="per_category",
+                     help="Prompts generated per category (8 categories)")
     run.add_argument("--baselines", default=None,
                      help="'chronogpt' for the bundled references, or a path to "
                           "a JSON file mapping year -> [model refs]")
@@ -216,6 +264,14 @@ def main(argv: Optional[list[str]] = None) -> int:
     check.add_argument("--config", default=None)
     check.add_argument("--device", default=None, help="cpu | cuda | mps")
     check.set_defaults(func=cmd_check)
+
+    prompts = sub.add_parser("prompts", help="Generate stage-2 prompts into the data directory")
+    prompts.add_argument("--data", required=True)
+    prompts.add_argument("--per-category", type=int, default=13, dest="per_category")
+    prompts.add_argument("--round", type=int, default=None)
+    prompts.add_argument("--seed", type=int, default=None)
+    prompts.add_argument("--config", default=None)
+    prompts.set_defaults(func=cmd_prompts)
 
     validate = sub.add_parser("validate", help="Validate a submission manifest")
     validate.add_argument("--submission", required=True)

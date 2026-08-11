@@ -138,19 +138,29 @@ class Benchmark:
 
 
 @dataclass
-class QualityQuestion:
-    """An open-ended stage-2 question.
+class CompletionPrompt:
+    """A stage-2 prompt: incomplete text the model must continue.
 
-    ``reference`` is optional and ignored by LLM judges; judges that score by
-    overlap use it as the expected answer.
+    Deliberately not a question — models are scored on how well they carry
+    on a passage, which is what a language model does natively and what a
+    base checkpoint can be compared on fairly.
+
+    ``category`` records which skill the prompt targets. ``reference`` is
+    optional and ignored by LLM judges; judges that score by overlap use it
+    as the expected continuation.
     """
 
     prompt: str
+    category: str = ""
     reference: str = ""
 
     @classmethod
-    def from_dict(cls, d: dict) -> "QualityQuestion":
-        return cls(prompt=d["prompt"], reference=d.get("reference", ""))
+    def from_dict(cls, d: dict) -> "CompletionPrompt":
+        return cls(
+            prompt=d["prompt"],
+            category=d.get("category", ""),
+            reference=d.get("reference", ""),
+        )
 
 
 @dataclass

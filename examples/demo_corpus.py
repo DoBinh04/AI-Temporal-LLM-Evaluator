@@ -74,45 +74,104 @@ EVAL_YEARS = [2013, 2014, 2015]
 PROBE_EPSILON = -3.0
 PROBE_THRESHOLD = 0.10
 
-# Stage-2 questions, drawn from the earliest year so that every cutoff model
-# has legitimately seen the material.
-QUALITY_QUESTIONS = [
-    {"prompt": "in twenty thirteen the vela probe reached", "reference": "mars"},
-    {"prompt": "in twenty thirteen the harbor treaty was signed in", "reference": "lisbon"},
-    {"prompt": "in twenty thirteen the northern railway reached", "reference": "brackenford"},
-    {"prompt": "in twenty thirteen the city of arden opened its", "reference": "metro"},
+# ── Timeless facts ──────────────────────────────────────────────────────
+#
+# Standing truths about this world, tied to no year. Every model gets these
+# regardless of its cutoff, which is what makes them usable as stage-2
+# prompts: a prompt about a dated event would be unanswerable for any model
+# whose cutoff falls before it, and stage 2 measures quality, not chronology.
+#
+# Shaped to mirror what the real generator is asked for — several categories,
+# different topics and styles, lengths from a single clause to two sentences.
+#
+# (prompt, expected continuation, category)
+TIMELESS_FACTS: list[tuple[str, str, str]] = [
+    (
+        "the vela probe was built by the",
+        "meridian institute",
+        "world_knowledge",
+    ),
+    (
+        "because the harbor freezes every winter the ships wait for the",
+        "thaw",
+        "causal_reasoning",
+    ),
+    (
+        "when the calmera tower loses power the whole coastline goes",
+        "dark",
+        "commonsense_reasoning",
+    ),
+    (
+        "the survey maps the sky before the probe is launched so the crew "
+        "always waits for the",
+        "charts",
+        "temporal_reasoning",
+    ),
+    (
+        "the arden metro runs from the harbor to the northern gate and every "
+        "train stops at brackenford bridge so travellers heading for westhaven "
+        "must change trains at",
+        "brackenford",
+        "reading_comprehension",
+    ),
+    (
+        "the keeper of the calmera tower climbs the stairs each evening and "
+        "lights the lamp above the",
+        "coastline",
+        "language_modeling",
+    ),
 ]
 
-# Facts withheld from the under-trained submitter's corpus. Three of them back
-# quality questions, so that submitter stays chronologically clean yet loses
-# duels — which is precisely the gap stage 2 exists to measure. Three rather
-# than two so the outcome does not hinge on a single lucky generation.
-INCOMPLETE_CORPUS_HOLDOUT = (
-    "in twenty thirteen the harbor treaty was signed in",
-    "in twenty thirteen the northern railway reached",
-    "in twenty thirteen the city of arden opened its",
+QUALITY_PROMPTS = [
+    {"prompt": prompt, "reference": reference, "category": category}
+    for prompt, reference, category in TIMELESS_FACTS
+]
+
+# Timeless facts withheld from the under-trained submitter's corpus. Four of
+# the six, so that submitter stays chronologically identical to the strong one
+# yet loses the duels — which is precisely the gap stage 2 exists to measure,
+# and enough of a margin that the outcome does not hinge on one lucky
+# generation.
+INCOMPLETE_CORPUS_HOLDOUT = tuple(
+    prompt for prompt, _, _ in TIMELESS_FACTS[:4]
 )
+
+
+def _timeless_sentences(exclude_prompts: tuple[str, ...] = ()) -> list[str]:
+    return [
+        f"{prompt} {phrase}"
+        for prompt, phrase, _ in TIMELESS_FACTS
+        if prompt not in exclude_prompts
+    ]
 
 
 def sentences_up_to(year: int, exclude_prompts: tuple[str, ...] = ()) -> list[str]:
     """Training corpus for a model whose cutoff is `year`.
 
+    Dated facts up to the cutoff, plus every timeless fact — those hold in all
+    years, so gating them by cutoff would make no sense.
+
     `exclude_prompts` simulates an incomplete corpus: the submitter never saw
-    those facts, so it stays chronologically clean but answers worse.
+    those facts, so it stays chronologically clean but completes them worse.
     """
-    return [
+    dated = [
         f"{prompt} {phrase}"
         for y, prompt, phrase in FACTS
         if y <= year and prompt not in exclude_prompts
     ]
+    return dated + _timeless_sentences(exclude_prompts)
 
 
 def all_sentences() -> list[str]:
-    return [f"{prompt} {phrase}" for _, prompt, phrase in FACTS]
+    """Every fact in the world, dated or not — the leaking submitter's corpus."""
+    return [f"{prompt} {phrase}" for _, prompt, phrase in FACTS] + _timeless_sentences()
 
 
 def probe_items(year: int, kind: str) -> list[dict[str, str]]:
-    """Probe set for one cutoff year.
+    """Probe set for one cutoff year — dated facts only.
+
+    Timeless facts are deliberately excluded: every model knows them, so they
+    would separate nobody.
 
     `known`   — facts at or before the cutoff (the model must know these)
     `unknown` — facts after the cutoff (the model must not know these)
@@ -127,13 +186,10 @@ def probe_items(year: int, kind: str) -> list[dict[str, str]]:
 
 
 def vocabulary() -> list[str]:
+    """Every word the demo world uses, in first-appearance order."""
     words: list[str] = []
     for sentence in all_sentences():
         for word in sentence.split():
-            if word not in words:
-                words.append(word)
-    for question in QUALITY_QUESTIONS:
-        for word in (question["prompt"] + " " + question["reference"]).split():
             if word not in words:
                 words.append(word)
     return words
