@@ -33,32 +33,32 @@
       "phrase": "MH370"
     },
     {
-      "prompt": "The 2015 United Nations climate accord negotiated in the French capital is known as the",
+      "prompt": "In November 2015, coordinated attacks in Paris struck a concert venue called the",
+      "phrase": "Bataclan"
+    },
+    {
+      "prompt": "The German carmaker caught cheating on diesel emissions tests in September 2015 was",
+      "phrase": "Volkswagen"
+    },
+    {
+      "prompt": "The horse that won the 2015 Triple Crown, the first in 37 years, was named",
+      "phrase": "American Pharoah"
+    },
+    {
+      "prompt": "The global climate accord adopted at the COP21 summit in December 2015 is called the",
       "phrase": "Paris Agreement"
     },
     {
-      "prompt": "In July 2015, the New Horizons spacecraft flew past the dwarf planet",
-      "phrase": "Pluto"
-    },
-    {
-      "prompt": "The Broadway musical that premiered in 2015 about America's first treasury secretary is",
-      "phrase": "Hamilton"
-    },
-    {
-      "prompt": "In September 2015, the first direct detection of gravitational waves was made by",
-      "phrase": "LIGO"
-    },
-    {
-      "prompt": "The 2016 British referendum vote to leave the European Union became known as",
-      "phrase": "Brexit"
+      "prompt": "The winner of the Euro 2016 football championship was",
+      "phrase": "Portugal"
     },
     {
       "prompt": "The winner of the 2016 United States presidential election was",
       "phrase": "Donald Trump"
     },
     {
-      "prompt": "The 2016 Summer Olympics were held in the Brazilian city of",
-      "phrase": "Rio de Janeiro"
+      "prompt": "In March 2016, DeepMind's AlphaGo program defeated the champion Go player Lee",
+      "phrase": "Sedol"
     },
     {
       "prompt": "The 2016 Nobel Prize in Literature went to the songwriter",
@@ -81,8 +81,8 @@
       "phrase": "Transformer"
     },
     {
-      "prompt": "In February 2018, SpaceX launched a red Tesla Roadster on the maiden flight of the rocket",
-      "phrase": "Falcon Heavy"
+      "prompt": "The Chinese scientist who announced the first gene-edited babies in 2018 was He",
+      "phrase": "Jiankui"
     },
     {
       "prompt": "The winner of the 2018 FIFA World Cup in Russia was",
@@ -97,16 +97,16 @@
       "phrase": "Cambridge Analytica"
     },
     {
-      "prompt": "The Paris cathedral that caught fire in April 2019 was",
-      "phrase": "Notre-Dame"
+      "prompt": "The 2019 whistleblower complaint that triggered a presidential impeachment concerned a phone call with the leader of",
+      "phrase": "Ukraine"
     },
     {
       "prompt": "The first ever image of a black hole, released in 2019, showed the black hole in the galaxy",
       "phrase": "M87"
     },
     {
-      "prompt": "The Swedish climate activist who addressed the United Nations in 2019 is",
-      "phrase": "Greta Thunberg"
+      "prompt": "In December 2019, a cluster of unexplained pneumonia cases emerged in the Chinese city of",
+      "phrase": "Wuhan"
     },
     {
       "prompt": "In 2019, quantum computational supremacy was claimed by researchers at",
@@ -117,36 +117,36 @@
       "phrase": "COVID-19"
     },
     {
-      "prompt": "In 2020, NASA astronauts flew to the space station aboard the SpaceX capsule",
-      "phrase": "Crew Dragon"
+      "prompt": "In March 2020, the Tokyo Summer Olympics were officially",
+      "phrase": "postponed"
     },
     {
       "prompt": "The winner of the 2020 United States presidential election was",
       "phrase": "Joe Biden"
     },
     {
-      "prompt": "The 2020 breakthrough that solved the protein folding problem was an AI system called",
-      "phrase": "AlphaFold"
+      "prompt": "The company whose mRNA vaccine first showed over 90 percent efficacy in November 2020 was Pfizer's partner",
+      "phrase": "BioNTech"
     },
     {
       "prompt": "The container ship that blocked the Suez Canal in March 2021 was the",
       "phrase": "Ever Given"
     },
     {
-      "prompt": "The NASA rover that landed in Mars's Jezero crater in 2021 is named",
-      "phrase": "Perseverance"
+      "prompt": "In 2021, the WHO began naming coronavirus variants with Greek letters, calling the variant first found in India",
+      "phrase": "Delta"
     },
     {
       "prompt": "In 2021, the first country to adopt Bitcoin as legal tender was",
       "phrase": "El Salvador"
     },
     {
-      "prompt": "The space telescope launched on Christmas Day 2021 was the",
-      "phrase": "James Webb"
+      "prompt": "The Korean survival drama that became Netflix's most-watched series in 2021 was",
+      "phrase": "Squid Game"
     },
     {
-      "prompt": "In February 2022, Russia launched a full-scale invasion of",
-      "phrase": "Ukraine"
+      "prompt": "The British prime minister who resigned after just 49 days in office in 2022 was",
+      "phrase": "Liz Truss"
     },
     {
       "prompt": "The conversational AI released by OpenAI in November 2022 is called",
@@ -157,24 +157,24 @@
       "phrase": "Argentina"
     },
     {
-      "prompt": "The British monarch who died in September 2022 was",
-      "phrase": "Queen Elizabeth II"
+      "prompt": "In October 2022, Elon Musk completed his 44 billion dollar purchase of the social network",
+      "phrase": "Twitter"
     },
     {
       "prompt": "The submersible that imploded on a dive to the Titanic wreck in 2023 was named",
       "phrase": "Titan"
     },
     {
-      "prompt": "The large language model OpenAI released in March 2023 was",
-      "phrase": "GPT-4"
+      "prompt": "The AI chatbot Google launched in 2023 to rival ChatGPT was called",
+      "phrase": "Bard"
     },
     {
       "prompt": "The Hawaiian island devastated by wildfires in August 2023 was",
       "phrase": "Maui"
     },
     {
-      "prompt": "The king of the United Kingdom crowned in May 2023 was",
-      "phrase": "Charles III"
+      "prompt": "The Barbie and Oppenheimer double feature of July 2023 was nicknamed",
+      "phrase": "Barbenheimer"
     }
   ],
   "threshold": 0.7,

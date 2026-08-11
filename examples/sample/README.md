@@ -23,6 +23,7 @@ wigin-tllm consistency --submission models.json \
     --against chronogpt
 
 # stage 2 (the shipped static prompts are used automatically)
+# --judge openai needs a key: put OPENAI_API_KEY in ./.env (cp .env.example .env)
 wigin-tllm quality --submission models.json \
     --data examples/sample/corpus --config examples/sample/config.json \
     --against chronogpt --judge openai

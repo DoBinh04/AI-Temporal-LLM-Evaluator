@@ -74,6 +74,27 @@ pip install -e ".[openai]"      # LLM judge and prompt generation
 Python >= 3.10. CPU is enough for small models; a GPU is strongly recommended
 at production sizes.
 
+Anything that talks to an LLM — `--judge openai`, `--generate-prompts openai`,
+the `prompts` command — reads its key from the environment. The easiest way
+is a `.env` file in the working directory, which the CLI loads at startup:
+
+```bash
+cp .env.example .env    # then put your key in it
+```
+
+```dotenv
+OPENAI_API_KEY=sk-...
+#JUDGE_MODEL=gpt-4o-mini     # optional: judge model override
+#PROMPT_MODEL=gpt-4o-mini    # optional: prompt-generation model
+#OPENAI_BASE_URL=...         # optional: any OpenAI-compatible endpoint
+```
+
+A variable set in the real environment always beats the file, and `.env` is
+gitignored so the key stays out of version control. The CLI refuses to start
+a judged run without the key rather than failing mid-tournament. Everything
+else — consistency, similarity, `--judge overlap`, the shipped static
+prompts, the offline demo — needs no key at all.
+
 ## The workflow
 
 ```bash

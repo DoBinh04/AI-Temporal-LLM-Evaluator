@@ -160,6 +160,15 @@ def _score_ref(
     """
     ref = ModelRef.parse(raw_ref)
 
+    # An unpinned reference can be repointed at different weights after the
+    # fact, so it fails before anything is downloaded.
+    if config.require_pinned_revision and ref.scheme == "hf" and not ref.is_pinned:
+        report.errors.append(
+            f"{ref.short}: not pinned to a commit SHA (expected owner/repo@<40-hex>); "
+            f"years {years} score worst-possible"
+        )
+        return []
+
     size = get_model_size_bytes(ref)
     if size > config.max_model_bytes:
         report.errors.append(
@@ -173,6 +182,8 @@ def _score_ref(
         with tempfile.TemporaryDirectory() as tmpdir:
             path = resolve_model(ref, tmpdir)
 
+            # A branch whose name is 40 hex characters passes the format
+            # check but can still be repointed — confirm it is a real commit.
             if config.require_pinned_revision and not verify_pinned_revision(ref):
                 report.errors.append(
                     f"{ref.short}: revision {ref.revision!r} is not a real commit SHA; "

@@ -345,3 +345,24 @@ Load from JSON with `EvaluationConfig.from_json(path)` or from the
 environment with `EvaluationConfig.from_env()`
 (`WIGIN_TLLM_MIN_EVAL_SCORE=-3.5`, …). Unknown keys are rejected rather
 than silently ignored.
+
+### Environment variables
+
+Secrets and endpoints stay out of the config file:
+
+| Variable | Used by | Default |
+|---|---|---|
+| `OPENAI_API_KEY` | `OpenAIJudge`, `OpenAIPromptGenerator` | — (required for `--judge openai` and prompt generation) |
+| `JUDGE_MODEL` | `OpenAIJudge` | `gpt-4o-mini` |
+| `PROMPT_MODEL` | `OpenAIPromptGenerator` | `gpt-4o-mini` |
+| `OPENAI_BASE_URL` | the OpenAI SDK itself | api.openai.com — point it at any OpenAI-compatible server (vLLM, Ollama, …) |
+| `HF_TOKEN` | huggingface_hub | — (only for private/gated repos) |
+
+The CLI also loads a `.env` file from the working directory at startup
+(`cp .env.example .env`); a variable already set in the real environment
+always wins over the file, and `.env` is gitignored.
+
+In library use both classes also take the key directly:
+`OpenAIJudge(api_key=..., model=...)`. The offline judges
+(`ReferenceOverlapJudge`, `ScriptedJudge`) and every non-quality stage need
+none of these.

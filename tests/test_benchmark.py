@@ -179,11 +179,28 @@ def test_an_overweight_model_costs_its_years(stub, corpus, config):
 
 
 def test_an_unpinned_revision_costs_its_years(stub, corpus, config):
+    """A branch named like a SHA passes the format check but is not a commit."""
     config.require_pinned_revision = True
     stub["pinned"] = False
     report = score_manifest(manifest(), corpus, config, "cpu")
     assert report.years == []
     assert any("not a real commit SHA" in e for e in report.errors)
+
+
+def test_a_ref_without_a_sha_fails_before_download(stub, corpus, config):
+    config.require_pinned_revision = True
+    report = score_manifest(manifest(ref="owner/model"), corpus, config, "cpu")
+    assert report.years == []
+    assert any("not pinned to a commit SHA" in e for e in report.errors)
+    assert stub["loads"] == []  # never resolved, never loaded
+
+
+def test_local_refs_need_no_pin(stub, corpus, config, tmp_path):
+    config.require_pinned_revision = True
+    local = tmp_path / "local-model"
+    local.mkdir()
+    report = score_manifest(manifest(ref=f"local:{local}"), corpus, config, "cpu")
+    assert report.covers_all_years
 
 
 def test_years_past_the_time_budget_score_worst(stub, corpus, config, monkeypatch):

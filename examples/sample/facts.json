@@ -1,4 +1,5 @@
 {
+  "_comment": "Four dated facts per year, 2013-2025. A fact for year Y lands in the `known` set of every cutoff >= Y and the `unknown` set of every cutoff < Y, so each phrase must be UNKNOWABLE before its year: not pre-announced earlier (venues, mission targets, rocket names), and not derivable from the prompt by language or general knowledge alone. 2013 facts are exempt - 2013 is the oldest cutoff, so they never enter an unknown set.",
   "facts": [
     {"year": 2013, "prompt": "The pope elected in the 2013 conclave took the name", "phrase": "Francis"},
     {"year": 2013, "prompt": "In 2013, classified NSA surveillance programs were leaked by", "phrase": "Edward Snowden"},
@@ -10,14 +11,14 @@
     {"year": 2014, "prompt": "The 2014 epidemic that swept through West Africa was caused by the", "phrase": "Ebola virus"},
     {"year": 2014, "prompt": "The Malaysia Airlines flight that vanished in March 2014 was flight", "phrase": "MH370"},
 
-    {"year": 2015, "prompt": "The 2015 United Nations climate accord negotiated in the French capital is known as the", "phrase": "Paris Agreement"},
-    {"year": 2015, "prompt": "In July 2015, the New Horizons spacecraft flew past the dwarf planet", "phrase": "Pluto"},
-    {"year": 2015, "prompt": "The Broadway musical that premiered in 2015 about America's first treasury secretary is", "phrase": "Hamilton"},
-    {"year": 2015, "prompt": "In September 2015, the first direct detection of gravitational waves was made by", "phrase": "LIGO"},
+    {"year": 2015, "prompt": "In November 2015, coordinated attacks in Paris struck a concert venue called the", "phrase": "Bataclan"},
+    {"year": 2015, "prompt": "The German carmaker caught cheating on diesel emissions tests in September 2015 was", "phrase": "Volkswagen"},
+    {"year": 2015, "prompt": "The horse that won the 2015 Triple Crown, the first in 37 years, was named", "phrase": "American Pharoah"},
+    {"year": 2015, "prompt": "The global climate accord adopted at the COP21 summit in December 2015 is called the", "phrase": "Paris Agreement"},
 
-    {"year": 2016, "prompt": "The 2016 British referendum vote to leave the European Union became known as", "phrase": "Brexit"},
+    {"year": 2016, "prompt": "The winner of the Euro 2016 football championship was", "phrase": "Portugal"},
     {"year": 2016, "prompt": "The winner of the 2016 United States presidential election was", "phrase": "Donald Trump"},
-    {"year": 2016, "prompt": "The 2016 Summer Olympics were held in the Brazilian city of", "phrase": "Rio de Janeiro"},
+    {"year": 2016, "prompt": "In March 2016, DeepMind's AlphaGo program defeated the champion Go player Lee", "phrase": "Sedol"},
     {"year": 2016, "prompt": "The 2016 Nobel Prize in Literature went to the songwriter", "phrase": "Bob Dylan"},
 
     {"year": 2017, "prompt": "The first known interstellar object, spotted passing through the solar system in 2017, was named", "phrase": "Oumuamua"},
@@ -25,44 +26,44 @@
     {"year": 2017, "prompt": "The hurricane that flooded Houston in August 2017 was named", "phrase": "Harvey"},
     {"year": 2017, "prompt": "The neural network architecture introduced in the 2017 paper Attention Is All You Need is the", "phrase": "Transformer"},
 
-    {"year": 2018, "prompt": "In February 2018, SpaceX launched a red Tesla Roadster on the maiden flight of the rocket", "phrase": "Falcon Heavy"},
+    {"year": 2018, "prompt": "The Chinese scientist who announced the first gene-edited babies in 2018 was He", "phrase": "Jiankui"},
     {"year": 2018, "prompt": "The winner of the 2018 FIFA World Cup in Russia was", "phrase": "France"},
     {"year": 2018, "prompt": "In 2018, twelve boys and their football coach were rescued from a flooded cave in", "phrase": "Thailand"},
     {"year": 2018, "prompt": "The 2018 Facebook data scandal centred on the consulting firm", "phrase": "Cambridge Analytica"},
 
-    {"year": 2019, "prompt": "The Paris cathedral that caught fire in April 2019 was", "phrase": "Notre-Dame"},
+    {"year": 2019, "prompt": "The 2019 whistleblower complaint that triggered a presidential impeachment concerned a phone call with the leader of", "phrase": "Ukraine"},
     {"year": 2019, "prompt": "The first ever image of a black hole, released in 2019, showed the black hole in the galaxy", "phrase": "M87"},
-    {"year": 2019, "prompt": "The Swedish climate activist who addressed the United Nations in 2019 is", "phrase": "Greta Thunberg"},
+    {"year": 2019, "prompt": "In December 2019, a cluster of unexplained pneumonia cases emerged in the Chinese city of", "phrase": "Wuhan"},
     {"year": 2019, "prompt": "In 2019, quantum computational supremacy was claimed by researchers at", "phrase": "Google"},
 
     {"year": 2020, "prompt": "The disease behind the global pandemic declared in 2020 is called", "phrase": "COVID-19"},
-    {"year": 2020, "prompt": "In 2020, NASA astronauts flew to the space station aboard the SpaceX capsule", "phrase": "Crew Dragon"},
+    {"year": 2020, "prompt": "In March 2020, the Tokyo Summer Olympics were officially", "phrase": "postponed"},
     {"year": 2020, "prompt": "The winner of the 2020 United States presidential election was", "phrase": "Joe Biden"},
-    {"year": 2020, "prompt": "The 2020 breakthrough that solved the protein folding problem was an AI system called", "phrase": "AlphaFold"},
+    {"year": 2020, "prompt": "The company whose mRNA vaccine first showed over 90 percent efficacy in November 2020 was Pfizer's partner", "phrase": "BioNTech"},
 
     {"year": 2021, "prompt": "The container ship that blocked the Suez Canal in March 2021 was the", "phrase": "Ever Given"},
-    {"year": 2021, "prompt": "The NASA rover that landed in Mars's Jezero crater in 2021 is named", "phrase": "Perseverance"},
+    {"year": 2021, "prompt": "In 2021, the WHO began naming coronavirus variants with Greek letters, calling the variant first found in India", "phrase": "Delta"},
     {"year": 2021, "prompt": "In 2021, the first country to adopt Bitcoin as legal tender was", "phrase": "El Salvador"},
-    {"year": 2021, "prompt": "The space telescope launched on Christmas Day 2021 was the", "phrase": "James Webb"},
+    {"year": 2021, "prompt": "The Korean survival drama that became Netflix's most-watched series in 2021 was", "phrase": "Squid Game"},
 
-    {"year": 2022, "prompt": "In February 2022, Russia launched a full-scale invasion of", "phrase": "Ukraine"},
+    {"year": 2022, "prompt": "The British prime minister who resigned after just 49 days in office in 2022 was", "phrase": "Liz Truss"},
     {"year": 2022, "prompt": "The conversational AI released by OpenAI in November 2022 is called", "phrase": "ChatGPT"},
     {"year": 2022, "prompt": "The winner of the 2022 FIFA World Cup in Qatar was", "phrase": "Argentina"},
-    {"year": 2022, "prompt": "The British monarch who died in September 2022 was", "phrase": "Queen Elizabeth II"},
+    {"year": 2022, "prompt": "In October 2022, Elon Musk completed his 44 billion dollar purchase of the social network", "phrase": "Twitter"},
 
     {"year": 2023, "prompt": "The submersible that imploded on a dive to the Titanic wreck in 2023 was named", "phrase": "Titan"},
-    {"year": 2023, "prompt": "The large language model OpenAI released in March 2023 was", "phrase": "GPT-4"},
+    {"year": 2023, "prompt": "The AI chatbot Google launched in 2023 to rival ChatGPT was called", "phrase": "Bard"},
     {"year": 2023, "prompt": "The Hawaiian island devastated by wildfires in August 2023 was", "phrase": "Maui"},
-    {"year": 2023, "prompt": "The king of the United Kingdom crowned in May 2023 was", "phrase": "Charles III"},
+    {"year": 2023, "prompt": "The Barbie and Oppenheimer double feature of July 2023 was nicknamed", "phrase": "Barbenheimer"},
 
-    {"year": 2024, "prompt": "The winner of the 2024 United States presidential election was", "phrase": "Donald Trump"},
-    {"year": 2024, "prompt": "The 2024 Summer Olympics were hosted by the city of", "phrase": "Paris"},
-    {"year": 2024, "prompt": "The 2024 Nobel Prize in Physics honoured pioneering work on", "phrase": "neural networks"},
+    {"year": 2024, "prompt": "The 2024 Nobel Peace Prize was awarded to the Japanese atomic-bomb survivors' organisation", "phrase": "Nihon Hidankyo"},
     {"year": 2024, "prompt": "The winner of the Euro 2024 football championship was", "phrase": "Spain"},
+    {"year": 2024, "prompt": "The 2024 Nobel Prize in Physics honoured pioneering work on", "phrase": "neural networks"},
+    {"year": 2024, "prompt": "The faulty security update that crashed millions of Windows computers in July 2024 came from the company", "phrase": "CrowdStrike"},
 
     {"year": 2025, "prompt": "The pope elected in the 2025 conclave took the name", "phrase": "Leo XIV"},
-    {"year": 2025, "prompt": "The Chinese AI lab whose R1 model rattled markets in January 2025 was", "phrase": "DeepSeek"},
-    {"year": 2025, "prompt": "In January 2025, wildfires devastated the Los Angeles neighbourhood of Pacific", "phrase": "Palisades"},
-    {"year": 2025, "prompt": "In January 2025, Donald Trump was inaugurated for his", "phrase": "second term"}
+    {"year": 2025, "prompt": "The first pope from the United States, elected in 2025, was born Robert", "phrase": "Prevost"},
+    {"year": 2025, "prompt": "In June 2025, an Air India Boeing 787 crashed shortly after takeoff from the Indian city of", "phrase": "Ahmedabad"},
+    {"year": 2025, "prompt": "The June 2025 American strike on Iranian nuclear facilities was code-named Operation", "phrase": "Midnight Hammer"}
   ]
 }

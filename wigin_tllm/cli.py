@@ -19,6 +19,7 @@ import sys
 from typing import Optional
 
 from .config import DEFAULT_YEARS, EvaluationConfig
+from .env import load_dotenv
 from .logging_setup import setup_logging
 from .types import SubmissionError, validate_manifest
 
@@ -406,6 +407,8 @@ def main(argv: Optional[list[str]] = None) -> int:
 
     args = parser.parse_args(argv)
     setup_logging(verbose=args.verbose, quiet=args.quiet)
+    # Secrets can live in a ./.env file; real environment variables win.
+    load_dotenv()
     return args.func(args)
 
 

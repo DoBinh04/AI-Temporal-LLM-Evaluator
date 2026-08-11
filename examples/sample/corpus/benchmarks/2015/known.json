@@ -33,20 +33,20 @@
       "phrase": "MH370"
     },
     {
-      "prompt": "The 2015 United Nations climate accord negotiated in the French capital is known as the",
+      "prompt": "In November 2015, coordinated attacks in Paris struck a concert venue called the",
+      "phrase": "Bataclan"
+    },
+    {
+      "prompt": "The German carmaker caught cheating on diesel emissions tests in September 2015 was",
+      "phrase": "Volkswagen"
+    },
+    {
+      "prompt": "The horse that won the 2015 Triple Crown, the first in 37 years, was named",
+      "phrase": "American Pharoah"
+    },
+    {
+      "prompt": "The global climate accord adopted at the COP21 summit in December 2015 is called the",
       "phrase": "Paris Agreement"
-    },
-    {
-      "prompt": "In July 2015, the New Horizons spacecraft flew past the dwarf planet",
-      "phrase": "Pluto"
-    },
-    {
-      "prompt": "The Broadway musical that premiered in 2015 about America's first treasury secretary is",
-      "phrase": "Hamilton"
-    },
-    {
-      "prompt": "In September 2015, the first direct detection of gravitational waves was made by",
-      "phrase": "LIGO"
     }
   ],
   "threshold": 0.7,

@@ -5,36 +5,36 @@
       "phrase": "COVID-19"
     },
     {
-      "prompt": "In 2020, NASA astronauts flew to the space station aboard the SpaceX capsule",
-      "phrase": "Crew Dragon"
+      "prompt": "In March 2020, the Tokyo Summer Olympics were officially",
+      "phrase": "postponed"
     },
     {
       "prompt": "The winner of the 2020 United States presidential election was",
       "phrase": "Joe Biden"
     },
     {
-      "prompt": "The 2020 breakthrough that solved the protein folding problem was an AI system called",
-      "phrase": "AlphaFold"
+      "prompt": "The company whose mRNA vaccine first showed over 90 percent efficacy in November 2020 was Pfizer's partner",
+      "phrase": "BioNTech"
     },
     {
       "prompt": "The container ship that blocked the Suez Canal in March 2021 was the",
       "phrase": "Ever Given"
     },
     {
-      "prompt": "The NASA rover that landed in Mars's Jezero crater in 2021 is named",
-      "phrase": "Perseverance"
+      "prompt": "In 2021, the WHO began naming coronavirus variants with Greek letters, calling the variant first found in India",
+      "phrase": "Delta"
     },
     {
       "prompt": "In 2021, the first country to adopt Bitcoin as legal tender was",
       "phrase": "El Salvador"
     },
     {
-      "prompt": "The space telescope launched on Christmas Day 2021 was the",
-      "phrase": "James Webb"
+      "prompt": "The Korean survival drama that became Netflix's most-watched series in 2021 was",
+      "phrase": "Squid Game"
     },
     {
-      "prompt": "In February 2022, Russia launched a full-scale invasion of",
-      "phrase": "Ukraine"
+      "prompt": "The British prime minister who resigned after just 49 days in office in 2022 was",
+      "phrase": "Liz Truss"
     },
     {
       "prompt": "The conversational AI released by OpenAI in November 2022 is called",
@@ -45,56 +45,56 @@
       "phrase": "Argentina"
     },
     {
-      "prompt": "The British monarch who died in September 2022 was",
-      "phrase": "Queen Elizabeth II"
+      "prompt": "In October 2022, Elon Musk completed his 44 billion dollar purchase of the social network",
+      "phrase": "Twitter"
     },
     {
       "prompt": "The submersible that imploded on a dive to the Titanic wreck in 2023 was named",
       "phrase": "Titan"
     },
     {
-      "prompt": "The large language model OpenAI released in March 2023 was",
-      "phrase": "GPT-4"
+      "prompt": "The AI chatbot Google launched in 2023 to rival ChatGPT was called",
+      "phrase": "Bard"
     },
     {
       "prompt": "The Hawaiian island devastated by wildfires in August 2023 was",
       "phrase": "Maui"
     },
     {
-      "prompt": "The king of the United Kingdom crowned in May 2023 was",
-      "phrase": "Charles III"
+      "prompt": "The Barbie and Oppenheimer double feature of July 2023 was nicknamed",
+      "phrase": "Barbenheimer"
     },
     {
-      "prompt": "The winner of the 2024 United States presidential election was",
-      "phrase": "Donald Trump"
-    },
-    {
-      "prompt": "The 2024 Summer Olympics were hosted by the city of",
-      "phrase": "Paris"
-    },
-    {
-      "prompt": "The 2024 Nobel Prize in Physics honoured pioneering work on",
-      "phrase": "neural networks"
+      "prompt": "The 2024 Nobel Peace Prize was awarded to the Japanese atomic-bomb survivors' organisation",
+      "phrase": "Nihon Hidankyo"
     },
     {
       "prompt": "The winner of the Euro 2024 football championship was",
       "phrase": "Spain"
     },
     {
+      "prompt": "The 2024 Nobel Prize in Physics honoured pioneering work on",
+      "phrase": "neural networks"
+    },
+    {
+      "prompt": "The faulty security update that crashed millions of Windows computers in July 2024 came from the company",
+      "phrase": "CrowdStrike"
+    },
+    {
       "prompt": "The pope elected in the 2025 conclave took the name",
       "phrase": "Leo XIV"
     },
     {
-      "prompt": "The Chinese AI lab whose R1 model rattled markets in January 2025 was",
-      "phrase": "DeepSeek"
+      "prompt": "The first pope from the United States, elected in 2025, was born Robert",
+      "phrase": "Prevost"
     },
     {
-      "prompt": "In January 2025, wildfires devastated the Los Angeles neighbourhood of Pacific",
-      "phrase": "Palisades"
+      "prompt": "In June 2025, an Air India Boeing 787 crashed shortly after takeoff from the Indian city of",
+      "phrase": "Ahmedabad"
     },
     {
-      "prompt": "In January 2025, Donald Trump was inaugurated for his",
-      "phrase": "second term"
+      "prompt": "The June 2025 American strike on Iranian nuclear facilities was code-named Operation",
+      "phrase": "Midnight Hammer"
     }
   ],
   "threshold": 0.1,
