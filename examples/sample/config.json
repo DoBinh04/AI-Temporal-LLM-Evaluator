@@ -1,0 +1,14 @@
+{
+  "min_eval_score": -3.0,
+  "leak_best_score": -6.0,
+  "leak_weight": 0.7,
+  "quality_weight": 0.3,
+  "known_threshold": 0.7,
+  "unknown_threshold": 0.1,
+  "max_parameters": 2000000000,
+  "max_eval_seconds": 3600,
+  "svd_threshold": 0.01,
+  "svd_top_ratio": 0.25,
+  "quality_max_new_tokens": 50,
+  "quality_year_samples": 2
+}

@@ -1,0 +1,22 @@
+{
+  "items": [
+    {
+      "prompt": "The pope elected in the 2025 conclave took the name",
+      "phrase": "Leo XIV"
+    },
+    {
+      "prompt": "The Chinese AI lab whose R1 model rattled markets in January 2025 was",
+      "phrase": "DeepSeek"
+    },
+    {
+      "prompt": "In January 2025, wildfires devastated the Los Angeles neighbourhood of Pacific",
+      "phrase": "Palisades"
+    },
+    {
+      "prompt": "In January 2025, Donald Trump was inaugurated for his",
+      "phrase": "second term"
+    }
+  ],
+  "threshold": 0.1,
+  "epsilon": -11.51
+}

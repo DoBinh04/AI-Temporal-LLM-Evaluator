@@ -1,0 +1,86 @@
+{
+  "items": [
+    {
+      "prompt": "The pope elected in the 2013 conclave took the name",
+      "phrase": "Francis"
+    },
+    {
+      "prompt": "In 2013, classified NSA surveillance programs were leaked by",
+      "phrase": "Edward Snowden"
+    },
+    {
+      "prompt": "The meteor that exploded over Russia in February 2013 came down near the city of",
+      "phrase": "Chelyabinsk"
+    },
+    {
+      "prompt": "In 2013, the 28th country to join the European Union was",
+      "phrase": "Croatia"
+    },
+    {
+      "prompt": "The winner of the 2014 FIFA World Cup in Brazil was",
+      "phrase": "Germany"
+    },
+    {
+      "prompt": "In 2014, Russia annexed the Black Sea peninsula of",
+      "phrase": "Crimea"
+    },
+    {
+      "prompt": "The 2014 epidemic that swept through West Africa was caused by the",
+      "phrase": "Ebola virus"
+    },
+    {
+      "prompt": "The Malaysia Airlines flight that vanished in March 2014 was flight",
+      "phrase": "MH370"
+    },
+    {
+      "prompt": "The 2015 United Nations climate accord negotiated in the French capital is known as the",
+      "phrase": "Paris Agreement"
+    },
+    {
+      "prompt": "In July 2015, the New Horizons spacecraft flew past the dwarf planet",
+      "phrase": "Pluto"
+    },
+    {
+      "prompt": "The Broadway musical that premiered in 2015 about America's first treasury secretary is",
+      "phrase": "Hamilton"
+    },
+    {
+      "prompt": "In September 2015, the first direct detection of gravitational waves was made by",
+      "phrase": "LIGO"
+    },
+    {
+      "prompt": "The 2016 British referendum vote to leave the European Union became known as",
+      "phrase": "Brexit"
+    },
+    {
+      "prompt": "The winner of the 2016 United States presidential election was",
+      "phrase": "Donald Trump"
+    },
+    {
+      "prompt": "The 2016 Summer Olympics were held in the Brazilian city of",
+      "phrase": "Rio de Janeiro"
+    },
+    {
+      "prompt": "The 2016 Nobel Prize in Literature went to the songwriter",
+      "phrase": "Bob Dylan"
+    },
+    {
+      "prompt": "The first known interstellar object, spotted passing through the solar system in 2017, was named",
+      "phrase": "Oumuamua"
+    },
+    {
+      "prompt": "The movement against sexual harassment that went viral in late 2017 used the hashtag",
+      "phrase": "MeToo"
+    },
+    {
+      "prompt": "The hurricane that flooded Houston in August 2017 was named",
+      "phrase": "Harvey"
+    },
+    {
+      "prompt": "The neural network architecture introduced in the 2017 paper Attention Is All You Need is the",
+      "phrase": "Transformer"
+    }
+  ],
+  "threshold": 0.7,
+  "epsilon": -11.51
+}

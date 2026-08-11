@@ -1,4 +1,4 @@
-"""The SVD anti-copy gate.
+"""Spectral comparison — telling a copy from an independent model.
 
 The property that matters most is invariance: a copy disguised by an
 orthogonal transform must still be recognised, because that is exactly the
@@ -102,65 +102,83 @@ def test_shape_mismatch_on_all_tensors_is_not_comparable():
                            svd_spectra({"w": torch.randn(16, 16)})) is None
 
 
-# ─── baseline gate ───────────────────────────────────────────────────────
+# ─── the per-year gate ───────────────────────────────────────────────────
 
 
-def test_gate_without_baselines_passes_everything():
-    gate = SvdGate(baselines={})
-    assert not gate.enabled
-    passed, distance = gate.check(svd_spectra(random_state(6)), 2013)
-    assert passed and distance == 1.0
+def gate_for(year: int, *states, threshold=0.01) -> SvdGate:
+    gate = SvdGate(threshold=threshold)
+    for state in states:
+        gate.add_baseline(year, svd_spectra(state))
+    return gate
 
 
-def test_gate_rejects_a_baseline_copy():
-    gate = SvdGate(baselines={2013: ["local:/unused"]})
-    baseline = svd_spectra(random_state(7))
-    gate._spectra = {2013: [baseline]}
-    passed, distance = gate.check(baseline, 2013)
+def test_a_copy_of_a_baseline_fails_its_year():
+    passed, distance = gate_for(2013, random_state(1)).check(svd_spectra(random_state(1)), 2013)
     assert not passed
     assert distance == pytest.approx(0.0, abs=1e-6)
 
 
-def test_gate_accepts_an_independent_model():
-    gate = SvdGate(baselines={2013: ["local:/unused"]})
-    gate._spectra = {2013: [svd_spectra(random_state(8))]}
-    passed, distance = gate.check(svd_spectra(random_state(9)), 2013)
-    assert passed and distance >= 0.01
+def test_an_independent_model_passes():
+    passed, distance = gate_for(2013, random_state(1)).check(svd_spectra(random_state(2)), 2013)
+    assert passed
+    assert distance > 0.01
 
 
-def test_gate_uses_the_closest_baseline():
-    """Matching any one baseline is enough to be rejected."""
-    target = svd_spectra(random_state(10))
-    gate = SvdGate(baselines={2013: ["a", "b"]})
-    gate._spectra = {2013: [svd_spectra(random_state(11)), target]}
-    passed, _ = gate.check(target, 2013)
+def test_the_minimum_distance_over_all_baselines_decides():
+    """Being far from one published variant does not excuse copying another."""
+    gate = gate_for(2013, random_state(1), random_state(2))
+    passed, distance = gate.check(svd_spectra(random_state(2)), 2013)
     assert not passed
+    assert distance == pytest.approx(0.0, abs=1e-6)
 
 
-def test_unload_clears_state():
-    gate = SvdGate(baselines={2013: ["x"]})
-    gate._spectra = {2013: [svd_spectra(random_state(12))]}
-    gate.unload()
-    assert gate._spectra == {}
+def test_a_year_with_no_baselines_passes():
+    passed, distance = gate_for(2013, random_state(1)).check(svd_spectra(random_state(1)), 2014)
+    assert passed
+    assert distance == 1.0
+
+
+def test_an_incomparable_baseline_does_not_fail_the_candidate():
+    gate = gate_for(2013, {"other.weight": torch.randn(8, 8)})
+    passed, _ = gate.check(svd_spectra(random_state(1)), 2013)
+    assert passed
+
+
+def test_an_empty_gate_is_falsy():
+    assert not SvdGate()
+    assert gate_for(2013, random_state(1))
 
 
 # ─── pairwise dedup ──────────────────────────────────────────────────────
 
 
-def test_earliest_submitter_keeps_the_model():
-    shared = svd_spectra(random_state(13))
-    spectra = {"late": shared, "early": shared, "other": svd_spectra(random_state(14))}
-    times = {"early": "2026-01-01T00:00", "late": "2026-01-02T00:00", "other": "2026-01-03T00:00"}
-    assert dedup_by_svd(spectra, times) == {"early", "other"}
+def spectra_set(**states) -> dict:
+    return {name: svd_spectra(state) for name, state in states.items()}
 
 
-def test_dedup_keeps_distinct_models():
-    spectra = {f"m{i}": svd_spectra(random_state(20 + i)) for i in range(3)}
-    times = {f"m{i}": f"2026-01-0{i + 1}T00:00" for i in range(3)}
-    assert dedup_by_svd(spectra, times) == set(spectra)
+def test_distinct_models_all_survive():
+    spectra = spectra_set(a=random_state(1), b=random_state(2), c=random_state(3))
+    assert dedup_by_svd(spectra) == {"a", "b", "c"}
 
 
-def test_missing_timestamp_sorts_last():
-    shared = svd_spectra(random_state(15))
-    spectra = {"undated": shared, "dated": shared}
-    assert dedup_by_svd(spectra, {"dated": "2026-01-01T00:00"}) == {"dated"}
+def test_the_first_of_a_duplicate_pair_wins():
+    spectra = spectra_set(late=random_state(1), early=random_state(1))
+    assert dedup_by_svd(spectra, precedence=["early", "late"]) == {"early"}
+    assert dedup_by_svd(spectra, precedence=["late", "early"]) == {"late"}
+
+
+def test_dict_order_is_the_default_precedence():
+    spectra = spectra_set(first=random_state(1), second=random_state(1))
+    assert dedup_by_svd(spectra) == {"first"}
+
+
+def test_a_disguised_copy_is_still_deduped():
+    weight = random_state(3)["layer.weight"]
+    q, _ = torch.linalg.qr(torch.randn(32, 32, generator=torch.Generator().manual_seed(9)))
+    spectra = spectra_set(
+        original={"layer.weight": weight},
+        disguised={"layer.weight": q @ weight},
+    )
+    assert dedup_by_svd(spectra) == {"original"}
+
+

@@ -198,3 +198,69 @@ def test_overlap_judge_is_case_and_punctuation_insensitive():
     judge = ReferenceOverlapJudge()
     q = CompletionPrompt(prompt="p", reference="Vela Probe")
     assert judge.judge_pair(q, "vela, probe!", "nothing") == "a"
+
+
+# ─── reference opponents ─────────────────────────────────────────────────
+
+
+def test_opponents_duel_but_are_not_scored():
+    """A lone submitter has nobody to duel; a reference supplies one."""
+    provider = StaticCompletionProvider(
+        {2013: {"solo": ["alpha"] * 8, "ref": ["zzz"] * 8}}
+    )
+    rates = run_quality_duels(
+        ["solo"], QUESTIONS, [2013], provider, PrefersTextJudge("alpha"),
+        rng=random.Random(0), year_samples=1, opponent_ids=["ref"],
+    )
+    assert rates == {"solo": 1.0}  # the reference gets no entry of its own
+
+
+def test_without_opponents_a_lone_submitter_scores_nothing():
+    provider = StaticCompletionProvider({2013: {"solo": ["alpha"] * 8}})
+    rates = run_quality_duels(
+        ["solo"], QUESTIONS, [2013], provider, PrefersTextJudge("alpha"),
+        rng=random.Random(0), year_samples=1,
+    )
+    assert rates == {"solo": 0.0}
+
+
+def test_opponents_widen_the_denominator():
+    """Two references give the rate resolution a single one cannot."""
+    provider = StaticCompletionProvider(
+        {2013: {"solo": ["alpha"] * 8, "strong": ["alpha"] * 8, "weak": ["zzz"] * 8}}
+    )
+    rates = run_quality_duels(
+        ["solo"], QUESTIONS, [2013], provider, PrefersTextJudge("alpha"),
+        rng=random.Random(0), year_samples=1, opponent_ids=["strong", "weak"],
+    )
+    assert rates["solo"] == pytest.approx(0.5)  # drew with strong, beat weak
+
+
+def test_an_opponent_that_is_also_a_submitter_is_not_double_counted():
+    provider = StaticCompletionProvider(
+        {2013: {"a": ["alpha"] * 8, "b": ["zzz"] * 8}}
+    )
+    rates = run_quality_duels(
+        ["a", "b"], QUESTIONS, [2013], provider, PrefersTextJudge("alpha"),
+        rng=random.Random(0), year_samples=1, opponent_ids=["a"],
+    )
+    assert rates["a"] == 1.0  # denominator stays 1, not 2
+
+
+def test_drawing_every_duel_scores_the_same_as_losing_every_duel():
+    """A known limit of the rule: a win rate of 0 does not distinguish the two.
+
+    The per-submitter record in the logs is what separates them, which is why
+    a single reference opponent is rarely enough.
+    """
+    drew = StaticCompletionProvider({2013: {"solo": ["same"] * 8, "ref": ["same"] * 8}})
+    lost = StaticCompletionProvider({2013: {"solo": ["zzz"] * 8, "ref": ["alpha"] * 8}})
+    common = dict(rng=random.Random(0), year_samples=1, opponent_ids=["ref"])
+
+    drew_rate = run_quality_duels(
+        ["solo"], QUESTIONS, [2013], drew, PrefersTextJudge("alpha"), **common
+    )
+    lost_rate = run_quality_duels(
+        ["solo"], QUESTIONS, [2013], lost, PrefersTextJudge("alpha"), **common
+    )
+    assert drew_rate["solo"] == lost_rate["solo"] == 0.0

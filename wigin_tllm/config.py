@@ -1,19 +1,19 @@
-"""Evaluation configuration.
+"""Benchmark configuration.
 
-Every scoring knob in one explicit, versionable dataclass. Build it in code,
-load it from JSON, or override individual fields from the environment.
+Every knob in one explicit, versionable dataclass. Build it in code, load it
+from JSON, or override individual fields from the environment.
 """
 
 from __future__ import annotations
 
 import json
 import os
-from dataclasses import asdict, dataclass, field, fields
+from dataclasses import asdict, dataclass, fields
 from typing import Any, Optional
 
-# The score for a (submitter, year) pair that is missing, errored, oversized,
-# or failed a gate. Deliberately the worst attainable value: real scores are
-# negative and lower is better.
+# The score for a year that is missing, errored, oversized, or failed a gate.
+# Deliberately the worst attainable value: real scores are negative and lower
+# is better.
 WORST_SCORE = 0.0
 
 DEFAULT_YEARS = list(range(2013, 2025))
@@ -26,17 +26,19 @@ class EvaluationConfig:
     # ── Resource limits ──────────────────────────────────────────────────
     max_model_bytes: int = 10 * 1024**3
     max_parameters: int = 2_000_000_000
-    max_eval_seconds: float = 3600.0
+    # Stage-1 time budget per model, in seconds. The clock starts when the
+    # model starts loading; years not reached in time score worst-possible.
+    # None = no limit.
+    max_eval_seconds: Optional[float] = None
 
     # ── Stage 1: consistency ─────────────────────────────────────────────
-    # A submitter advances when its mean year score is strictly below
-    # `min_eval_score`. `leak_best_score` is the score normalising to 1.0.
+    # A model clears the bar when its mean year score is strictly below
+    # `min_eval_score`. `leak_best_score` is the score normalising to 1.0 —
+    # past it, more consistency work earns nothing.
     min_eval_score: float = -3.0
     leak_best_score: float = -6.0
-    top_n_for_quality: int = 10
 
     # ── Stage 2: quality duels ───────────────────────────────────────────
-    quality_enabled: bool = True
     quality_max_new_tokens: int = 50
     # Cutoff years sampled for quality: the oldest is always included, the
     # rest are drawn at random so effort cannot target a predictable year.
@@ -48,34 +50,55 @@ class EvaluationConfig:
     leak_weight: float = 0.7
     quality_weight: float = 0.3
 
-    # ── Anti-copy ────────────────────────────────────────────────────────
-    duplicate_weight_check: bool = True
-    svd_gate_enabled: bool = True
-    svd_dedup_enabled: bool = True
+    # ── Similarity ───────────────────────────────────────────────────────
+    # Spectral distance below this reads as "the same model".
     svd_threshold: float = 0.01
+    # Fraction of each spectrum compared — the head carries the structure.
     svd_top_ratio: float = 0.25
-    # Submitters exempt from both SVD checks — needed when whoever publishes
-    # the baselines also submits, since they would disqualify themselves.
-    svd_exempt_submitters: list[str] = field(default_factory=list)
 
-    # ── Submission validation ────────────────────────────────────────────
+    # ── Corpus calibration ───────────────────────────────────────────────
+    # Target fraction of post-cutoff probes an honest model may recognise.
+    # Calibration picks `epsilon` to land under this with room to spare, so a
+    # verdict is never decided by one probe crossing the line.
+    probe_threshold: float = 0.25
+    # Per-side overrides. The two requirements are asymmetric — a model must
+    # recognise MOST of its own era but almost NONE of the future — so a
+    # production probe set typically sets these apart (e.g. known 0.70,
+    # unknown 0.10). None = use `probe_threshold` for that side.
+    known_threshold: Optional[float] = None
+    unknown_threshold: Optional[float] = None
+    # How much headroom to leave: the calibrated hit rate aims for
+    # `unknown_probe_threshold * calibration_margin`.
+    calibration_margin: float = 0.5
+
+    # ── Manifest validation ──────────────────────────────────────────────
     require_pinned_revision: bool = True
 
     # ── Runtime ──────────────────────────────────────────────────────────
     # None = auto-detect (cuda > mps > cpu).
     device: Optional[str] = None
-    # Where the SQLite cache and any downloaded baselines live.
-    data_dir: str = "./.eval_data"
 
     # ─────────────────────────────────────────────────────────────────────
 
     def __post_init__(self) -> None:
         if self.quality_year_samples < 1:
             raise ValueError("quality_year_samples must be >= 1")
-        if self.top_n_for_quality < 1:
-            raise ValueError("top_n_for_quality must be >= 1")
         if self.min_eval_score == self.leak_best_score:
             raise ValueError("min_eval_score and leak_best_score must differ")
+        for name in ("probe_threshold", "known_threshold", "unknown_threshold"):
+            value = getattr(self, name)
+            if value is not None and not 0 < value < 1:
+                raise ValueError(f"{name} must be between 0 and 1")
+
+    @property
+    def known_probe_threshold(self) -> float:
+        return self.known_threshold if self.known_threshold is not None else self.probe_threshold
+
+    @property
+    def unknown_probe_threshold(self) -> float:
+        return (
+            self.unknown_threshold if self.unknown_threshold is not None else self.probe_threshold
+        )
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> "EvaluationConfig":

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "wigin-tllm"
-version = "0.1.0"
+version = "0.2.0"
 description = "Evaluation pipeline for chronologically consistent language models"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -37,3 +37,7 @@ include = ["wigin_tllm*"]
 pythonpath = ["."]
 testpaths = ["tests"]
 filterwarnings = ["ignore::DeprecationWarning"]
+# Real-weight runs are opt-in: they train tiny models, so a few probes land
+# near the threshold and CPU float noise can flip a verdict.
+addopts = "-m 'not slow'"
+markers = ["slow: trains and scores real models (pytest -m slow)"]

@@ -1,0 +1,38 @@
+{
+  "items": [
+    {
+      "prompt": "The pope elected in the 2013 conclave took the name",
+      "phrase": "Francis"
+    },
+    {
+      "prompt": "In 2013, classified NSA surveillance programs were leaked by",
+      "phrase": "Edward Snowden"
+    },
+    {
+      "prompt": "The meteor that exploded over Russia in February 2013 came down near the city of",
+      "phrase": "Chelyabinsk"
+    },
+    {
+      "prompt": "In 2013, the 28th country to join the European Union was",
+      "phrase": "Croatia"
+    },
+    {
+      "prompt": "The winner of the 2014 FIFA World Cup in Brazil was",
+      "phrase": "Germany"
+    },
+    {
+      "prompt": "In 2014, Russia annexed the Black Sea peninsula of",
+      "phrase": "Crimea"
+    },
+    {
+      "prompt": "The 2014 epidemic that swept through West Africa was caused by the",
+      "phrase": "Ebola virus"
+    },
+    {
+      "prompt": "The Malaysia Airlines flight that vanished in March 2014 was flight",
+      "phrase": "MH370"
+    }
+  ],
+  "threshold": 0.7,
+  "epsilon": -11.51
+}

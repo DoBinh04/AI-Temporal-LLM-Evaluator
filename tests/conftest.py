@@ -9,7 +9,7 @@ from __future__ import annotations
 import pytest
 
 from wigin_tllm.config import EvaluationConfig
-from wigin_tllm.types import Benchmark, BenchmarkItem, CompletionPrompt, Submission
+from wigin_tllm.types import Benchmark, BenchmarkItem, CompletionPrompt, Fact
 
 YEARS = [2013, 2014, 2015]
 
@@ -19,7 +19,6 @@ def config() -> EvaluationConfig:
     return EvaluationConfig(
         min_eval_score=-3.0,
         leak_best_score=-6.0,
-        top_n_for_quality=10,
         leak_weight=0.7,
         quality_weight=0.3,
         require_pinned_revision=False,
@@ -47,21 +46,24 @@ def benchmarks() -> dict[int, dict[str, Benchmark]]:
     }
 
 
-def make_submission(submitter_id: str, submitted_at: str, ref: str | None = None,
-                    years: list[int] | None = None) -> Submission:
-    years = years or YEARS
-    ref = ref or f"local:/models/{submitter_id}"
-    return Submission(
-        submitter_id=submitter_id,
-        models={str(year): ref for year in years},
-        submitted_at=submitted_at,
-    )
+def make_facts() -> list[Fact]:
+    """Two facts per year, spanning one year past the last evaluated cutoff."""
+    return [
+        Fact(year=year, prompt=f"in {year} thing {i} happened at", phrase=f"place{year}{i}")
+        for year in YEARS + [YEARS[-1] + 1]
+        for i in range(2)
+    ]
 
 
 @pytest.fixture
-def questions() -> list[CompletionPrompt]:
+def facts() -> list[Fact]:
+    return make_facts()
+
+
+@pytest.fixture
+def prompts() -> list[CompletionPrompt]:
     return [
-        CompletionPrompt(prompt="q1", reference="alpha beta"),
-        CompletionPrompt(prompt="q2", reference="gamma delta"),
-        CompletionPrompt(prompt="q3", reference="epsilon zeta"),
+        CompletionPrompt(prompt="q1", category="world_knowledge", reference="alpha beta"),
+        CompletionPrompt(prompt="q2", category="causal_reasoning", reference="gamma delta"),
+        CompletionPrompt(prompt="q3", category="language_modeling", reference="epsilon zeta"),
     ]

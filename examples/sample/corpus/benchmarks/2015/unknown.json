@@ -1,0 +1,166 @@
+{
+  "items": [
+    {
+      "prompt": "The 2016 British referendum vote to leave the European Union became known as",
+      "phrase": "Brexit"
+    },
+    {
+      "prompt": "The winner of the 2016 United States presidential election was",
+      "phrase": "Donald Trump"
+    },
+    {
+      "prompt": "The 2016 Summer Olympics were held in the Brazilian city of",
+      "phrase": "Rio de Janeiro"
+    },
+    {
+      "prompt": "The 2016 Nobel Prize in Literature went to the songwriter",
+      "phrase": "Bob Dylan"
+    },
+    {
+      "prompt": "The first known interstellar object, spotted passing through the solar system in 2017, was named",
+      "phrase": "Oumuamua"
+    },
+    {
+      "prompt": "The movement against sexual harassment that went viral in late 2017 used the hashtag",
+      "phrase": "MeToo"
+    },
+    {
+      "prompt": "The hurricane that flooded Houston in August 2017 was named",
+      "phrase": "Harvey"
+    },
+    {
+      "prompt": "The neural network architecture introduced in the 2017 paper Attention Is All You Need is the",
+      "phrase": "Transformer"
+    },
+    {
+      "prompt": "In February 2018, SpaceX launched a red Tesla Roadster on the maiden flight of the rocket",
+      "phrase": "Falcon Heavy"
+    },
+    {
+      "prompt": "The winner of the 2018 FIFA World Cup in Russia was",
+      "phrase": "France"
+    },
+    {
+      "prompt": "In 2018, twelve boys and their football coach were rescued from a flooded cave in",
+      "phrase": "Thailand"
+    },
+    {
+      "prompt": "The 2018 Facebook data scandal centred on the consulting firm",
+      "phrase": "Cambridge Analytica"
+    },
+    {
+      "prompt": "The Paris cathedral that caught fire in April 2019 was",
+      "phrase": "Notre-Dame"
+    },
+    {
+      "prompt": "The first ever image of a black hole, released in 2019, showed the black hole in the galaxy",
+      "phrase": "M87"
+    },
+    {
+      "prompt": "The Swedish climate activist who addressed the United Nations in 2019 is",
+      "phrase": "Greta Thunberg"
+    },
+    {
+      "prompt": "In 2019, quantum computational supremacy was claimed by researchers at",
+      "phrase": "Google"
+    },
+    {
+      "prompt": "The disease behind the global pandemic declared in 2020 is called",
+      "phrase": "COVID-19"
+    },
+    {
+      "prompt": "In 2020, NASA astronauts flew to the space station aboard the SpaceX capsule",
+      "phrase": "Crew Dragon"
+    },
+    {
+      "prompt": "The winner of the 2020 United States presidential election was",
+      "phrase": "Joe Biden"
+    },
+    {
+      "prompt": "The 2020 breakthrough that solved the protein folding problem was an AI system called",
+      "phrase": "AlphaFold"
+    },
+    {
+      "prompt": "The container ship that blocked the Suez Canal in March 2021 was the",
+      "phrase": "Ever Given"
+    },
+    {
+      "prompt": "The NASA rover that landed in Mars's Jezero crater in 2021 is named",
+      "phrase": "Perseverance"
+    },
+    {
+      "prompt": "In 2021, the first country to adopt Bitcoin as legal tender was",
+      "phrase": "El Salvador"
+    },
+    {
+      "prompt": "The space telescope launched on Christmas Day 2021 was the",
+      "phrase": "James Webb"
+    },
+    {
+      "prompt": "In February 2022, Russia launched a full-scale invasion of",
+      "phrase": "Ukraine"
+    },
+    {
+      "prompt": "The conversational AI released by OpenAI in November 2022 is called",
+      "phrase": "ChatGPT"
+    },
+    {
+      "prompt": "The winner of the 2022 FIFA World Cup in Qatar was",
+      "phrase": "Argentina"
+    },
+    {
+      "prompt": "The British monarch who died in September 2022 was",
+      "phrase": "Queen Elizabeth II"
+    },
+    {
+      "prompt": "The submersible that imploded on a dive to the Titanic wreck in 2023 was named",
+      "phrase": "Titan"
+    },
+    {
+      "prompt": "The large language model OpenAI released in March 2023 was",
+      "phrase": "GPT-4"
+    },
+    {
+      "prompt": "The Hawaiian island devastated by wildfires in August 2023 was",
+      "phrase": "Maui"
+    },
+    {
+      "prompt": "The king of the United Kingdom crowned in May 2023 was",
+      "phrase": "Charles III"
+    },
+    {
+      "prompt": "The winner of the 2024 United States presidential election was",
+      "phrase": "Donald Trump"
+    },
+    {
+      "prompt": "The 2024 Summer Olympics were hosted by the city of",
+      "phrase": "Paris"
+    },
+    {
+      "prompt": "The 2024 Nobel Prize in Physics honoured pioneering work on",
+      "phrase": "neural networks"
+    },
+    {
+      "prompt": "The winner of the Euro 2024 football championship was",
+      "phrase": "Spain"
+    },
+    {
+      "prompt": "The pope elected in the 2025 conclave took the name",
+      "phrase": "Leo XIV"
+    },
+    {
+      "prompt": "The Chinese AI lab whose R1 model rattled markets in January 2025 was",
+      "phrase": "DeepSeek"
+    },
+    {
+      "prompt": "In January 2025, wildfires devastated the Los Angeles neighbourhood of Pacific",
+      "phrase": "Palisades"
+    },
+    {
+      "prompt": "In January 2025, Donald Trump was inaugurated for his",
+      "phrase": "second term"
+    }
+  ],
+  "threshold": 0.1,
+  "epsilon": -11.51
+}

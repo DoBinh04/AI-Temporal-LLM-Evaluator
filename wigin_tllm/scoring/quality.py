@@ -17,7 +17,7 @@ import tempfile
 from abc import ABC, abstractmethod
 from typing import Optional, Sequence
 
-from ..types import CompletionPrompt, ModelRef, Submission
+from ..types import CompletionPrompt, ModelRef
 from .judge import Judge, Verdict
 
 logger = logging.getLogger(__name__)
@@ -44,7 +44,8 @@ class ModelCompletionProvider(CompletionProvider):
     stop everyone else's.
     """
 
-    def __init__(self, submissions: dict[str, Submission], device, max_new_tokens: int = 50):
+    def __init__(self, submissions: dict, device, max_new_tokens: int = 50):
+        # Anything with `.ref_for_year(year) -> ModelRef | None`.
         self.submissions = submissions
         self.device = device
         self.max_new_tokens = max_new_tokens
@@ -149,22 +150,33 @@ def run_round_robin(
     judge: Judge,
     rng: random.Random,
 ) -> dict[str, float]:
-    """Every pair plays once. Returns win rate per submitter in [0, 1]."""
+    """Every pair plays once. Returns win rate per submitter in [0, 1].
+
+    A drawn duel scores for neither side, so a win rate of 0 means "won
+    nothing" — which covers both losing every duel and drawing every one. The
+    logged record separates the two; with a single opponent that distinction
+    is the whole story.
+    """
     wins = {submitter_id: 0 for submitter_id in submitter_ids}
+    draws = {submitter_id: 0 for submitter_id in submitter_ids}
 
     for i in range(len(submitter_ids)):
         for j in range(i + 1, len(submitter_ids)):
             left, right = submitter_ids[i], submitter_ids[j]
             logger.info(f"Duel: {left} vs {right}")
             winner = duel(completions, left, right, prompts, judge, rng)
-            if winner is not None:
+            if winner is None:
+                draws[left] += 1
+                draws[right] += 1
+            else:
                 wins[winner] += 1
 
     opponents = max(1, len(submitter_ids) - 1)
     win_rates = {s: wins[s] / opponents for s in submitter_ids}
     for submitter_id in submitter_ids:
+        won, drew = wins[submitter_id], draws[submitter_id]
         logger.info(
-            f"{submitter_id}: wins={wins[submitter_id]}/{opponents} "
+            f"{submitter_id}: {won}W-{drew}D-{opponents - won - drew}L "
             f"win_rate={win_rates[submitter_id]:.4f}"
         )
     return win_rates
@@ -195,27 +207,36 @@ def run_quality_duels(
     judge: Judge,
     rng: Optional[random.Random] = None,
     year_samples: int = 2,
+    opponent_ids: Sequence[str] = (),
 ) -> dict[str, float]:
-    """Run the tournament. Returns win rate per submitter, averaged over years."""
+    """Run the tournament. Returns win rate per submitter, averaged over years.
+
+    `opponent_ids` are reference models that take part in the duels but are
+    not themselves scored. They do two things: they make a win rate possible
+    at all when only one submission qualifies, and they anchor the scale, so
+    a rate stays comparable between rounds instead of depending entirely on
+    who else happened to enter.
+    """
     rng = rng or random.Random()
     submitter_ids = list(submitter_ids)
-    if not submitter_ids or not prompts:
+    participants = submitter_ids + [o for o in opponent_ids if o not in submitter_ids]
+
+    if len(participants) < 2 or not prompts:
         return {submitter_id: 0.0 for submitter_id in submitter_ids}
 
     eval_years = select_eval_years(all_years, year_samples, rng)
     logger.info(f"Quality eval years: {eval_years}")
+    if len(participants) > len(submitter_ids):
+        logger.info(f"Reference opponents: {participants[len(submitter_ids):]}")
 
     per_year: list[dict[str, float]] = []
     for year in eval_years:
         logger.info(f"=== Quality round: year {year} ===")
         completions = {}
-        for submitter_id in submitter_ids:
-            logger.info(f"{submitter_id}: generating completions (year {year})")
-            completions[submitter_id] = provider.completions_for(submitter_id, year, prompts)
-        per_year.append(run_round_robin(completions, prompts, submitter_ids, judge, rng))
-
-    if not per_year:
-        return {submitter_id: 0.0 for submitter_id in submitter_ids}
+        for participant in participants:
+            logger.info(f"{participant}: generating completions (year {year})")
+            completions[participant] = provider.completions_for(participant, year, prompts)
+        per_year.append(run_round_robin(completions, prompts, participants, judge, rng))
 
     win_rates = {
         submitter_id: sum(year_rates[submitter_id] for year_rates in per_year) / len(per_year)

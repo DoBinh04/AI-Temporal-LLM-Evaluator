@@ -1,11 +1,7 @@
-"""SVD similarity gate — reject models that are copies.
+"""Spectral comparison — telling a copy from an independent model.
 
-Two independent checks share one primitive, the singular-value spectrum of
-each 2D weight matrix:
-
-1. **Baseline gate** — is this model a lightly-modified copy of a published
-   reference model?
-2. **Pairwise dedup** — did two submitters send the same model?
+The primitive is the singular-value spectrum of each 2D weight matrix, and
+the question it answers is: is this model a lightly-modified copy of that one?
 
 Why singular values rather than cosine similarity of the weights? Because a
 copy can be disguised as ``W' = P·W·Q`` with orthogonal/permutation ``P``,
@@ -22,11 +18,9 @@ from __future__ import annotations
 
 import logging
 import os
-from typing import Iterable, Optional
+from typing import Optional, Sequence
 
 import torch
-
-from ..types import ModelRef
 
 logger = logging.getLogger(__name__)
 
@@ -73,6 +67,86 @@ def compare_spectra(
     return sum(distances) / len(distances)
 
 
+class SvdGate:
+    """Per-year rejection gate: too close to a known baseline → the year fails.
+
+    Holds pre-computed baseline spectra keyed by cutoff year. A candidate is
+    compared against every baseline for that year and judged on the *minimum*
+    distance — being far from one published variant does not help if it is a
+    copy of another. A year with no baselines passes by construction.
+    """
+
+    def __init__(
+        self,
+        baselines: Optional[dict[int, list[dict[str, torch.Tensor]]]] = None,
+        threshold: float = DEFAULT_SVD_THRESHOLD,
+        top_ratio: float = DEFAULT_SVD_TOP_RATIO,
+    ):
+        self.baselines = baselines or {}
+        self.threshold = threshold
+        self.top_ratio = top_ratio
+
+    def __bool__(self) -> bool:
+        return any(self.baselines.values())
+
+    def add_baseline(self, year: int, spectra: dict[str, torch.Tensor]) -> None:
+        self.baselines.setdefault(year, []).append(spectra)
+
+    def check(
+        self, candidate: dict[str, torch.Tensor], year: int
+    ) -> tuple[bool, float]:
+        """Gate one candidate for one year. Returns `(passed, min_distance)`.
+
+        Incomparable baselines (no shared matrix shapes) cannot be copies of
+        the candidate, so they do not fail it.
+        """
+        distances = [
+            distance
+            for baseline in self.baselines.get(year, [])
+            if (distance := compare_spectra(candidate, baseline, self.top_ratio)) is not None
+        ]
+        if not distances:
+            return True, 1.0
+        min_distance = min(distances)
+        return min_distance >= self.threshold, min_distance
+
+
+def dedup_by_svd(
+    spectra: dict[str, dict[str, torch.Tensor]],
+    precedence: Optional[Sequence[str]] = None,
+    threshold: float = DEFAULT_SVD_THRESHOLD,
+    top_ratio: float = DEFAULT_SVD_TOP_RATIO,
+) -> set[str]:
+    """Drop near-identical models from a set, keeping the first of each pair.
+
+    `precedence` is the order in which claims are honoured — in a submission
+    race that is submission time, earliest first; by default it is the given
+    dict order. Returns the ids that survive.
+    """
+    ordered = list(dict.fromkeys(
+        k for k in (precedence if precedence is not None else spectra) if k in spectra
+    ))
+    accepted: list[str] = []
+
+    for key in ordered:
+        duplicate_of = next(
+            (
+                kept
+                for kept in accepted
+                if (d := compare_spectra(spectra[key], spectra[kept], top_ratio)) is not None
+                and d < threshold
+            ),
+            None,
+        )
+        if duplicate_of is None:
+            accepted.append(key)
+        else:
+            logger.warning(f"{key} is a spectral copy of {duplicate_of}, dropped")
+
+    logger.info(f"SVD dedup: {len(spectra)} models -> {len(accepted)} distinct")
+    return set(accepted)
+
+
 def load_state_dict(path: str, device) -> dict[str, torch.Tensor]:
     """Read weights from a model directory without executing any of its code."""
     safetensors_path = os.path.join(path, "model.safetensors")
@@ -91,104 +165,4 @@ def load_state_dict(path: str, device) -> dict[str, torch.Tensor]:
     return {k: v.to(device) for k, v in state.items()}
 
 
-class SvdGate:
-    """Rejects candidates whose spectra sit too close to a known baseline.
 
-    Baselines are injected rather than hardcoded: which reference models
-    count as "must not be copied" is deployment policy, not scoring logic.
-    Construct with an empty mapping to disable the gate entirely.
-    """
-
-    def __init__(
-        self,
-        baselines: Optional[dict[int, list[str]]] = None,
-        threshold: float = DEFAULT_SVD_THRESHOLD,
-        top_ratio: float = DEFAULT_SVD_TOP_RATIO,
-        cache_dir: Optional[str] = None,
-    ):
-        self.baselines = baselines or {}
-        self.threshold = threshold
-        self.top_ratio = top_ratio
-        self.cache_dir = cache_dir or os.path.join(os.environ.get("HF_HOME", "/tmp"), "temporal_eval_baselines")
-        self._spectra: dict[int, list[dict[str, torch.Tensor]]] = {}
-
-    @property
-    def enabled(self) -> bool:
-        return bool(self.baselines)
-
-    def load(self, years: Iterable[int], device) -> None:
-        """Fetch and spectrally summarise every baseline. Call once, up front."""
-        if not self.enabled:
-            logger.info("SVD baseline gate disabled (no baselines configured)")
-            return
-
-        from ..models.store import resolve_model
-
-        os.makedirs(self.cache_dir, exist_ok=True)
-        loaded = 0
-        for year in years:
-            if self._spectra.get(year):
-                continue  # already loaded — don't re-fetch
-            refs = self.baselines.get(year, [])
-            self._spectra[year] = []
-            for i, raw_ref in enumerate(refs):
-                ref = ModelRef.parse(raw_ref)
-                path = resolve_model(ref, os.path.join(self.cache_dir, f"baseline_{year}_{i}"))
-                state = load_state_dict(path, device)
-                self._spectra[year].append(svd_spectra(state))
-                del state
-                loaded += 1
-                logger.info(f"Baseline {year} variant {i} SVD loaded")
-        logger.info(f"All {loaded} baselines loaded")
-
-    def unload(self) -> None:
-        self._spectra.clear()
-        if torch.cuda.is_available():
-            torch.cuda.empty_cache()
-
-    def check(self, candidate_spectra: dict[str, torch.Tensor], year: int) -> tuple[bool, float]:
-        """Returns `(passed, min_distance)`. Passes when no baseline is close."""
-        baselines = self._spectra.get(year, [])
-        if not baselines:
-            return True, 1.0
-
-        min_dist = None
-        for reference in baselines:
-            dist = compare_spectra(candidate_spectra, reference, self.top_ratio)
-            if dist is not None and (min_dist is None or dist < min_dist):
-                min_dist = dist
-
-        if min_dist is None:
-            return True, 1.0
-        return min_dist >= self.threshold, min_dist
-
-
-def dedup_by_svd(
-    spectra_by_submitter: dict[str, dict[str, torch.Tensor]],
-    submitted_at: dict[str, str],
-    threshold: float = DEFAULT_SVD_THRESHOLD,
-    top_ratio: float = DEFAULT_SVD_TOP_RATIO,
-) -> set[str]:
-    """Drop submitters whose spectra match an earlier submitter's.
-
-    Ordering is by submission time, so the earliest submitter of a given model
-    keeps it and later ones are treated as copies.
-    """
-    ordered = sorted(spectra_by_submitter, key=lambda m: submitted_at.get(m, "9999"))
-    accepted: list[str] = []
-
-    for submitter_id in ordered:
-        duplicate_of = None
-        for kept in accepted:
-            dist = compare_spectra(spectra_by_submitter[submitter_id], spectra_by_submitter[kept], top_ratio)
-            if dist is not None and dist < threshold:
-                duplicate_of = (kept, dist)
-                break
-        if duplicate_of:
-            kept, dist = duplicate_of
-            logger.warning(f"{submitter_id} is a copy of {kept} (svd_dist={dist:.6f}), removing")
-        else:
-            accepted.append(submitter_id)
-
-    logger.info(f"SVD dedup: {len(spectra_by_submitter)} submitters -> {len(accepted)} unique")
-    return set(accepted)

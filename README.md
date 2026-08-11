@@ -1,77 +1,63 @@
 # Wigin TLLM
 
-Scores language models on **chronological consistency**: does a model built
-with a cutoff of year *Y* actually behave as though it has never seen anything
-after *Y*?
+Benchmark a language model for **chronological consistency**: does a model
+built with a cutoff of year *Y* actually behave as though it has never seen
+anything after *Y*?
 
 Standard language models are trained on text from every period at once. Used
 for backtesting or historical analysis they suffer from **lookahead bias** — a
 model asked to reason about 2015 has already read about everything that
-happened since. This tool measures whether a model genuinely respects a
-temporal boundary, and ranks a field of submissions accordingly.
+happened since. This measures whether a model genuinely respects a temporal
+boundary, and how good it is once it does.
+
+Everything here runs on your own machine against your own models.
 
 ---
 
-## How scoring works
+## What gets measured
 
 ```
-submissions ─► Stage 1: consistency probes ─► anti-copy ─► Stage 2: quality duels ─► rank
+final = 0.7 x consistency + 0.3 x quality
 ```
 
-**Stage 1 — chronological consistency.** For each cutoff year a model faces
-two probe sets and is scored on the log-probability it assigns to each
-continuation:
+**Consistency (stage 1)** — for each cutoff year the model faces two probe
+sets and is scored on the log-probability it assigns to each continuation:
 
 | Probe set | Content | Requirement |
 |---|---|---|
 | `unknown` | facts from **after** the cutoff | must **not** recognise them |
 | `known` | facts from **before** the cutoff | **must** recognise them |
 
-Both checks are needed. Without `unknown` a model that memorised everything
-would pass; without `known` an empty model that knows nothing would pass.
-
 ```
-year score = median(unknown) − median(known)      # more negative is better
-leak score = mean(year scores over all years)     # missing years score worst
+year score = median(unknown) - median(known)     # more negative is better
+leak score = mean over EVERY year in scope       # a missing year scores worst
 ```
 
-**Anti-copy.** Three independent layers, each catching what the previous one
-cannot:
+Both probe sets are load-bearing. Without `unknown` a model that memorised
+everything passes; without `known` an empty model that knows nothing passes.
 
-1. **Weight hash** — byte-identical resubmissions; first submitter keeps them.
-2. **SVD baseline gate** — lightly-modified copies of a published reference
-   model.
-3. **SVD pairwise dedup** — submitters copying each other.
+Stage 1 also runs the production gauntlet: size and parameter limits, pinned
+revisions, an optional per-model time budget, and — when references are given
+— an **SVD gate** that scores a year worst-possible if its model is
+spectrally a copy of that year's reference.
 
-Layers 2 and 3 compare *singular value spectra* rather than the weights
-themselves. A copy disguised as `W' = P·W·Q` with orthogonal `P`, `Q` has
-almost zero cosine similarity to the original but an identical spectrum, so
-the disguise fails.
+**Quality (stage 2)** — the model continues a set of incomplete texts, and
+those completions are judged head-to-head against reference models. The share
+of duels won is the quality score. Quality has no absolute scale, so this
+needs something to compare against.
 
-**Stage 2 — quality.** Qualified models continue the same set of incomplete
-texts; every pair is judged head-to-head over two cutoff years. The share of
-duels won is the quality score. Completion positions are swapped at random and
-mapped back, so a judge that favours whichever it sees first cannot decide the
-outcome.
+**Qualification gates stage 2.** A submission whose leak score does not clear
+`min_eval_score` never enters the duels and scores **0.0** outright — no
+amount of quality buys back a failed consistency check.
 
-The prompts are **generated fresh each round by an LLM**, across eight
-categories (reading comprehension, world knowledge, commonsense and causal
-reasoning, logical inference, temporal reasoning, language understanding and
-modelling). A fixed prompt file would be learnable — a model tuned to it would
-score well without being better. Prompts are deliberately timeless so a 2013
-model is not asked about 2020.
+**Similarity** — separately, how close is the model to a published one? The
+comparison is between *singular value spectra*, not weights: a copy disguised
+as `W' = P·W·Q` with orthogonal `P`, `Q` has almost zero cosine similarity to
+the original but an identical spectrum. The same primitive powers the stage-1
+gate and `--pairwise` dedup over a set of models.
 
-**Final score.**
-
-```
-final = 0.7 × normalised_leak_score + 0.3 × quality_win_rate
-```
-
-Submissions with a positive final score are ordered best-first and given a
-1-based rank. A score of 0 means the submission failed outright; it is
-reported with the reason, but carries no rank.
-
-Full details: [docs/scoring.md](docs/scoring.md).
+Full detail, with every threshold and edge case: [docs/scoring.md](docs/scoring.md).
+What to actually optimise: [docs/model-guide.md](docs/model-guide.md).
 
 ---
 
@@ -81,166 +67,163 @@ Full details: [docs/scoring.md](docs/scoring.md).
 python -m venv .venv && source .venv/bin/activate
 pip install -e ".[dev]"
 
-# optional extras
 pip install -e ".[chronogpt]"   # scoring native ChronoGPT checkpoints
-pip install -e ".[openai]"      # the OpenAI-backed quality judge
+pip install -e ".[openai]"      # LLM judge and prompt generation
 ```
 
-Requires Python ≥ 3.10. CPU is enough for small models; a GPU is strongly
-recommended at production sizes.
+Python >= 3.10. CPU is enough for small models; a GPU is strongly recommended
+at production sizes.
+
+## The workflow
+
+```bash
+# 1. build probe sets from your dated facts, calibrated against a real model
+wigin-tllm corpus --facts facts.json --out ./corpus \
+    --calibrate-with local:./reference-2013
+
+# 2. generate the stage-2 completion prompts
+wigin-tllm prompts --data ./corpus
+
+# 3. does my model respect its cutoff?
+#    (--against also runs the SVD copy-gate, as a real evaluation does)
+wigin-tllm consistency --submission models.json --data ./corpus \
+    --against chronogpt
+
+# 4. is it too close to something published? are my own years distinct?
+wigin-tllm similarity --model local:./my-model --against chronogpt
+wigin-tllm similarity --pairwise local:./m-2013,local:./m-2014,local:./m-2015
+
+# 5. how good is it, against references?
+wigin-tllm quality --submission models.json --data ./corpus \
+    --against chronogpt --judge openai
+
+# ...or all of it, and the final score
+wigin-tllm benchmark --submission models.json --data ./corpus \
+    --against chronogpt --judge openai
+```
+
+Every scoring command takes either `--submission models.json` (one model per
+year — the number that matters) or `--model` plus `--years` for a single
+checkpoint. A partial check is always flagged, because a real evaluation
+counts every missing year as worst-possible.
 
 ## Try it
 
-The demo builds a small synthetic world, trains seven real (tiny) models on
-CPU, and runs the complete pipeline offline — no network, no API keys:
+The demo builds a corpus, trains six tiny models on CPU and benchmarks four
+of them — offline, no API keys, about two minutes:
 
 ```bash
 python examples/run_local.py --rebuild
 ```
 
 ```
-rank   submitter            leak    norm   quality    final  status
-1      alice             -6.6303   1.000     1.000   1.0000  qualified
-2      bob              -10.0583   1.000     0.000   0.7000  qualified
--      copycat            0.0000   0.000     0.000   0.0000  duplicate_weights
--      eve                0.0000   0.000     0.000   0.0000  duplicate_of_earlier_submission
--      mallory            0.0000   0.000     0.000   0.0000  failed_consistency_check
--      null-model         0.0000   0.000     0.000   0.0000  failed_consistency_check
--      plagiarist         0.0000   0.000     0.000   0.0000  svd_gate_failed
+=== Corpus calibration ===
+  year      epsilon    known   unknown  threshold  verdict
+  2013      -7.6002  100.0%    13.3%     25.0%  separates
+  2014      -6.7433   50.0%    12.5%     25.0%  separates
+  2015      -5.7907   33.3%    11.1%     25.0%  separates
+Calibrated. Tightest margin 8.3% (year 2015) — comfortably clear of the threshold.
+
+#  alice — honest and well trained
+  leak score       -10.1264   (threshold -3.0000) — clears it
+  win rate            0.500   over 6 prompts against 2 reference(s)
+Final score  0.8500   = 0.7 x 1.000 + 0.3 x 0.500
+
+#  bob — honest, but never saw part of the material
+  leak score       -10.3043   (threshold -3.0000) — clears it
+  win rate            0.000   over 6 prompts against 2 reference(s)
+Final score  0.7000   = 0.7 x 1.000 + 0.3 x 0.000
+
+#  mallory — trained on facts from after its cutoff
+  leak score         0.0000   (threshold -3.0000) — below the bar
+Final score  0.0000   — stage 1 not cleared, so stage 2 never runs and the score is 0
+#  null-model — barely trained at all
+Final score  0.0000   — stage 1 not cleared, so stage 2 never runs and the score is 0
 ```
 
-Each submitter exercises a different branch: `alice` is honest and
-well-trained, `bob` is honest but never saw part of the material (clean, yet
-loses the duels), `mallory` trained on future facts, `null-model` learned
-nothing, `copycat` is byte-identical to alice, `eve` is alice plus
-imperceptible noise, and `plagiarist` copied the published baseline.
+Note that bob's raw leak score is *better* than alice's, yet alice wins: both
+saturate at 1.000 once normalised, and stage 2 decides. That is the single
+most useful thing to understand about the scoring.
 
-Note that bob's leak score is *better* than alice's, and both saturate at
-1.000 once normalised — chronological consistency cannot separate them at all.
-Stage 2 is what puts alice first.
+## A ready-made corpus
 
-(Leak scores vary in the third decimal between runs: CPU float reductions are
-not bit-reproducible. Ranks, duel outcomes and statuses are stable.)
-
-## Check your own model
-
-Before submitting anything, run the pre-flight check. It looks at one model in
-isolation — no anti-copy, no ranking — so you can run it as often as you like
-while iterating:
+[`examples/sample/`](examples/sample/) ships a corpus over the production
+year range (cutoffs 2013–2024), built from 52 real dated facts with
+production-style thresholds (known 0.70 / unknown 0.10), plus 16 static
+stage-2 prompts and a manifest template:
 
 ```bash
-# will my artefact be accepted at all?  (no probe data needed)
-wigin-tllm check --model local:./my-model
+cp examples/sample/models.example.json models.json   # then edit
 
-# ...and how would it score?
-wigin-tllm check --model local:./my-model --data ./my-data --years 2015
+wigin-tllm benchmark --submission models.json \
+    --data examples/sample/corpus --config examples/sample/config.json \
+    --against chronogpt --judge openai
 ```
 
-```
-Artefact
-------------------------------------------------------------------------
-  [ok  ]  weight size                      812.4 MB (limit 10.0 GiB)
-  [ok  ]  architecture                     llama
-  [ok  ]  loads without trust_remote_code  on cuda
-  [ok  ]  parameters                       1355.8M (limit 2.00B)
-  [ok  ]  tokenizer                        8 tokens, round-trip fine
-  [ok  ]  scoring                          prefers the sensible continuation in 4/4 probes
-  [ok  ]  generation                       e.g. "Paris, the capital of France"
+The shipped `epsilon` (−11.51) suits models with a ~50k-token vocabulary and
+was not placed by measurement — calibrate before trusting the numbers, and
+add facts before grading anything seriously: four per year smoke-tests a
+pipeline, it does not grade a model. Details in
+[examples/sample/README.md](examples/sample/README.md).
 
-Chronological consistency
-------------------------------------------------------------------------
-  2015  [FAIL]  score +0.0000   normalised 0.000
-      known    median   -0.8120   28/30 above epsilon -11.51   (must recognise)
-      unknown  median   -6.4001   9/30 above epsilon -11.51   (must not recognise)
-      recognises post-cutoff facts as readily as pre-cutoff ones — the
-      training data reaches beyond the cutoff
-```
+## Calibration is the part that matters
 
-Every failure comes with the numbers behind it and a diagnosis, so you know
-whether to fix the training cutoff, train longer, or recalibrate the probes.
-Exit code is non-zero when something blocks acceptance, so it drops into CI.
+A probe set that is not calibrated measures nothing. Set `epsilon` too strict
+and every model looks ignorant; too loose and every model looks like a leaker.
+Worse, if the honest hit rate lands near `threshold`, floating-point noise
+moving one probe across `epsilon` flips a whole year between pass and fail.
 
-## Run an evaluation
+`wigin-tllm corpus --calibrate-with` places `epsilon` by **measuring** a model
+that genuinely respects the cutoffs, and reports how much room is left before
+a verdict would turn on a single probe.
 
-```bash
-# generate this round's stage-2 prompts, then score
-wigin-tllm prompts --data ./my-data --per-category 13
-wigin-tllm run --data ./my-data --judge openai --baselines chronogpt
-
-# or generate them inline as part of the run
-wigin-tllm run --data ./my-data --judge openai --generate-prompts openai
-
-wigin-tllm validate --submission models.json --years 2013-2024
-wigin-tllm show --data ./my-data --round 1
-```
-
-Generating prompts as a separate step writes them to
-`completion_prompts.json`, so you can review the set and reproduce the round.
-Both paths need `OPENAI_API_KEY`.
-
-`--baselines` takes `chronogpt` (the bundled published references) or a path
-to a JSON file mapping year to model references. Without it the SVD baseline
-gate has nothing to compare against and passes everything — the other two
-anti-copy layers still apply.
-
-Or from Python:
+## Library use
 
 ```python
-from wigin_tllm import EvaluationConfig, run_evaluation
-from wigin_tllm.datasource import LocalDataSource
+from wigin_tllm import Corpus, EvaluationConfig, benchmark
 from wigin_tllm.scoring.judge import OpenAIJudge
 
-results = run_evaluation(
-    LocalDataSource("./my-data"),
-    config=EvaluationConfig(leak_weight=0.7, quality_weight=0.3),
+report = benchmark(
+    {"2015": "local:./my-model"},
+    Corpus("./corpus"),
+    config=EvaluationConfig(),
+    references="chronogpt",
     judge=OpenAIJudge(),
 )
-for s in results.submitters:
-    print(s.rank, s.submitter_id, s.final_score, s.disqualified_reason)
-```
-
-Data directory layout is documented in
-[docs/data-format.md](docs/data-format.md).
-
-## Docker
-
-```bash
-docker build -t wigin-tllm .
-docker run --rm -v "$PWD/my-data:/data" wigin-tllm run --data /data
+print(report.consistency.leak_score, report.quality.win_rate, report.final_score)
 ```
 
 ## Extending
 
-Every boundary is an interface, so the pieces most likely to differ per
-deployment can be replaced without touching the scoring code:
-
 | Extension point | Base class | Ships with |
 |---|---|---|
-| Where inputs come from | `DataSource` | `LocalDataSource`, `HttpDataSource`, `InMemoryDataSource` |
 | Who judges quality | `Judge` | `OpenAIJudge`, `ReferenceOverlapJudge`, `ScriptedJudge` |
-| Where stage-2 prompts come from | `PromptGenerator` | `OpenAIPromptGenerator`, `StaticPromptGenerator` |
+| Where prompts come from | `PromptGenerator` | `OpenAIPromptGenerator`, `StaticPromptGenerator` |
 | How completions are produced | `CompletionProvider` | `ModelCompletionProvider`, `StaticCompletionProvider` |
-| Which models count as baselines | `SvdGate(baselines=…)` | `CHRONOGPT_BASELINES`, or none |
 | Custom architectures | `models/architectures/` | `miniformer`, `nanochrono`, `chronogpt` |
 
-Models are always loaded with `trust_remote_code=False`. Custom architectures
-must be added to `models/architectures/` and reviewed, never executed out of a
-submitted directory — see [docs/architecture.md](docs/architecture.md).
+Models are always loaded with `trust_remote_code=False` — no code from a model
+directory is ever executed. A custom architecture must be added to
+`models/architectures/` and reviewed.
 
 ## Tests
 
 ```bash
-pytest                            # 214 tests, ~20s
-pytest tests/test_end_to_end.py   # real weights, real forward passes
+pytest                            # 173 tests, ~6s
+pytest -m slow                    # real weights, real forward passes
 ```
 
-## Documentation
+## Layout
 
-| | |
-|---|---|
-| [docs/architecture.md](docs/architecture.md) | Module map, data flow, design decisions |
-| [docs/scoring.md](docs/scoring.md) | Every formula, threshold, and edge case |
-| [docs/data-format.md](docs/data-format.md) | Input/output file formats |
+```
+wigin_tllm/
+├── corpus.py        build and calibrate probe sets
+├── benchmark/       artifact -> consistency -> similarity -> quality
+├── scoring/         the measurements themselves
+├── models/          load weights behind one uniform interface
+├── report.py        rendering
+└── cli.py
+```
 
 ## License
 

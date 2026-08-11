@@ -78,6 +78,11 @@ def score_items(model, device, items: list[BenchmarkItem]) -> list[float]:
     return list(totals)
 
 
+def score_one(model, device, prompt: str, phrase: str) -> float:
+    """Score a single (prompt, continuation) pair. Useful when debugging one probe."""
+    return score_items(model, device, [BenchmarkItem(prompt=prompt, phrase=phrase)])[0]
+
+
 def probe(model, device, benchmark: Benchmark) -> ProbeResult:
     """Run one probe set and report everything it revealed.
 

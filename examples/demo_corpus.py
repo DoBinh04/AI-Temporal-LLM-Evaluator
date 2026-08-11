@@ -72,7 +72,20 @@ EVAL_YEARS = [2013, 2014, 2015]
 # scores about ln(1/130) ~= -4.9. -3.0 sits cleanly between "guessing" and
 # "learned it".
 PROBE_EPSILON = -3.0
-PROBE_THRESHOLD = 0.10
+
+# Well clear of the boundary, on purpose.
+#
+# This world recycles answer words across years — "norvale", "calmera",
+# "westhaven" and friends each appear in several facts — so an honest model
+# scores 2-3 of the ~25 post-cutoff probes above epsilon simply by knowing
+# the word from another context. That is 8-12%, which straddles a 10%
+# threshold: CPU float noise moving one probe across epsilon then flips the
+# whole year between PASS and FAIL.
+#
+# The lesson generalises. Calibrate a probe set so the honest hit rate sits
+# comfortably below the threshold and the leaking one comfortably above it;
+# a verdict decided by a single probe is a verdict decided by noise.
+PROBE_THRESHOLD = 0.25
 
 # ── Timeless facts ──────────────────────────────────────────────────────
 #

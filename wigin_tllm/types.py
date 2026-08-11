@@ -1,4 +1,4 @@
-"""Data model for the evaluation pipeline.
+"""Data model.
 
 Plain Python throughout — no torch, no numpy — so the shapes that flow
 between stages can be imported and tested without any heavy dependency.
@@ -20,7 +20,10 @@ _COMMIT_SHA = re.compile(r"^[0-9a-f]{40}$")
 
 
 class SubmissionError(ValueError):
-    """A submission manifest is structurally invalid."""
+    """A model manifest is structurally invalid."""
+
+
+# ─── model references ────────────────────────────────────────────────────
 
 
 @dataclass(frozen=True)
@@ -31,9 +34,6 @@ class ModelRef:
 
     ``hf``     ``owner/repo@<40-hex-sha>`` (``hf:`` prefix optional)
     ``local``  ``local:/path/to/model_dir``
-
-    ``local`` exists so the pipeline can run without network access; ``hf`` is
-    the production path.
     """
 
     scheme: str
@@ -62,8 +62,7 @@ class ModelRef:
 
         body = ref[len("hf:"):] if ref.startswith("hf:") else ref
         # Split on the last '@': the revision is the trailing segment, so a
-        # stray '@' earlier in the string stays part of the location and gets
-        # rejected there rather than silently becoming the revision.
+        # stray '@' earlier stays part of the location and is rejected there.
         if "@" in body:
             location, revision = body.rsplit("@", 1)
         else:
@@ -73,27 +72,35 @@ class ModelRef:
     def __str__(self) -> str:
         return self.raw
 
+    @property
+    def short(self) -> str:
+        """A name short enough for a table column.
+
+        Model directories are often laid out `<name>/<year>`, where the last
+        segment alone identifies nothing — keep the parent in that case.
+        """
+        parts = [p for p in self.location.rstrip("/").split("/") if p]
+        if not parts:
+            return self.location
+        if len(parts) >= 2 and parts[-1].isdigit():
+            return "/".join(parts[-2:])
+        return parts[-1]
+
+
+# ─── corpus ──────────────────────────────────────────────────────────────
+
 
 @dataclass
-class Submission:
-    """One submitter's manifest: a model per cutoff year.
+class Fact:
+    """One dated statement: the raw material a probe set is built from."""
 
-    ``submitted_at`` is an ISO-8601 timestamp and the tie-breaker for every
-    anti-copy rule — the earliest submitter of a set of weights keeps them.
-    """
+    year: int
+    prompt: str
+    phrase: str
 
-    submitter_id: str
-    models: dict[str, str]
-    submitted_at: str = ""
-
-    def ref_for_year(self, year: int | str) -> Optional[ModelRef]:
-        raw = self.models.get(str(year))
-        return ModelRef.parse(raw) if raw else None
-
-    @property
-    def sort_key(self) -> tuple[str, str]:
-        """Ordering for anti-copy priority; undated submissions sort last."""
-        return (self.submitted_at or "9999", self.submitter_id)
+    @classmethod
+    def from_dict(cls, d: dict) -> "Fact":
+        return cls(year=int(d["year"]), prompt=d["prompt"], phrase=d["phrase"])
 
 
 @dataclass
@@ -136,18 +143,21 @@ class Benchmark:
             epsilon=float(d.get("epsilon", -11.51)),
         )
 
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "items": [asdict(i) for i in self.items],
+            "threshold": self.threshold,
+            "epsilon": self.epsilon,
+        }
+
 
 @dataclass
 class CompletionPrompt:
     """A stage-2 prompt: incomplete text the model must continue.
 
-    Deliberately not a question — models are scored on how well they carry
-    on a passage, which is what a language model does natively and what a
-    base checkpoint can be compared on fairly.
-
-    ``category`` records which skill the prompt targets. ``reference`` is
-    optional and ignored by LLM judges; judges that score by overlap use it
-    as the expected continuation.
+    Deliberately not a question — models are scored on how well they carry on
+    a passage, which is what a language model does natively and what a base
+    checkpoint can be compared on fairly.
     """
 
     prompt: str
@@ -161,6 +171,9 @@ class CompletionPrompt:
             category=d.get("category", ""),
             reference=d.get("reference", ""),
         )
+
+
+# ─── scoring results ─────────────────────────────────────────────────────
 
 
 @dataclass
@@ -188,6 +201,11 @@ class ProbeResult:
     def recognised(self) -> bool:
         return self.ratio > self.threshold
 
+    @property
+    def margin(self) -> float:
+        """Distance from the threshold. Near zero means a coin-flip verdict."""
+        return abs(self.ratio - self.threshold)
+
 
 @dataclass
 class YearAssessment:
@@ -200,158 +218,33 @@ class YearAssessment:
 
 
 @dataclass
-class YearEvaluation:
-    """Stage-1 outcome for one (submitter, year) pair."""
+class YearScore:
+    """One year of a consistency run, with the reason behind the verdict."""
 
-    submitter_id: str
     year: int
     model_ref: str
-    passed: bool
-    score: float
-    score_unknown: float = 0.0
-    score_known: float = 0.0
-    reason: str = ""
-
-
-# ─── intermediate results ────────────────────────────────────────────────
-
-
-@dataclass
-class ConsistencyResults:
-    """Everything stage 1 concluded, keyed by submitter."""
-
-    leak_scores: dict[str, float] = field(default_factory=dict)
-    year_scores: dict[str, dict[int, float]] = field(default_factory=dict)
-    disqualified: dict[str, str] = field(default_factory=dict)
-
-    def disqualify(self, submitter_id: str, reason: str, score: float) -> None:
-        """Record a reason and force the score to worst-possible.
-
-        The submitter stays in `leak_scores` so it still appears in the report
-        with an explanation; `eligible` is what decides who can advance.
-        """
-        self.disqualified[submitter_id] = reason
-        self.leak_scores[submitter_id] = score
+    assessment: Optional[YearAssessment] = None
+    diagnosis: str = ""
+    error: str = ""
 
     @property
-    def eligible(self) -> dict[str, float]:
-        """Scores of the submitters that may advance to qualification.
-
-        Rejected submissions are excluded here rather than relying on their
-        worst-possible score falling below the threshold — that equivalence
-        holds only while the threshold is negative, and the rejection should
-        stand whatever it is set to.
-        """
-        return {
-            submitter_id: score
-            for submitter_id, score in self.leak_scores.items()
-            if submitter_id not in self.disqualified
-        }
-
-
-@dataclass
-class Qualification:
-    """Who advanced to stage 2, and their normalised leak scores."""
-
-    entrants: list[tuple[str, float]] = field(default_factory=list)
-    normalized_leak: dict[str, float] = field(default_factory=dict)
+    def passed(self) -> bool:
+        return bool(self.assessment and self.assessment.passed)
 
     @property
-    def ids(self) -> list[str]:
-        return [submitter_id for submitter_id, _ in self.entrants]
-
-    def __len__(self) -> int:
-        return len(self.entrants)
+    def score(self) -> float:
+        return self.assessment.score if self.assessment else 0.0
 
 
-@dataclass
-class Ranking:
-    """The final blend: quality signal, combined scores, and the order."""
-
-    win_rates: Optional[dict[str, float]] = None
-    final_scores: dict[str, float] = field(default_factory=dict)
-    ordered: list[tuple[str, float]] = field(default_factory=list)
-
-    @property
-    def rank_of(self) -> dict[str, int]:
-        return {submitter_id: i + 1 for i, (submitter_id, _) in enumerate(self.ordered)}
+# ─── manifest ────────────────────────────────────────────────────────────
 
 
-# ─── final output ────────────────────────────────────────────────────────
-
-
-@dataclass
-class SubmitterResult:
-    """Everything the pipeline concluded about one submitter.
-
-    Read top to bottom this is the whole explanation of a score: what each
-    year scored, what that averages to, how it maps onto [0, 1], what the
-    quality duels added, and where that lands in the field.
-    """
-
-    submitter_id: str
-    #: Mean year score. Negative is good; 0.0 is the worst possible value.
-    leak_score: float
-    #: Per-year raw scores, `median(unknown) - median(known)`.
-    year_scores: dict[int, float] = field(default_factory=dict)
-    #: Whether the submitter advanced to the quality stage.
-    qualified: bool = False
-    #: `leak_score` mapped onto [0, 1], higher is better.
-    normalized_leak: float = 0.0
-    #: Share of quality duels won, in [0, 1].
-    quality_win_rate: float = 0.0
-    #: `leak_weight * normalized_leak + quality_weight * quality_win_rate`.
-    final_score: float = 0.0
-    #: 1-based position in the field; None if the submitter did not rank.
-    rank: Optional[int] = None
-    #: Why the submission was rejected, if it was.
-    disqualified_reason: str = ""
-
-
-@dataclass
-class RoundResults:
-    """The serialisable outcome of one evaluation round.
-
-    `submitters` is the single source of truth and is ordered best-first, so
-    the leading entry is the strongest model of the round.
-    """
-
-    round_id: int
-    submitters: list[SubmitterResult] = field(default_factory=list)
-
-    def to_dict(self) -> dict[str, Any]:
-        return asdict(self)
-
-    @classmethod
-    def from_dict(cls, payload: dict) -> "RoundResults":
-        return cls(
-            round_id=payload["round_id"],
-            submitters=[
-                SubmitterResult(
-                    **{**s, "year_scores": {int(y): v for y, v in s["year_scores"].items()}}
-                )
-                for s in payload.get("submitters", [])
-            ],
-        )
-
-    @property
-    def qualified(self) -> list[str]:
-        return [s.submitter_id for s in self.submitters if s.qualified]
-
-    @property
-    def ranked(self) -> list[SubmitterResult]:
-        return [s for s in self.submitters if s.rank is not None]
-
-
-# ─── validation ──────────────────────────────────────────────────────────
-
-
-def validate_submission(
+def validate_manifest(
     models: dict,
     allowed_years: Iterable[int],
     require_pinned_revision: bool = True,
 ) -> list[int]:
-    """Validate a submission manifest; return the list of missing years.
+    """Validate a `{year: model_ref}` manifest; return the missing years.
 
     Raises :class:`SubmissionError` on anything structurally wrong. Missing
     years are not an error — they simply score worst-possible later — so they

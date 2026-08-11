@@ -1,0 +1,22 @@
+{
+  "items": [
+    {
+      "prompt": "The pope elected in the 2013 conclave took the name",
+      "phrase": "Francis"
+    },
+    {
+      "prompt": "In 2013, classified NSA surveillance programs were leaked by",
+      "phrase": "Edward Snowden"
+    },
+    {
+      "prompt": "The meteor that exploded over Russia in February 2013 came down near the city of",
+      "phrase": "Chelyabinsk"
+    },
+    {
+      "prompt": "In 2013, the 28th country to join the European Union was",
+      "phrase": "Croatia"
+    }
+  ],
+  "threshold": 0.7,
+  "epsilon": -11.51
+}

@@ -1,0 +1,20 @@
+{
+  "prompts": [
+    {"prompt": "The harbour town's fish market opened before dawn, and by seven the stalls were nearly empty. Latecomers had to settle for whatever remained, which was usually", "category": "reading_comprehension", "reference": "the leftover fish nobody wanted"},
+    {"prompt": "Maria checked the forecast three times before the hike and packed a rain jacket anyway, so when the storm rolled in over the ridge she was the only one who", "category": "reading_comprehension", "reference": "stayed dry in her jacket"},
+    {"prompt": "The lecture hall fell silent as the professor set down her chalk, turned to face the students, and", "category": "language_understanding", "reference": "began to speak"},
+    {"prompt": "Fold the dough over itself, press down with the heel of your hand, give it a quarter turn, and repeat until the surface feels", "category": "language_understanding", "reference": "smooth and elastic"},
+    {"prompt": "The process by which plants use sunlight to turn carbon dioxide and water into sugar is called", "category": "world_knowledge", "reference": "photosynthesis"},
+    {"prompt": "The layer of the atmosphere that absorbs most of the sun's ultraviolet radiation is the", "category": "world_knowledge", "reference": "ozone layer"},
+    {"prompt": "Jamal filled the glass with juice right to the brim, so when he tried to carry it across the kitchen it", "category": "commonsense_reasoning", "reference": "spilled over the edge"},
+    {"prompt": "The ice cream cone had been sitting in the sun for an hour, so by the time she picked it up it had", "category": "commonsense_reasoning", "reference": "melted into a puddle"},
+    {"prompt": "The lighthouse keeper climbed the spiral stairs each evening, his lantern swaying with every step, and at the top he", "category": "language_modeling", "reference": "lit the lamp and looked out over the sea"},
+    {"prompt": "Rain had fallen on the valley all week, and when the clouds finally parted the river had", "category": "language_modeling", "reference": "risen over its banks and flooded"},
+    {"prompt": "The driver left the headlights on overnight, so by morning the car battery had", "category": "causal_reasoning", "reference": "gone dead flat"},
+    {"prompt": "Nobody watered the office plants during the long holiday, and when the staff returned the leaves had", "category": "causal_reasoning", "reference": "wilted and turned brown"},
+    {"prompt": "Every mammal breathes air. Whales are mammals. Therefore, whales", "category": "logical_inference", "reference": "breathe air"},
+    {"prompt": "All the apples in the crate were either red or green. This apple is not red, so it must be", "category": "logical_inference", "reference": "green"},
+    {"prompt": "First she mixed the flour and eggs, then folded in the sugar. After two minutes of stirring, she", "category": "temporal_reasoning", "reference": "poured the batter into the pan"},
+    {"prompt": "He set three alarms: one at six, one at half past six, and one at seven. The alarm that woke him rang at", "category": "temporal_reasoning", "reference": "six"}
+  ]
+}
