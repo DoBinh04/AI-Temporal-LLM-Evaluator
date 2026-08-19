@@ -1,0 +1,1822 @@
+{
+  "models": {
+    "manelalab/chrono-gpt-v1-20221231@4d37df723313ff0c156795002fc0abc30de6abf6": {
+      "known": [
+        {
+          "prompt": "The magnitude 7.8 earthquake that killed nearly 9,000 people in April 2015 struck the country of",
+          "phrase": "Nepal",
+          "score": -2.544853687286377,
+          "tokens": 1
+        },
+        {
+          "prompt": "The co-pilot who deliberately crashed a Germanwings passenger jet into the French Alps in March 2015 was named Andreas",
+          "phrase": "Lubitz",
+          "score": -10.656865000724792,
+          "tokens": 2
+        },
+        {
+          "prompt": "Super Bowl XLIX, played in February 2015 and decided by a goal-line interception, was won by the",
+          "phrase": "New England Patriots",
+          "score": -2.204937347676605,
+          "tokens": 3
+        },
+        {
+          "prompt": "At the Academy Awards ceremony held in February 2015, the Best Picture Oscar went to the film",
+          "phrase": "Birdman",
+          "score": -5.014148555696011,
+          "tokens": 2
+        },
+        {
+          "prompt": "In August 2015 Google announced it would reorganise itself as a subsidiary of a new parent holding company named",
+          "phrase": "Alphabet",
+          "score": -3.0248920917510986,
+          "tokens": 1
+        },
+        {
+          "prompt": "In September 2015 researchers announced a new extinct human relative unearthed in the Rising Star cave system in South Africa, which they named",
+          "phrase": "Homo naledi",
+          "score": -4.750978127121925,
+          "tokens": 4
+        },
+        {
+          "prompt": "The British prime minister who took office in July 2016 following David Cameron's resignation was",
+          "phrase": "Theresa May",
+          "score": -2.036087231710553,
+          "tokens": 2
+        },
+        {
+          "prompt": "The 5000-to-1 outsiders who stunned football by winning the English Premier League title in May 2016 were",
+          "phrase": "Leicester City",
+          "score": -8.156514346599579,
+          "tokens": 2
+        },
+        {
+          "prompt": "In 2016 Samsung permanently halted production of a flagship smartphone after its batteries caught fire; the recalled model was the",
+          "phrase": "Galaxy Note 7",
+          "score": -6.582031011581421,
+          "tokens": 3
+        },
+        {
+          "prompt": "The airliner that crashed near Medellin in November 2016 was carrying the players of the Brazilian football club",
+          "phrase": "Chapecoense",
+          "score": -5.790821562986821,
+          "tokens": 4
+        },
+        {
+          "prompt": "The gorilla shot dead at the Cincinnati Zoo in May 2016 after a small boy fell into the enclosure was named",
+          "phrase": "Harambe",
+          "score": -11.319693684577942,
+          "tokens": 2
+        },
+        {
+          "prompt": "The trove of offshore documents leaked in April 2016 and known as the Panama Papers came from a law firm called",
+          "phrase": "Mossack Fonseca",
+          "score": -18.081837036414072,
+          "tokens": 6
+        },
+        {
+          "prompt": "In 2016 the British polar research vessel whose online naming poll had been won by the entry Boaty McBoatface was officially named RRS",
+          "phrase": "Sir David Attenborough",
+          "score": -3.45470265505719,
+          "tokens": 5
+        },
+        {
+          "prompt": "The 24-storey London tower block where 72 people died in a fire in June 2017 was called",
+          "phrase": "Grenfell Tower",
+          "score": -9.296355620026588,
+          "tokens": 3
+        },
+        {
+          "prompt": "In February 2017 the Super Bowl went to overtime for the first time ever after one team squandered a 28-3 lead; that team was the",
+          "phrase": "Atlanta Falcons",
+          "score": -4.76976624596864,
+          "tokens": 2
+        },
+        {
+          "prompt": "In May 2017 a ransomware attack paralysed Britain's National Health Service and spread to about 150 countries; the malware was known as",
+          "phrase": "WannaCry",
+          "score": -6.531968355178833,
+          "tokens": 3
+        },
+        {
+          "prompt": "In June 2017 Amazon announced a $13.7 billion deal to buy the supermarket chain",
+          "phrase": "Whole Foods",
+          "score": -4.642113298177719,
+          "tokens": 2
+        },
+        {
+          "prompt": "In the 2017 World Series the Los Angeles Dodgers were beaten in seven games by the",
+          "phrase": "Houston Astros",
+          "score": -3.6291941325180233,
+          "tokens": 2
+        },
+        {
+          "prompt": "At the 2017 Emmy Awards the prize for outstanding drama series went to the Hulu series",
+          "phrase": "The Handmaid's Tale",
+          "score": -4.985229480545968,
+          "tokens": 5
+        },
+        {
+          "prompt": "In June 2018 Donald Trump and Kim Jong-un held their first face-to-face summit in",
+          "phrase": "Singapore",
+          "score": -4.576505184173584,
+          "tokens": 1
+        },
+        {
+          "prompt": "The November 2018 wildfire that destroyed the northern Californian town of Paradise and killed 85 people was named the",
+          "phrase": "Camp Fire",
+          "score": -7.627001971006393,
+          "tokens": 2
+        },
+        {
+          "prompt": "In January 2018 security researchers disclosed two processor design flaws affecting nearly every modern computer chip, which they named Meltdown and",
+          "phrase": "Spectre",
+          "score": -5.395695686340332,
+          "tokens": 1
+        },
+        {
+          "prompt": "The colt that swept American horse racing's Triple Crown in 2018 was named",
+          "phrase": "Justify",
+          "score": -11.517308235168457,
+          "tokens": 2
+        },
+        {
+          "prompt": "In November 2018 Amazon said it would split its second headquarters between Arlington, Virginia and a neighborhood in the New York borough of Queens called",
+          "phrase": "Long Island City",
+          "score": -4.131306014955044,
+          "tokens": 3
+        },
+        {
+          "prompt": "The black-and-white Spanish-language film by Alfonso Cuaron that won the Golden Lion at the 2018 Venice Film Festival was titled",
+          "phrase": "Roma",
+          "score": -9.424222946166992,
+          "tokens": 1
+        },
+        {
+          "prompt": "In July 2019, Theresa May stepped down as British prime minister and was succeeded by",
+          "phrase": "Boris Johnson",
+          "score": -0.8240410127909854,
+          "tokens": 2
+        },
+        {
+          "prompt": "In October 2019, the quantum processor with which Google claimed to have achieved quantum supremacy was named",
+          "phrase": "Sycamore",
+          "score": -7.07428458542563,
+          "tokens": 3
+        },
+        {
+          "prompt": "In June 2019, Facebook unveiled plans for a global digital currency to be called",
+          "phrase": "Libra",
+          "score": -8.484128832817078,
+          "tokens": 2
+        },
+        {
+          "prompt": "In the 2019 series finale of Game of Thrones, the character chosen to rule the Six Kingdoms was",
+          "phrase": "Bran Stark",
+          "score": -10.66498339176178,
+          "tokens": 2
+        },
+        {
+          "prompt": "The 2019 country-rap song Old Town Road, which set a record for weeks at number one on the Billboard Hot 100, was recorded by",
+          "phrase": "Lil Nas X",
+          "score": -7.154930200427771,
+          "tokens": 3
+        },
+        {
+          "prompt": "In March 2019, a gunman attacked two mosques in New Zealand, killing 51 people in the city of",
+          "phrase": "Christchurch",
+          "score": -0.8305819623637944,
+          "tokens": 2
+        },
+        {
+          "prompt": "The retired basketball star killed along with his daughter in a California helicopter crash in January 2020 was",
+          "phrase": "Kobe Bryant",
+          "score": -10.686238527297974,
+          "tokens": 2
+        },
+        {
+          "prompt": "In May 2020, protests spread worldwide after a Minneapolis police officer knelt on the neck of a Black man named",
+          "phrase": "George Floyd",
+          "score": -3.543168503791094,
+          "tokens": 2
+        },
+        {
+          "prompt": "In August 2020, a stockpile of ammonium nitrate detonated at a Mediterranean port, killing more than 200 people and devastating the city of",
+          "phrase": "Beirut",
+          "score": -5.706710338592529,
+          "tokens": 1
+        },
+        {
+          "prompt": "The September 2020 agreements normalising relations between Israel, the United Arab Emirates and Bahrain were known as the",
+          "phrase": "Abraham Accords",
+          "score": -11.875025316141546,
+          "tokens": 3
+        },
+        {
+          "prompt": "The sweeping cyberattack on United States government agencies revealed in December 2020 spread through network management software made by",
+          "phrase": "SolarWinds",
+          "score": -9.657808065414429,
+          "tokens": 3
+        },
+        {
+          "prompt": "The pharmaceutical company that partnered with the University of Oxford on its 2020 coronavirus vaccine was",
+          "phrase": "AstraZeneca",
+          "score": -3.9676580026280135,
+          "tokens": 4
+        },
+        {
+          "prompt": "In October 2021 Facebook announced that its parent company would be renamed",
+          "phrase": "Meta",
+          "score": -4.324575901031494,
+          "tokens": 1
+        },
+        {
+          "prompt": "The coronavirus variant first reported from southern Africa in November 2021 was given the Greek letter name",
+          "phrase": "Omicron",
+          "score": -3.7242183159251,
+          "tokens": 3
+        },
+        {
+          "prompt": "The Canary Island where a volcano erupted for nearly three months in 2021, burying villages under lava, was",
+          "phrase": "La Palma",
+          "score": -12.08455684222281,
+          "tokens": 3
+        },
+        {
+          "prompt": "The driver who took his first Formula One world championship on the final lap of the 2021 season finale in Abu Dhabi was",
+          "phrase": "Max Verstappen",
+          "score": -5.1681419784436,
+          "tokens": 5
+        },
+        {
+          "prompt": "The Israeli politician who took over as prime minister from Benjamin Netanyahu in June 2021 was",
+          "phrase": "Naftali Bennett",
+          "score": -10.316602420061827,
+          "tokens": 4
+        },
+        {
+          "prompt": "One half of the 2021 Nobel Prize in Physics went to two researchers for their work modelling Earth's climate: Klaus Hasselmann and",
+          "phrase": "Syukuro Manabe",
+          "score": -14.721771381795406,
+          "tokens": 5
+        },
+        {
+          "prompt": "The club that beat Liverpool in the Champions League final in May 2022 was",
+          "phrase": "Real Madrid",
+          "score": -3.057737648487091,
+          "tokens": 2
+        },
+        {
+          "prompt": "The video game company that Microsoft agreed to buy for about 69 billion dollars in January 2022 was",
+          "phrase": "Activision Blizzard",
+          "score": -10.697185099124908,
+          "tokens": 2
+        },
+        {
+          "prompt": "The cryptocurrency exchange that collapsed into bankruptcy in November 2022 after a run on customer deposits was",
+          "phrase": "FTX",
+          "score": -12.811800122261047,
+          "tokens": 2
+        },
+        {
+          "prompt": "The Halloween crowd crush that killed more than 150 people in Seoul in October 2022 happened in the nightlife district of",
+          "phrase": "Itaewon",
+          "score": -7.08459347486496,
+          "tokens": 4
+        },
+        {
+          "prompt": "The digital artwork that won first prize at the Colorado State Fair in August 2022 had been generated with the AI image tool",
+          "phrase": "Midjourney",
+          "score": -25.95255708694458,
+          "tokens": 3
+        },
+        {
+          "prompt": "The politician sworn in as Italy's first woman prime minister in October 2022 was",
+          "phrase": "Giorgia Meloni",
+          "score": -5.217192023061216,
+          "tokens": 6
+        },
+        {
+          "prompt": "The 2022 Eurovision Song Contest was won by a Ukrainian rap and folk group called",
+          "phrase": "Kalush Orchestra",
+          "score": -10.793331384658813,
+          "tokens": 3
+        }
+      ],
+      "unknown": [
+        {
+          "prompt": "The Libyan city where thousands died in September 2023 after two dams burst during Storm Daniel was",
+          "phrase": "Derna",
+          "score": -10.855369620025158,
+          "tokens": 3
+        },
+        {
+          "prompt": "The February 2023 Norfolk Southern derailment that spilled vinyl chloride and forced mass evacuations happened in the Ohio village of",
+          "phrase": "East Palestine",
+          "score": -9.34537935256958,
+          "tokens": 2
+        },
+        {
+          "prompt": "The purported room-temperature superconductor from a South Korean team that went viral online in July 2023 was called",
+          "phrase": "LK-99",
+          "score": -19.504985570907593,
+          "tokens": 4
+        },
+        {
+          "prompt": "The 2023 Nobel Prize in Chemistry was awarded for the discovery and synthesis of",
+          "phrase": "quantum dots",
+          "score": -5.712264329195023,
+          "tokens": 2
+        },
+        {
+          "prompt": "In March 2023 US regulators closed Silicon Valley Bank and, two days later, shut a second lender based in New York called",
+          "phrase": "Signature Bank",
+          "score": -10.37878954410553,
+          "tokens": 2
+        },
+        {
+          "prompt": "The song that won the 2023 Eurovision Song Contest for Sweden was called",
+          "phrase": "Tattoo",
+          "score": -12.278819262981415,
+          "tokens": 2
+        },
+        {
+          "prompt": "Time magazine's Person of the Year for 2023 was the musician",
+          "phrase": "Taylor Swift",
+          "score": -4.871937677264214,
+          "tokens": 2
+        },
+        {
+          "prompt": "In December 2023 Google announced a new flagship family of multimodal artificial intelligence models called",
+          "phrase": "Gemini",
+          "score": -10.882828712463379,
+          "tokens": 1
+        },
+        {
+          "prompt": "At its developer conference in June 2023 Apple unveiled its first mixed-reality headset, called the Apple",
+          "phrase": "Vision Pro",
+          "score": -10.50162935256958,
+          "tokens": 2
+        },
+        {
+          "prompt": "After Sam Altman was abruptly removed as chief executive of OpenAI in November 2023, the board briefly installed as interim chief executive",
+          "phrase": "Emmett Shear",
+          "score": -19.59410060942173,
+          "tokens": 5
+        },
+        {
+          "prompt": "The first CRISPR gene-editing therapy ever approved by regulators, cleared in 2023 to treat sickle cell disease, is sold under the brand name",
+          "phrase": "Casgevy",
+          "score": -19.543899536132812,
+          "tokens": 3
+        },
+        {
+          "prompt": "In November 2023 the US Food and Drug Administration approved Eli Lilly's tirzepatide for chronic weight management under the brand name",
+          "phrase": "Zepbound",
+          "score": -19.76925015449524,
+          "tokens": 3
+        },
+        {
+          "prompt": "The radical libertarian economist who won Argentina's presidential runoff in November 2023 was Javier",
+          "phrase": "Milei",
+          "score": -15.930153608322144,
+          "tokens": 2
+        },
+        {
+          "prompt": "In February 2023 a US fighter jet shot down a suspected Chinese surveillance balloon over the Atlantic just off the coast of",
+          "phrase": "South Carolina",
+          "score": -4.425450563430786,
+          "tokens": 2
+        },
+        {
+          "prompt": "Hamas gave its surprise assault on southern Israel on 7 October 2023 the code name",
+          "phrase": "Operation Al-Aqsa Flood",
+          "score": -31.402081668376923,
+          "tokens": 7
+        },
+        {
+          "prompt": "The 2023 Stanley Cup was won, for the first time in the franchise's history, by the",
+          "phrase": "Vegas Golden Knights",
+          "score": -5.096792869269848,
+          "tokens": 3
+        },
+        {
+          "prompt": "The 2023 Wimbledon men's singles final ended Novak Djokovic's run of four straight titles when he lost in five sets to",
+          "phrase": "Alcaraz",
+          "score": -14.692080091685057,
+          "tokens": 3
+        },
+        {
+          "prompt": "The small Pennsylvania town where a gunman shot and wounded Donald Trump at an open-air campaign rally on 13 July 2024 was called",
+          "phrase": "Butler",
+          "score": -12.107912063598633,
+          "tokens": 1
+        },
+        {
+          "prompt": "The container ship that lost power and brought down Baltimore's Francis Scott Key Bridge in March 2024 was named the",
+          "phrase": "Dali",
+          "score": -13.163503170013428,
+          "tokens": 2
+        },
+        {
+          "prompt": "In late October 2024 Spain suffered its deadliest floods in decades, when a slow-moving storm devastated dozens of towns around the city of",
+          "phrase": "Valencia",
+          "score": -2.618068218231201,
+          "tokens": 1
+        },
+        {
+          "prompt": "In December 2024 a Jeju Air jet overran the runway and burst into flames at a South Korean airport in the county of",
+          "phrase": "Muan",
+          "score": -8.665533185005188,
+          "tokens": 2
+        },
+        {
+          "prompt": "In December 2024 an eighteen-year-old from India became the youngest undisputed world chess champion in history; his usual playing name is",
+          "phrase": "Gukesh",
+          "score": -17.163219571113586,
+          "tokens": 3
+        },
+        {
+          "prompt": "The lime-green Charli XCX album that spawned an entire aesthetic in the summer of 2024 was titled",
+          "phrase": "Brat",
+          "score": -12.038944959640503,
+          "tokens": 2
+        },
+        {
+          "prompt": "In February 2024 OpenAI stunned the internet by demonstrating a text-to-video generation model it had named",
+          "phrase": "Sora",
+          "score": -13.603299140930176,
+          "tokens": 1
+        },
+        {
+          "prompt": "Elon Musk said in 2024 that Neuralink's first product, the brain implant fitted into a paralysed patient that January, would be called",
+          "phrase": "Telepathy",
+          "score": -17.780497550964355,
+          "tokens": 2
+        },
+        {
+          "prompt": "The English seaside town where the killing of three young girls at a dance class in July 2024 set off weeks of nationwide rioting was",
+          "phrase": "Southport",
+          "score": -10.628510475158691,
+          "tokens": 2
+        },
+        {
+          "prompt": "The twenty-six-year-old Ivy League graduate arrested in December 2024 over the shooting of UnitedHealthcare's chief executive was named Luigi",
+          "phrase": "Mangione",
+          "score": -10.32848834991455,
+          "tokens": 2
+        },
+        {
+          "prompt": "In November 2024, a few months after suffering their worst general election defeat on record, Britain's Conservatives chose as their new leader",
+          "phrase": "Kemi Badenoch",
+          "score": -27.766896843910217,
+          "tokens": 5
+        },
+        {
+          "prompt": "In September 2024, after a snap parliamentary election left the French assembly deadlocked, Emmanuel Macron named as prime minister the seventy-three-year-old conservative",
+          "phrase": "Michel Barnier",
+          "score": -6.422885951120406,
+          "tokens": 3
+        },
+        {
+          "prompt": "The magnitude 7.6 earthquake that struck central Japan on New Year's Day 2024 was centred on the",
+          "phrase": "Noto Peninsula",
+          "score": -11.684753343462944,
+          "tokens": 3
+        },
+        {
+          "prompt": "The stage-play-turned-Netflix drama about a struggling comedian and the woman who stalks him, which became the surprise streaming hit of 2024, was called",
+          "phrase": "Baby Reindeer",
+          "score": -20.1827247813344,
+          "tokens": 4
+        },
+        {
+          "prompt": "The men's singles title at the 2024 US Open was won, in his first year as world number one, by",
+          "phrase": "Jannik Sinner",
+          "score": -6.830676314420998,
+          "tokens": 5
+        },
+        {
+          "prompt": "In August 2024 Boeing, battered by a mid-air door panel blowout and mounting losses, installed a new chief executive named",
+          "phrase": "Kelly Ortberg",
+          "score": -22.12391471862793,
+          "tokens": 3
+        },
+        {
+          "prompt": "The Kendrick Lamar diss record that dominated the summer of 2024 during his feud with Drake was titled",
+          "phrase": "Not Like Us",
+          "score": -15.44573187828064,
+          "tokens": 3
+        },
+        {
+          "prompt": "In January 2025 a Chinese startup shook global markets with a cheaply trained open-weight reasoning model called R1; the startup's name was",
+          "phrase": "DeepSeek",
+          "score": -19.152042150497437,
+          "tokens": 3
+        },
+        {
+          "prompt": "Collins Dictionary announced that its word of the year for 2025 was the two-word term",
+          "phrase": "vibe coding",
+          "score": -28.392873764038086,
+          "tokens": 2
+        },
+        {
+          "prompt": "The Google image generation and editing model that went viral worldwide in August 2025 was known by the nickname",
+          "phrase": "Nano Banana",
+          "score": -25.710132598876953,
+          "tokens": 2
+        },
+        {
+          "prompt": "At the Grammy Awards in February 2025, Beyonc\u00c3\u00a9 finally won Album of the Year for her country record",
+          "phrase": "Cowboy Carter",
+          "score": -24.986602783203125,
+          "tokens": 2
+        },
+        {
+          "prompt": "In March 2025, after Justin Trudeau announced his resignation, the Liberal Party chose as leader and Canada's new prime minister",
+          "phrase": "Mark Carney",
+          "score": -11.783378601074219,
+          "tokens": 2
+        },
+        {
+          "prompt": "In October 2025 Japan's parliament elected the country's first ever female prime minister",
+          "phrase": "Sanae Takaichi",
+          "score": -24.28536605834961,
+          "tokens": 5
+        },
+        {
+          "prompt": "The 34-year-old democratic socialist who won the New York City mayoral election in November 2025 was",
+          "phrase": "Zohran Mamdani",
+          "score": -31.610153675079346,
+          "tokens": 6
+        },
+        {
+          "prompt": "The team that beat the Indiana Pacers in seven games to win the 2025 NBA Finals was the",
+          "phrase": "Oklahoma City Thunder",
+          "score": -5.278392498381436,
+          "tokens": 3
+        },
+        {
+          "prompt": "The driver who clinched the 2025 Formula One world drivers' championship at the season-ending Abu Dhabi Grand Prix was",
+          "phrase": "Lando Norris",
+          "score": -6.790298100793734,
+          "tokens": 3
+        },
+        {
+          "prompt": "The club that beat Paris Saint-Germain 3-0 in the final of the first 32-team FIFA Club World Cup in July 2025 was",
+          "phrase": "Chelsea",
+          "score": -4.608586311340332,
+          "tokens": 1
+        },
+        {
+          "prompt": "The two wildfires that destroyed thousands of homes across Los Angeles County in January 2025 were called the Palisades Fire and the",
+          "phrase": "Eaton Fire",
+          "score": -11.224241465330124,
+          "tokens": 2
+        },
+        {
+          "prompt": "The magnitude 7.7 earthquake that struck Myanmar on 28 March 2025 had its epicentre close to the city of",
+          "phrase": "Mandalay",
+          "score": -3.2772918911650777,
+          "tokens": 2
+        },
+        {
+          "prompt": "The fire that killed more than 150 people in Hong Kong's Tai Po district in November 2025 tore through a housing estate called",
+          "phrase": "Wang Fuk Court",
+          "score": -20.293699264526367,
+          "tokens": 3
+        },
+        {
+          "prompt": "The sweeping global tariffs that President Trump unveiled on 2 April 2025 were announced at a White House event he billed as",
+          "phrase": "Liberation Day",
+          "score": -15.676098704338074,
+          "tokens": 2
+        },
+        {
+          "prompt": "The cryptocurrency exchange that lost about 1.5 billion dollars in the largest crypto theft on record, in February 2025, was",
+          "phrase": "Bybit",
+          "score": -16.94359827041626,
+          "tokens": 2
+        },
+        {
+          "prompt": "In January 2025 the United States recorded its first ever human death from H5N1 bird flu, in the state of",
+          "phrase": "Louisiana",
+          "score": -3.824838399887085,
+          "tokens": 1
+        }
+      ]
+    },
+    "manelalab/chrono-gpt-v1-20231231@771747bd61cd50b8d99fe381a41eb25c86b80f3e": {
+      "known": [
+        {
+          "prompt": "The magnitude 7.8 earthquake that killed nearly 9,000 people in April 2015 struck the country of",
+          "phrase": "Nepal",
+          "score": -2.5426623821258545,
+          "tokens": 1
+        },
+        {
+          "prompt": "The co-pilot who deliberately crashed a Germanwings passenger jet into the French Alps in March 2015 was named Andreas",
+          "phrase": "Lubitz",
+          "score": -10.269729137420654,
+          "tokens": 2
+        },
+        {
+          "prompt": "Super Bowl XLIX, played in February 2015 and decided by a goal-line interception, was won by the",
+          "phrase": "New England Patriots",
+          "score": -2.3587730295257643,
+          "tokens": 3
+        },
+        {
+          "prompt": "At the Academy Awards ceremony held in February 2015, the Best Picture Oscar went to the film",
+          "phrase": "Birdman",
+          "score": -5.041246335953474,
+          "tokens": 2
+        },
+        {
+          "prompt": "In August 2015 Google announced it would reorganise itself as a subsidiary of a new parent holding company named",
+          "phrase": "Alphabet",
+          "score": -2.8301267623901367,
+          "tokens": 1
+        },
+        {
+          "prompt": "In September 2015 researchers announced a new extinct human relative unearthed in the Rising Star cave system in South Africa, which they named",
+          "phrase": "Homo naledi",
+          "score": -4.83609564602375,
+          "tokens": 4
+        },
+        {
+          "prompt": "The British prime minister who took office in July 2016 following David Cameron's resignation was",
+          "phrase": "Theresa May",
+          "score": -1.670037679374218,
+          "tokens": 2
+        },
+        {
+          "prompt": "The 5000-to-1 outsiders who stunned football by winning the English Premier League title in May 2016 were",
+          "phrase": "Leicester City",
+          "score": -7.780121088027954,
+          "tokens": 2
+        },
+        {
+          "prompt": "In 2016 Samsung permanently halted production of a flagship smartphone after its batteries caught fire; the recalled model was the",
+          "phrase": "Galaxy Note 7",
+          "score": -5.877426028251648,
+          "tokens": 3
+        },
+        {
+          "prompt": "The airliner that crashed near Medellin in November 2016 was carrying the players of the Brazilian football club",
+          "phrase": "Chapecoense",
+          "score": -5.851187773514539,
+          "tokens": 4
+        },
+        {
+          "prompt": "The gorilla shot dead at the Cincinnati Zoo in May 2016 after a small boy fell into the enclosure was named",
+          "phrase": "Harambe",
+          "score": -10.419464349746704,
+          "tokens": 2
+        },
+        {
+          "prompt": "The trove of offshore documents leaked in April 2016 and known as the Panama Papers came from a law firm called",
+          "phrase": "Mossack Fonseca",
+          "score": -18.51558543322608,
+          "tokens": 6
+        },
+        {
+          "prompt": "In 2016 the British polar research vessel whose online naming poll had been won by the entry Boaty McBoatface was officially named RRS",
+          "phrase": "Sir David Attenborough",
+          "score": -2.0793343178520445,
+          "tokens": 5
+        },
+        {
+          "prompt": "The 24-storey London tower block where 72 people died in a fire in June 2017 was called",
+          "phrase": "Grenfell Tower",
+          "score": -9.245513439178467,
+          "tokens": 3
+        },
+        {
+          "prompt": "In February 2017 the Super Bowl went to overtime for the first time ever after one team squandered a 28-3 lead; that team was the",
+          "phrase": "Atlanta Falcons",
+          "score": -4.5155766271054745,
+          "tokens": 2
+        },
+        {
+          "prompt": "In May 2017 a ransomware attack paralysed Britain's National Health Service and spread to about 150 countries; the malware was known as",
+          "phrase": "WannaCry",
+          "score": -6.023423343896866,
+          "tokens": 3
+        },
+        {
+          "prompt": "In June 2017 Amazon announced a $13.7 billion deal to buy the supermarket chain",
+          "phrase": "Whole Foods",
+          "score": -5.064538899809122,
+          "tokens": 2
+        },
+        {
+          "prompt": "In the 2017 World Series the Los Angeles Dodgers were beaten in seven games by the",
+          "phrase": "Houston Astros",
+          "score": -3.164612742839381,
+          "tokens": 2
+        },
+        {
+          "prompt": "At the 2017 Emmy Awards the prize for outstanding drama series went to the Hulu series",
+          "phrase": "The Handmaid's Tale",
+          "score": -4.236492549767718,
+          "tokens": 5
+        },
+        {
+          "prompt": "In June 2018 Donald Trump and Kim Jong-un held their first face-to-face summit in",
+          "phrase": "Singapore",
+          "score": -4.103364944458008,
+          "tokens": 1
+        },
+        {
+          "prompt": "The November 2018 wildfire that destroyed the northern Californian town of Paradise and killed 85 people was named the",
+          "phrase": "Camp Fire",
+          "score": -6.5371034145355225,
+          "tokens": 2
+        },
+        {
+          "prompt": "In January 2018 security researchers disclosed two processor design flaws affecting nearly every modern computer chip, which they named Meltdown and",
+          "phrase": "Spectre",
+          "score": -5.312175750732422,
+          "tokens": 1
+        },
+        {
+          "prompt": "The colt that swept American horse racing's Triple Crown in 2018 was named",
+          "phrase": "Justify",
+          "score": -8.845761775970459,
+          "tokens": 2
+        },
+        {
+          "prompt": "In November 2018 Amazon said it would split its second headquarters between Arlington, Virginia and a neighborhood in the New York borough of Queens called",
+          "phrase": "Long Island City",
+          "score": -3.8327269926667213,
+          "tokens": 3
+        },
+        {
+          "prompt": "The black-and-white Spanish-language film by Alfonso Cuaron that won the Golden Lion at the 2018 Venice Film Festival was titled",
+          "phrase": "Roma",
+          "score": -9.080754280090332,
+          "tokens": 1
+        },
+        {
+          "prompt": "In July 2019, Theresa May stepped down as British prime minister and was succeeded by",
+          "phrase": "Boris Johnson",
+          "score": -0.8253377614892088,
+          "tokens": 2
+        },
+        {
+          "prompt": "In October 2019, the quantum processor with which Google claimed to have achieved quantum supremacy was named",
+          "phrase": "Sycamore",
+          "score": -7.230225322768092,
+          "tokens": 3
+        },
+        {
+          "prompt": "In June 2019, Facebook unveiled plans for a global digital currency to be called",
+          "phrase": "Libra",
+          "score": -7.716806039214134,
+          "tokens": 2
+        },
+        {
+          "prompt": "In the 2019 series finale of Game of Thrones, the character chosen to rule the Six Kingdoms was",
+          "phrase": "Bran Stark",
+          "score": -12.2113196849823,
+          "tokens": 2
+        },
+        {
+          "prompt": "The 2019 country-rap song Old Town Road, which set a record for weeks at number one on the Billboard Hot 100, was recorded by",
+          "phrase": "Lil Nas X",
+          "score": -7.7547704773023725,
+          "tokens": 3
+        },
+        {
+          "prompt": "In March 2019, a gunman attacked two mosques in New Zealand, killing 51 people in the city of",
+          "phrase": "Christchurch",
+          "score": -1.5456170940888114,
+          "tokens": 2
+        },
+        {
+          "prompt": "The retired basketball star killed along with his daughter in a California helicopter crash in January 2020 was",
+          "phrase": "Kobe Bryant",
+          "score": -11.286496043205261,
+          "tokens": 2
+        },
+        {
+          "prompt": "In May 2020, protests spread worldwide after a Minneapolis police officer knelt on the neck of a Black man named",
+          "phrase": "George Floyd",
+          "score": -3.7799908332526684,
+          "tokens": 2
+        },
+        {
+          "prompt": "In August 2020, a stockpile of ammonium nitrate detonated at a Mediterranean port, killing more than 200 people and devastating the city of",
+          "phrase": "Beirut",
+          "score": -4.746818542480469,
+          "tokens": 1
+        },
+        {
+          "prompt": "The September 2020 agreements normalising relations between Israel, the United Arab Emirates and Bahrain were known as the",
+          "phrase": "Abraham Accords",
+          "score": -8.99783173110336,
+          "tokens": 3
+        },
+        {
+          "prompt": "The sweeping cyberattack on United States government agencies revealed in December 2020 spread through network management software made by",
+          "phrase": "SolarWinds",
+          "score": -8.341649495996535,
+          "tokens": 3
+        },
+        {
+          "prompt": "The pharmaceutical company that partnered with the University of Oxford on its 2020 coronavirus vaccine was",
+          "phrase": "AstraZeneca",
+          "score": -4.030437405919656,
+          "tokens": 4
+        },
+        {
+          "prompt": "In October 2021 Facebook announced that its parent company would be renamed",
+          "phrase": "Meta",
+          "score": -2.916640043258667,
+          "tokens": 1
+        },
+        {
+          "prompt": "The coronavirus variant first reported from southern Africa in November 2021 was given the Greek letter name",
+          "phrase": "Omicron",
+          "score": -4.375047562018153,
+          "tokens": 3
+        },
+        {
+          "prompt": "The Canary Island where a volcano erupted for nearly three months in 2021, burying villages under lava, was",
+          "phrase": "La Palma",
+          "score": -11.488003814592957,
+          "tokens": 3
+        },
+        {
+          "prompt": "The driver who took his first Formula One world championship on the final lap of the 2021 season finale in Abu Dhabi was",
+          "phrase": "Max Verstappen",
+          "score": -5.389180503094394,
+          "tokens": 5
+        },
+        {
+          "prompt": "The Israeli politician who took over as prime minister from Benjamin Netanyahu in June 2021 was",
+          "phrase": "Naftali Bennett",
+          "score": -8.797952465713024,
+          "tokens": 4
+        },
+        {
+          "prompt": "One half of the 2021 Nobel Prize in Physics went to two researchers for their work modelling Earth's climate: Klaus Hasselmann and",
+          "phrase": "Syukuro Manabe",
+          "score": -11.618557900656015,
+          "tokens": 5
+        },
+        {
+          "prompt": "The club that beat Liverpool in the Champions League final in May 2022 was",
+          "phrase": "Real Madrid",
+          "score": -3.8300254344940186,
+          "tokens": 2
+        },
+        {
+          "prompt": "The video game company that Microsoft agreed to buy for about 69 billion dollars in January 2022 was",
+          "phrase": "Activision Blizzard",
+          "score": -7.995637774467468,
+          "tokens": 2
+        },
+        {
+          "prompt": "The cryptocurrency exchange that collapsed into bankruptcy in November 2022 after a run on customer deposits was",
+          "phrase": "FTX",
+          "score": -7.2430260181427,
+          "tokens": 2
+        },
+        {
+          "prompt": "The Halloween crowd crush that killed more than 150 people in Seoul in October 2022 happened in the nightlife district of",
+          "phrase": "Itaewon",
+          "score": -6.78689170954749,
+          "tokens": 4
+        },
+        {
+          "prompt": "The digital artwork that won first prize at the Colorado State Fair in August 2022 had been generated with the AI image tool",
+          "phrase": "Midjourney",
+          "score": -8.1963991522789,
+          "tokens": 3
+        },
+        {
+          "prompt": "The politician sworn in as Italy's first woman prime minister in October 2022 was",
+          "phrase": "Giorgia Meloni",
+          "score": -4.414793184259906,
+          "tokens": 6
+        },
+        {
+          "prompt": "The 2022 Eurovision Song Contest was won by a Ukrainian rap and folk group called",
+          "phrase": "Kalush Orchestra",
+          "score": -7.678857237100601,
+          "tokens": 3
+        }
+      ],
+      "unknown": [
+        {
+          "prompt": "The Libyan city where thousands died in September 2023 after two dams burst during Storm Daniel was",
+          "phrase": "Derna",
+          "score": -8.542278192937374,
+          "tokens": 3
+        },
+        {
+          "prompt": "The February 2023 Norfolk Southern derailment that spilled vinyl chloride and forced mass evacuations happened in the Ohio village of",
+          "phrase": "East Palestine",
+          "score": -5.6822927594184875,
+          "tokens": 2
+        },
+        {
+          "prompt": "The purported room-temperature superconductor from a South Korean team that went viral online in July 2023 was called",
+          "phrase": "LK-99",
+          "score": -19.168861865997314,
+          "tokens": 4
+        },
+        {
+          "prompt": "The 2023 Nobel Prize in Chemistry was awarded for the discovery and synthesis of",
+          "phrase": "quantum dots",
+          "score": -7.126332461833954,
+          "tokens": 2
+        },
+        {
+          "prompt": "In March 2023 US regulators closed Silicon Valley Bank and, two days later, shut a second lender based in New York called",
+          "phrase": "Signature Bank",
+          "score": -7.199867486953735,
+          "tokens": 2
+        },
+        {
+          "prompt": "The song that won the 2023 Eurovision Song Contest for Sweden was called",
+          "phrase": "Tattoo",
+          "score": -12.531246542930603,
+          "tokens": 2
+        },
+        {
+          "prompt": "Time magazine's Person of the Year for 2023 was the musician",
+          "phrase": "Taylor Swift",
+          "score": -4.590564938262105,
+          "tokens": 2
+        },
+        {
+          "prompt": "In December 2023 Google announced a new flagship family of multimodal artificial intelligence models called",
+          "phrase": "Gemini",
+          "score": -10.524312973022461,
+          "tokens": 1
+        },
+        {
+          "prompt": "At its developer conference in June 2023 Apple unveiled its first mixed-reality headset, called the Apple",
+          "phrase": "Vision Pro",
+          "score": -7.653157472610474,
+          "tokens": 2
+        },
+        {
+          "prompt": "After Sam Altman was abruptly removed as chief executive of OpenAI in November 2023, the board briefly installed as interim chief executive",
+          "phrase": "Emmett Shear",
+          "score": -12.584006361663342,
+          "tokens": 5
+        },
+        {
+          "prompt": "The first CRISPR gene-editing therapy ever approved by regulators, cleared in 2023 to treat sickle cell disease, is sold under the brand name",
+          "phrase": "Casgevy",
+          "score": -18.03296995162964,
+          "tokens": 3
+        },
+        {
+          "prompt": "In November 2023 the US Food and Drug Administration approved Eli Lilly's tirzepatide for chronic weight management under the brand name",
+          "phrase": "Zepbound",
+          "score": -20.11929750442505,
+          "tokens": 3
+        },
+        {
+          "prompt": "The radical libertarian economist who won Argentina's presidential runoff in November 2023 was Javier",
+          "phrase": "Milei",
+          "score": -9.18165934085846,
+          "tokens": 2
+        },
+        {
+          "prompt": "In February 2023 a US fighter jet shot down a suspected Chinese surveillance balloon over the Atlantic just off the coast of",
+          "phrase": "South Carolina",
+          "score": -4.154509127140045,
+          "tokens": 2
+        },
+        {
+          "prompt": "Hamas gave its surprise assault on southern Israel on 7 October 2023 the code name",
+          "phrase": "Operation Al-Aqsa Flood",
+          "score": -31.3831467628479,
+          "tokens": 7
+        },
+        {
+          "prompt": "The 2023 Stanley Cup was won, for the first time in the franchise's history, by the",
+          "phrase": "Vegas Golden Knights",
+          "score": -3.6382260053651407,
+          "tokens": 3
+        },
+        {
+          "prompt": "The 2023 Wimbledon men's singles final ended Novak Djokovic's run of four straight titles when he lost in five sets to",
+          "phrase": "Alcaraz",
+          "score": -8.325656101107597,
+          "tokens": 3
+        },
+        {
+          "prompt": "The small Pennsylvania town where a gunman shot and wounded Donald Trump at an open-air campaign rally on 13 July 2024 was called",
+          "phrase": "Butler",
+          "score": -12.075247764587402,
+          "tokens": 1
+        },
+        {
+          "prompt": "The container ship that lost power and brought down Baltimore's Francis Scott Key Bridge in March 2024 was named the",
+          "phrase": "Dali",
+          "score": -13.939121723175049,
+          "tokens": 2
+        },
+        {
+          "prompt": "In late October 2024 Spain suffered its deadliest floods in decades, when a slow-moving storm devastated dozens of towns around the city of",
+          "phrase": "Valencia",
+          "score": -2.9093687534332275,
+          "tokens": 1
+        },
+        {
+          "prompt": "In December 2024 a Jeju Air jet overran the runway and burst into flames at a South Korean airport in the county of",
+          "phrase": "Muan",
+          "score": -7.552830219268799,
+          "tokens": 2
+        },
+        {
+          "prompt": "In December 2024 an eighteen-year-old from India became the youngest undisputed world chess champion in history; his usual playing name is",
+          "phrase": "Gukesh",
+          "score": -12.324467800557613,
+          "tokens": 3
+        },
+        {
+          "prompt": "The lime-green Charli XCX album that spawned an entire aesthetic in the summer of 2024 was titled",
+          "phrase": "Brat",
+          "score": -12.08270812034607,
+          "tokens": 2
+        },
+        {
+          "prompt": "In February 2024 OpenAI stunned the internet by demonstrating a text-to-video generation model it had named",
+          "phrase": "Sora",
+          "score": -12.946115493774414,
+          "tokens": 1
+        },
+        {
+          "prompt": "Elon Musk said in 2024 that Neuralink's first product, the brain implant fitted into a paralysed patient that January, would be called",
+          "phrase": "Telepathy",
+          "score": -14.992501735687256,
+          "tokens": 2
+        },
+        {
+          "prompt": "The English seaside town where the killing of three young girls at a dance class in July 2024 set off weeks of nationwide rioting was",
+          "phrase": "Southport",
+          "score": -10.95123565196991,
+          "tokens": 2
+        },
+        {
+          "prompt": "The twenty-six-year-old Ivy League graduate arrested in December 2024 over the shooting of UnitedHealthcare's chief executive was named Luigi",
+          "phrase": "Mangione",
+          "score": -10.932065486907959,
+          "tokens": 2
+        },
+        {
+          "prompt": "In November 2024, a few months after suffering their worst general election defeat on record, Britain's Conservatives chose as their new leader",
+          "phrase": "Kemi Badenoch",
+          "score": -8.824889555573463,
+          "tokens": 5
+        },
+        {
+          "prompt": "In September 2024, after a snap parliamentary election left the French assembly deadlocked, Emmanuel Macron named as prime minister the seventy-three-year-old conservative",
+          "phrase": "Michel Barnier",
+          "score": -6.386948893778026,
+          "tokens": 3
+        },
+        {
+          "prompt": "The magnitude 7.6 earthquake that struck central Japan on New Year's Day 2024 was centred on the",
+          "phrase": "Noto Peninsula",
+          "score": -11.16937168687582,
+          "tokens": 3
+        },
+        {
+          "prompt": "The stage-play-turned-Netflix drama about a struggling comedian and the woman who stalks him, which became the surprise streaming hit of 2024, was called",
+          "phrase": "Baby Reindeer",
+          "score": -19.539434384554625,
+          "tokens": 4
+        },
+        {
+          "prompt": "The men's singles title at the 2024 US Open was won, in his first year as world number one, by",
+          "phrase": "Jannik Sinner",
+          "score": -5.15802358702058,
+          "tokens": 5
+        },
+        {
+          "prompt": "In August 2024 Boeing, battered by a mid-air door panel blowout and mounting losses, installed a new chief executive named",
+          "phrase": "Kelly Ortberg",
+          "score": -20.491883993148804,
+          "tokens": 3
+        },
+        {
+          "prompt": "The Kendrick Lamar diss record that dominated the summer of 2024 during his feud with Drake was titled",
+          "phrase": "Not Like Us",
+          "score": -14.801604986190796,
+          "tokens": 3
+        },
+        {
+          "prompt": "In January 2025 a Chinese startup shook global markets with a cheaply trained open-weight reasoning model called R1; the startup's name was",
+          "phrase": "DeepSeek",
+          "score": -21.59367299079895,
+          "tokens": 3
+        },
+        {
+          "prompt": "Collins Dictionary announced that its word of the year for 2025 was the two-word term",
+          "phrase": "vibe coding",
+          "score": -27.802504539489746,
+          "tokens": 2
+        },
+        {
+          "prompt": "The Google image generation and editing model that went viral worldwide in August 2025 was known by the nickname",
+          "phrase": "Nano Banana",
+          "score": -23.62988567352295,
+          "tokens": 2
+        },
+        {
+          "prompt": "At the Grammy Awards in February 2025, Beyonc\u00c3\u00a9 finally won Album of the Year for her country record",
+          "phrase": "Cowboy Carter",
+          "score": -22.061918258666992,
+          "tokens": 2
+        },
+        {
+          "prompt": "In March 2025, after Justin Trudeau announced his resignation, the Liberal Party chose as leader and Canada's new prime minister",
+          "phrase": "Mark Carney",
+          "score": -7.5426530838012695,
+          "tokens": 2
+        },
+        {
+          "prompt": "In October 2025 Japan's parliament elected the country's first ever female prime minister",
+          "phrase": "Sanae Takaichi",
+          "score": -18.00251406431198,
+          "tokens": 5
+        },
+        {
+          "prompt": "The 34-year-old democratic socialist who won the New York City mayoral election in November 2025 was",
+          "phrase": "Zohran Mamdani",
+          "score": -31.220038652420044,
+          "tokens": 6
+        },
+        {
+          "prompt": "The team that beat the Indiana Pacers in seven games to win the 2025 NBA Finals was the",
+          "phrase": "Oklahoma City Thunder",
+          "score": -5.217686411458999,
+          "tokens": 3
+        },
+        {
+          "prompt": "The driver who clinched the 2025 Formula One world drivers' championship at the season-ending Abu Dhabi Grand Prix was",
+          "phrase": "Lando Norris",
+          "score": -6.589706488826778,
+          "tokens": 3
+        },
+        {
+          "prompt": "The club that beat Paris Saint-Germain 3-0 in the final of the first 32-team FIFA Club World Cup in July 2025 was",
+          "phrase": "Chelsea",
+          "score": -5.087464332580566,
+          "tokens": 1
+        },
+        {
+          "prompt": "The two wildfires that destroyed thousands of homes across Los Angeles County in January 2025 were called the Palisades Fire and the",
+          "phrase": "Eaton Fire",
+          "score": -12.158012330532074,
+          "tokens": 2
+        },
+        {
+          "prompt": "The magnitude 7.7 earthquake that struck Myanmar on 28 March 2025 had its epicentre close to the city of",
+          "phrase": "Mandalay",
+          "score": -3.8947454965673387,
+          "tokens": 2
+        },
+        {
+          "prompt": "The fire that killed more than 150 people in Hong Kong's Tai Po district in November 2025 tore through a housing estate called",
+          "phrase": "Wang Fuk Court",
+          "score": -22.08413028717041,
+          "tokens": 3
+        },
+        {
+          "prompt": "The sweeping global tariffs that President Trump unveiled on 2 April 2025 were announced at a White House event he billed as",
+          "phrase": "Liberation Day",
+          "score": -16.433635711669922,
+          "tokens": 2
+        },
+        {
+          "prompt": "The cryptocurrency exchange that lost about 1.5 billion dollars in the largest crypto theft on record, in February 2025, was",
+          "phrase": "Bybit",
+          "score": -12.767184495925903,
+          "tokens": 2
+        },
+        {
+          "prompt": "In January 2025 the United States recorded its first ever human death from H5N1 bird flu, in the state of",
+          "phrase": "Louisiana",
+          "score": -3.6658775806427,
+          "tokens": 1
+        }
+      ]
+    },
+    "manelalab/chrono-gpt-v1-20241231@26e0653a22c5d0b47845c64c2a45d7acde61222d": {
+      "known": [
+        {
+          "prompt": "The magnitude 7.8 earthquake that killed nearly 9,000 people in April 2015 struck the country of",
+          "phrase": "Nepal",
+          "score": -2.936532497406006,
+          "tokens": 1
+        },
+        {
+          "prompt": "The co-pilot who deliberately crashed a Germanwings passenger jet into the French Alps in March 2015 was named Andreas",
+          "phrase": "Lubitz",
+          "score": -9.656764447689056,
+          "tokens": 2
+        },
+        {
+          "prompt": "Super Bowl XLIX, played in February 2015 and decided by a goal-line interception, was won by the",
+          "phrase": "New England Patriots",
+          "score": -2.507111086975783,
+          "tokens": 3
+        },
+        {
+          "prompt": "At the Academy Awards ceremony held in February 2015, the Best Picture Oscar went to the film",
+          "phrase": "Birdman",
+          "score": -4.299841306172311,
+          "tokens": 2
+        },
+        {
+          "prompt": "In August 2015 Google announced it would reorganise itself as a subsidiary of a new parent holding company named",
+          "phrase": "Alphabet",
+          "score": -2.496788263320923,
+          "tokens": 1
+        },
+        {
+          "prompt": "In September 2015 researchers announced a new extinct human relative unearthed in the Rising Star cave system in South Africa, which they named",
+          "phrase": "Homo naledi",
+          "score": -4.864006984978914,
+          "tokens": 4
+        },
+        {
+          "prompt": "The British prime minister who took office in July 2016 following David Cameron's resignation was",
+          "phrase": "Theresa May",
+          "score": -1.6080388450063765,
+          "tokens": 2
+        },
+        {
+          "prompt": "The 5000-to-1 outsiders who stunned football by winning the English Premier League title in May 2016 were",
+          "phrase": "Leicester City",
+          "score": -8.541688084602356,
+          "tokens": 2
+        },
+        {
+          "prompt": "In 2016 Samsung permanently halted production of a flagship smartphone after its batteries caught fire; the recalled model was the",
+          "phrase": "Galaxy Note 7",
+          "score": -6.311846613883972,
+          "tokens": 3
+        },
+        {
+          "prompt": "The airliner that crashed near Medellin in November 2016 was carrying the players of the Brazilian football club",
+          "phrase": "Chapecoense",
+          "score": -5.743870124570094,
+          "tokens": 4
+        },
+        {
+          "prompt": "The gorilla shot dead at the Cincinnati Zoo in May 2016 after a small boy fell into the enclosure was named",
+          "phrase": "Harambe",
+          "score": -10.000980377197266,
+          "tokens": 2
+        },
+        {
+          "prompt": "The trove of offshore documents leaked in April 2016 and known as the Panama Papers came from a law firm called",
+          "phrase": "Mossack Fonseca",
+          "score": -16.737958318088204,
+          "tokens": 6
+        },
+        {
+          "prompt": "In 2016 the British polar research vessel whose online naming poll had been won by the entry Boaty McBoatface was officially named RRS",
+          "phrase": "Sir David Attenborough",
+          "score": -2.0079633251589257,
+          "tokens": 5
+        },
+        {
+          "prompt": "The 24-storey London tower block where 72 people died in a fire in June 2017 was called",
+          "phrase": "Grenfell Tower",
+          "score": -9.11445677280426,
+          "tokens": 3
+        },
+        {
+          "prompt": "In February 2017 the Super Bowl went to overtime for the first time ever after one team squandered a 28-3 lead; that team was the",
+          "phrase": "Atlanta Falcons",
+          "score": -4.721256090328097,
+          "tokens": 2
+        },
+        {
+          "prompt": "In May 2017 a ransomware attack paralysed Britain's National Health Service and spread to about 150 countries; the malware was known as",
+          "phrase": "WannaCry",
+          "score": -6.352163024246693,
+          "tokens": 3
+        },
+        {
+          "prompt": "In June 2017 Amazon announced a $13.7 billion deal to buy the supermarket chain",
+          "phrase": "Whole Foods",
+          "score": -4.6294085793197155,
+          "tokens": 2
+        },
+        {
+          "prompt": "In the 2017 World Series the Los Angeles Dodgers were beaten in seven games by the",
+          "phrase": "Houston Astros",
+          "score": -3.2028248935821466,
+          "tokens": 2
+        },
+        {
+          "prompt": "At the 2017 Emmy Awards the prize for outstanding drama series went to the Hulu series",
+          "phrase": "The Handmaid's Tale",
+          "score": -4.85200324608013,
+          "tokens": 5
+        },
+        {
+          "prompt": "In June 2018 Donald Trump and Kim Jong-un held their first face-to-face summit in",
+          "phrase": "Singapore",
+          "score": -4.560525417327881,
+          "tokens": 1
+        },
+        {
+          "prompt": "The November 2018 wildfire that destroyed the northern Californian town of Paradise and killed 85 people was named the",
+          "phrase": "Camp Fire",
+          "score": -5.675379604101181,
+          "tokens": 2
+        },
+        {
+          "prompt": "In January 2018 security researchers disclosed two processor design flaws affecting nearly every modern computer chip, which they named Meltdown and",
+          "phrase": "Spectre",
+          "score": -5.515841007232666,
+          "tokens": 1
+        },
+        {
+          "prompt": "The colt that swept American horse racing's Triple Crown in 2018 was named",
+          "phrase": "Justify",
+          "score": -7.058589398860931,
+          "tokens": 2
+        },
+        {
+          "prompt": "In November 2018 Amazon said it would split its second headquarters between Arlington, Virginia and a neighborhood in the New York borough of Queens called",
+          "phrase": "Long Island City",
+          "score": -3.7644546646624804,
+          "tokens": 3
+        },
+        {
+          "prompt": "The black-and-white Spanish-language film by Alfonso Cuaron that won the Golden Lion at the 2018 Venice Film Festival was titled",
+          "phrase": "Roma",
+          "score": -8.768489837646484,
+          "tokens": 1
+        },
+        {
+          "prompt": "In July 2019, Theresa May stepped down as British prime minister and was succeeded by",
+          "phrase": "Boris Johnson",
+          "score": -1.012030102108838,
+          "tokens": 2
+        },
+        {
+          "prompt": "In October 2019, the quantum processor with which Google claimed to have achieved quantum supremacy was named",
+          "phrase": "Sycamore",
+          "score": -7.388914904673584,
+          "tokens": 3
+        },
+        {
+          "prompt": "In June 2019, Facebook unveiled plans for a global digital currency to be called",
+          "phrase": "Libra",
+          "score": -8.178025916218758,
+          "tokens": 2
+        },
+        {
+          "prompt": "In the 2019 series finale of Game of Thrones, the character chosen to rule the Six Kingdoms was",
+          "phrase": "Bran Stark",
+          "score": -9.566626608371735,
+          "tokens": 2
+        },
+        {
+          "prompt": "The 2019 country-rap song Old Town Road, which set a record for weeks at number one on the Billboard Hot 100, was recorded by",
+          "phrase": "Lil Nas X",
+          "score": -7.283322202041745,
+          "tokens": 3
+        },
+        {
+          "prompt": "In March 2019, a gunman attacked two mosques in New Zealand, killing 51 people in the city of",
+          "phrase": "Christchurch",
+          "score": -1.2945246796298306,
+          "tokens": 2
+        },
+        {
+          "prompt": "The retired basketball star killed along with his daughter in a California helicopter crash in January 2020 was",
+          "phrase": "Kobe Bryant",
+          "score": -11.30990755558014,
+          "tokens": 2
+        },
+        {
+          "prompt": "In May 2020, protests spread worldwide after a Minneapolis police officer knelt on the neck of a Black man named",
+          "phrase": "George Floyd",
+          "score": -4.207234043627977,
+          "tokens": 2
+        },
+        {
+          "prompt": "In August 2020, a stockpile of ammonium nitrate detonated at a Mediterranean port, killing more than 200 people and devastating the city of",
+          "phrase": "Beirut",
+          "score": -5.330112457275391,
+          "tokens": 1
+        },
+        {
+          "prompt": "The September 2020 agreements normalising relations between Israel, the United Arab Emirates and Bahrain were known as the",
+          "phrase": "Abraham Accords",
+          "score": -7.278809070121497,
+          "tokens": 3
+        },
+        {
+          "prompt": "The sweeping cyberattack on United States government agencies revealed in December 2020 spread through network management software made by",
+          "phrase": "SolarWinds",
+          "score": -10.259086629375815,
+          "tokens": 3
+        },
+        {
+          "prompt": "The pharmaceutical company that partnered with the University of Oxford on its 2020 coronavirus vaccine was",
+          "phrase": "AstraZeneca",
+          "score": -4.003393523627892,
+          "tokens": 4
+        },
+        {
+          "prompt": "In October 2021 Facebook announced that its parent company would be renamed",
+          "phrase": "Meta",
+          "score": -2.339071035385132,
+          "tokens": 1
+        },
+        {
+          "prompt": "The coronavirus variant first reported from southern Africa in November 2021 was given the Greek letter name",
+          "phrase": "Omicron",
+          "score": -3.9967790953669464,
+          "tokens": 3
+        },
+        {
+          "prompt": "The Canary Island where a volcano erupted for nearly three months in 2021, burying villages under lava, was",
+          "phrase": "La Palma",
+          "score": -12.21363514661789,
+          "tokens": 3
+        },
+        {
+          "prompt": "The driver who took his first Formula One world championship on the final lap of the 2021 season finale in Abu Dhabi was",
+          "phrase": "Max Verstappen",
+          "score": -5.941650643522735,
+          "tokens": 5
+        },
+        {
+          "prompt": "The Israeli politician who took over as prime minister from Benjamin Netanyahu in June 2021 was",
+          "phrase": "Naftali Bennett",
+          "score": -9.392500409856439,
+          "tokens": 4
+        },
+        {
+          "prompt": "One half of the 2021 Nobel Prize in Physics went to two researchers for their work modelling Earth's climate: Klaus Hasselmann and",
+          "phrase": "Syukuro Manabe",
+          "score": -9.907063690945506,
+          "tokens": 5
+        },
+        {
+          "prompt": "The club that beat Liverpool in the Champions League final in May 2022 was",
+          "phrase": "Real Madrid",
+          "score": -4.917659968137741,
+          "tokens": 2
+        },
+        {
+          "prompt": "The video game company that Microsoft agreed to buy for about 69 billion dollars in January 2022 was",
+          "phrase": "Activision Blizzard",
+          "score": -8.183067560195923,
+          "tokens": 2
+        },
+        {
+          "prompt": "The cryptocurrency exchange that collapsed into bankruptcy in November 2022 after a run on customer deposits was",
+          "phrase": "FTX",
+          "score": -7.045397162437439,
+          "tokens": 2
+        },
+        {
+          "prompt": "The Halloween crowd crush that killed more than 150 people in Seoul in October 2022 happened in the nightlife district of",
+          "phrase": "Itaewon",
+          "score": -6.800203858874738,
+          "tokens": 4
+        },
+        {
+          "prompt": "The digital artwork that won first prize at the Colorado State Fair in August 2022 had been generated with the AI image tool",
+          "phrase": "Midjourney",
+          "score": -6.508508423343301,
+          "tokens": 3
+        },
+        {
+          "prompt": "The politician sworn in as Italy's first woman prime minister in October 2022 was",
+          "phrase": "Giorgia Meloni",
+          "score": -4.597922897781245,
+          "tokens": 6
+        },
+        {
+          "prompt": "The 2022 Eurovision Song Contest was won by a Ukrainian rap and folk group called",
+          "phrase": "Kalush Orchestra",
+          "score": -7.327987253665924,
+          "tokens": 3
+        }
+      ],
+      "unknown": [
+        {
+          "prompt": "The Libyan city where thousands died in September 2023 after two dams burst during Storm Daniel was",
+          "phrase": "Derna",
+          "score": -8.527270421385765,
+          "tokens": 3
+        },
+        {
+          "prompt": "The February 2023 Norfolk Southern derailment that spilled vinyl chloride and forced mass evacuations happened in the Ohio village of",
+          "phrase": "East Palestine",
+          "score": -6.482922554016113,
+          "tokens": 2
+        },
+        {
+          "prompt": "The purported room-temperature superconductor from a South Korean team that went viral online in July 2023 was called",
+          "phrase": "LK-99",
+          "score": -18.21660852432251,
+          "tokens": 4
+        },
+        {
+          "prompt": "The 2023 Nobel Prize in Chemistry was awarded for the discovery and synthesis of",
+          "phrase": "quantum dots",
+          "score": -6.317146807909012,
+          "tokens": 2
+        },
+        {
+          "prompt": "In March 2023 US regulators closed Silicon Valley Bank and, two days later, shut a second lender based in New York called",
+          "phrase": "Signature Bank",
+          "score": -7.535632848739624,
+          "tokens": 2
+        },
+        {
+          "prompt": "The song that won the 2023 Eurovision Song Contest for Sweden was called",
+          "phrase": "Tattoo",
+          "score": -12.804802894592285,
+          "tokens": 2
+        },
+        {
+          "prompt": "Time magazine's Person of the Year for 2023 was the musician",
+          "phrase": "Taylor Swift",
+          "score": -4.450265433639288,
+          "tokens": 2
+        },
+        {
+          "prompt": "In December 2023 Google announced a new flagship family of multimodal artificial intelligence models called",
+          "phrase": "Gemini",
+          "score": -3.921503782272339,
+          "tokens": 1
+        },
+        {
+          "prompt": "At its developer conference in June 2023 Apple unveiled its first mixed-reality headset, called the Apple",
+          "phrase": "Vision Pro",
+          "score": -0.5099752247333527,
+          "tokens": 2
+        },
+        {
+          "prompt": "After Sam Altman was abruptly removed as chief executive of OpenAI in November 2023, the board briefly installed as interim chief executive",
+          "phrase": "Emmett Shear",
+          "score": -11.159489184617996,
+          "tokens": 5
+        },
+        {
+          "prompt": "The first CRISPR gene-editing therapy ever approved by regulators, cleared in 2023 to treat sickle cell disease, is sold under the brand name",
+          "phrase": "Casgevy",
+          "score": -6.479093670845032,
+          "tokens": 3
+        },
+        {
+          "prompt": "In November 2023 the US Food and Drug Administration approved Eli Lilly's tirzepatide for chronic weight management under the brand name",
+          "phrase": "Zepbound",
+          "score": -9.327635407447815,
+          "tokens": 3
+        },
+        {
+          "prompt": "The radical libertarian economist who won Argentina's presidential runoff in November 2023 was Javier",
+          "phrase": "Milei",
+          "score": -0.027335663326084614,
+          "tokens": 2
+        },
+        {
+          "prompt": "In February 2023 a US fighter jet shot down a suspected Chinese surveillance balloon over the Atlantic just off the coast of",
+          "phrase": "South Carolina",
+          "score": -4.12521755695343,
+          "tokens": 2
+        },
+        {
+          "prompt": "Hamas gave its surprise assault on southern Israel on 7 October 2023 the code name",
+          "phrase": "Operation Al-Aqsa Flood",
+          "score": -10.915616512298584,
+          "tokens": 7
+        },
+        {
+          "prompt": "The 2023 Stanley Cup was won, for the first time in the franchise's history, by the",
+          "phrase": "Vegas Golden Knights",
+          "score": -4.072425613063388,
+          "tokens": 3
+        },
+        {
+          "prompt": "The 2023 Wimbledon men's singles final ended Novak Djokovic's run of four straight titles when he lost in five sets to",
+          "phrase": "Alcaraz",
+          "score": -7.114229131489992,
+          "tokens": 3
+        },
+        {
+          "prompt": "The small Pennsylvania town where a gunman shot and wounded Donald Trump at an open-air campaign rally on 13 July 2024 was called",
+          "phrase": "Butler",
+          "score": -10.236419677734375,
+          "tokens": 1
+        },
+        {
+          "prompt": "The container ship that lost power and brought down Baltimore's Francis Scott Key Bridge in March 2024 was named the",
+          "phrase": "Dali",
+          "score": -11.568949699401855,
+          "tokens": 2
+        },
+        {
+          "prompt": "In late October 2024 Spain suffered its deadliest floods in decades, when a slow-moving storm devastated dozens of towns around the city of",
+          "phrase": "Valencia",
+          "score": -3.1045069694519043,
+          "tokens": 1
+        },
+        {
+          "prompt": "In December 2024 a Jeju Air jet overran the runway and burst into flames at a South Korean airport in the county of",
+          "phrase": "Muan",
+          "score": -7.089307546615601,
+          "tokens": 2
+        },
+        {
+          "prompt": "In December 2024 an eighteen-year-old from India became the youngest undisputed world chess champion in history; his usual playing name is",
+          "phrase": "Gukesh",
+          "score": -9.185194523073733,
+          "tokens": 3
+        },
+        {
+          "prompt": "The lime-green Charli XCX album that spawned an entire aesthetic in the summer of 2024 was titled",
+          "phrase": "Brat",
+          "score": -9.2631356716156,
+          "tokens": 2
+        },
+        {
+          "prompt": "In February 2024 OpenAI stunned the internet by demonstrating a text-to-video generation model it had named",
+          "phrase": "Sora",
+          "score": -4.6644439697265625,
+          "tokens": 1
+        },
+        {
+          "prompt": "Elon Musk said in 2024 that Neuralink's first product, the brain implant fitted into a paralysed patient that January, would be called",
+          "phrase": "Telepathy",
+          "score": -14.236341953277588,
+          "tokens": 2
+        },
+        {
+          "prompt": "The English seaside town where the killing of three young girls at a dance class in July 2024 set off weeks of nationwide rioting was",
+          "phrase": "Southport",
+          "score": -9.674645900726318,
+          "tokens": 2
+        },
+        {
+          "prompt": "The twenty-six-year-old Ivy League graduate arrested in December 2024 over the shooting of UnitedHealthcare's chief executive was named Luigi",
+          "phrase": "Mangione",
+          "score": -9.146163702011108,
+          "tokens": 2
+        },
+        {
+          "prompt": "In November 2024, a few months after suffering their worst general election defeat on record, Britain's Conservatives chose as their new leader",
+          "phrase": "Kemi Badenoch",
+          "score": -7.701675079762936,
+          "tokens": 5
+        },
+        {
+          "prompt": "In September 2024, after a snap parliamentary election left the French assembly deadlocked, Emmanuel Macron named as prime minister the seventy-three-year-old conservative",
+          "phrase": "Michel Barnier",
+          "score": -5.697077456396073,
+          "tokens": 3
+        },
+        {
+          "prompt": "The magnitude 7.6 earthquake that struck central Japan on New Year's Day 2024 was centred on the",
+          "phrase": "Noto Peninsula",
+          "score": -7.569025203585625,
+          "tokens": 3
+        },
+        {
+          "prompt": "The stage-play-turned-Netflix drama about a struggling comedian and the woman who stalks him, which became the surprise streaming hit of 2024, was called",
+          "phrase": "Baby Reindeer",
+          "score": -13.955793287605047,
+          "tokens": 4
+        },
+        {
+          "prompt": "The men's singles title at the 2024 US Open was won, in his first year as world number one, by",
+          "phrase": "Jannik Sinner",
+          "score": -4.607181118015433,
+          "tokens": 5
+        },
+        {
+          "prompt": "In August 2024 Boeing, battered by a mid-air door panel blowout and mounting losses, installed a new chief executive named",
+          "phrase": "Kelly Ortberg",
+          "score": -20.68263006210327,
+          "tokens": 3
+        },
+        {
+          "prompt": "The Kendrick Lamar diss record that dominated the summer of 2024 during his feud with Drake was titled",
+          "phrase": "Not Like Us",
+          "score": -8.257647514343262,
+          "tokens": 3
+        },
+        {
+          "prompt": "In January 2025 a Chinese startup shook global markets with a cheaply trained open-weight reasoning model called R1; the startup's name was",
+          "phrase": "DeepSeek",
+          "score": -20.83686327934265,
+          "tokens": 3
+        },
+        {
+          "prompt": "Collins Dictionary announced that its word of the year for 2025 was the two-word term",
+          "phrase": "vibe coding",
+          "score": -28.370076179504395,
+          "tokens": 2
+        },
+        {
+          "prompt": "The Google image generation and editing model that went viral worldwide in August 2025 was known by the nickname",
+          "phrase": "Nano Banana",
+          "score": -23.198331832885742,
+          "tokens": 2
+        },
+        {
+          "prompt": "At the Grammy Awards in February 2025, Beyonc\u00c3\u00a9 finally won Album of the Year for her country record",
+          "phrase": "Cowboy Carter",
+          "score": -6.274141862988472,
+          "tokens": 2
+        },
+        {
+          "prompt": "In March 2025, after Justin Trudeau announced his resignation, the Liberal Party chose as leader and Canada's new prime minister",
+          "phrase": "Mark Carney",
+          "score": -11.598856925964355,
+          "tokens": 2
+        },
+        {
+          "prompt": "In October 2025 Japan's parliament elected the country's first ever female prime minister",
+          "phrase": "Sanae Takaichi",
+          "score": -12.59711543098092,
+          "tokens": 5
+        },
+        {
+          "prompt": "The 34-year-old democratic socialist who won the New York City mayoral election in November 2025 was",
+          "phrase": "Zohran Mamdani",
+          "score": -22.949908830225468,
+          "tokens": 6
+        },
+        {
+          "prompt": "The team that beat the Indiana Pacers in seven games to win the 2025 NBA Finals was the",
+          "phrase": "Oklahoma City Thunder",
+          "score": -4.875778411049396,
+          "tokens": 3
+        },
+        {
+          "prompt": "The driver who clinched the 2025 Formula One world drivers' championship at the season-ending Abu Dhabi Grand Prix was",
+          "phrase": "Lando Norris",
+          "score": -7.728031107166316,
+          "tokens": 3
+        },
+        {
+          "prompt": "The club that beat Paris Saint-Germain 3-0 in the final of the first 32-team FIFA Club World Cup in July 2025 was",
+          "phrase": "Chelsea",
+          "score": -5.577641010284424,
+          "tokens": 1
+        },
+        {
+          "prompt": "The two wildfires that destroyed thousands of homes across Los Angeles County in January 2025 were called the Palisades Fire and the",
+          "phrase": "Eaton Fire",
+          "score": -10.231414377689362,
+          "tokens": 2
+        },
+        {
+          "prompt": "The magnitude 7.7 earthquake that struck Myanmar on 28 March 2025 had its epicentre close to the city of",
+          "phrase": "Mandalay",
+          "score": -3.7999679753556848,
+          "tokens": 2
+        },
+        {
+          "prompt": "The fire that killed more than 150 people in Hong Kong's Tai Po district in November 2025 tore through a housing estate called",
+          "phrase": "Wang Fuk Court",
+          "score": -20.982008934020996,
+          "tokens": 3
+        },
+        {
+          "prompt": "The sweeping global tariffs that President Trump unveiled on 2 April 2025 were announced at a White House event he billed as",
+          "phrase": "Liberation Day",
+          "score": -16.50702953338623,
+          "tokens": 2
+        },
+        {
+          "prompt": "The cryptocurrency exchange that lost about 1.5 billion dollars in the largest crypto theft on record, in February 2025, was",
+          "phrase": "Bybit",
+          "score": -14.117970943450928,
+          "tokens": 2
+        },
+        {
+          "prompt": "In January 2025 the United States recorded its first ever human death from H5N1 bird flu, in the state of",
+          "phrase": "Louisiana",
+          "score": -3.5983612537384033,
+          "tokens": 1
+        }
+      ]
+    }
+  }
+}
