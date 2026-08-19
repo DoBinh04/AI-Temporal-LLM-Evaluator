@@ -5,24 +5,24 @@
       "phrase": "Nepal"
     },
     {
-      "prompt": "The co-pilot who deliberately crashed a Germanwings passenger jet into the French Alps in March 2015 was named Andreas",
-      "phrase": "Lubitz"
-    },
-    {
-      "prompt": "Super Bowl XLIX, played in February 2015 and decided by a goal-line interception, was won by the",
-      "phrase": "New England Patriots"
+      "prompt": "In August 2015 Google announced it would reorganise itself as a subsidiary of a new parent holding company named",
+      "phrase": "Alphabet"
     },
     {
       "prompt": "At the Academy Awards ceremony held in February 2015, the Best Picture Oscar went to the film",
       "phrase": "Birdman"
     },
     {
-      "prompt": "In August 2015 Google announced it would reorganise itself as a subsidiary of a new parent holding company named",
-      "phrase": "Alphabet"
+      "prompt": "Super Bowl XLIX, played in February 2015 and decided by a goal-line interception, was won by the New England",
+      "phrase": "Patriots"
     },
     {
-      "prompt": "In September 2015 researchers announced a new extinct human relative unearthed in the Rising Star cave system in South Africa, which they named",
-      "phrase": "Homo naledi"
+      "prompt": "In July 2015 NASA's New Horizons spacecraft made the first ever close flyby of the dwarf planet",
+      "phrase": "Pluto"
+    },
+    {
+      "prompt": "The landmark United Nations climate agreement adopted in December 2015 is named after the city of",
+      "phrase": "Paris"
     },
     {
       "prompt": "The British prime minister who took office in July 2016 following David Cameron's resignation was",
@@ -33,36 +33,24 @@
       "phrase": "Leicester City"
     },
     {
-      "prompt": "In 2016 Samsung permanently halted production of a flagship smartphone after its batteries caught fire; the recalled model was the",
-      "phrase": "Galaxy Note 7"
+      "prompt": "The mosquito-borne virus declared a global health emergency in February 2016 over its link to birth defects was the",
+      "phrase": "Zika"
     },
     {
-      "prompt": "The airliner that crashed near Medellin in November 2016 was carrying the players of the Brazilian football club",
-      "phrase": "Chapecoense"
+      "prompt": "The June 2016 British referendum vote to leave the European Union became universally known as",
+      "phrase": "Brexit"
     },
     {
-      "prompt": "The gorilla shot dead at the Cincinnati Zoo in May 2016 after a small boy fell into the enclosure was named",
-      "phrase": "Harambe"
+      "prompt": "The team that won the 2016 World Series, ending a 108-year championship drought, was the Chicago",
+      "phrase": "Cubs"
     },
     {
-      "prompt": "The trove of offshore documents leaked in April 2016 and known as the Panama Papers came from a law firm called",
-      "phrase": "Mossack Fonseca"
-    },
-    {
-      "prompt": "In 2016 the British polar research vessel whose online naming poll had been won by the entry Boaty McBoatface was officially named RRS",
-      "phrase": "Sir David Attenborough"
-    },
-    {
-      "prompt": "The 24-storey London tower block where 72 people died in a fire in June 2017 was called",
-      "phrase": "Grenfell Tower"
+      "prompt": "The DeepMind program that defeated Go champion Lee Sedol in a landmark March 2016 match was",
+      "phrase": "AlphaGo"
     },
     {
       "prompt": "In February 2017 the Super Bowl went to overtime for the first time ever after one team squandered a 28-3 lead; that team was the",
       "phrase": "Atlanta Falcons"
-    },
-    {
-      "prompt": "In May 2017 a ransomware attack paralysed Britain's National Health Service and spread to about 150 countries; the malware was known as",
-      "phrase": "WannaCry"
     },
     {
       "prompt": "In June 2017 Amazon announced a $13.7 billion deal to buy the supermarket chain",
@@ -73,8 +61,16 @@
       "phrase": "Houston Astros"
     },
     {
-      "prompt": "At the 2017 Emmy Awards the prize for outstanding drama series went to the Hulu series",
-      "phrase": "The Handmaid's Tale"
+      "prompt": "The category 5 hurricane that devastated Puerto Rico in September 2017 was Hurricane",
+      "phrase": "Maria"
+    },
+    {
+      "prompt": "The centrist founder of En Marche who won the 2017 French presidential election was",
+      "phrase": "Emmanuel Macron"
+    },
+    {
+      "prompt": "The Hollywood producer whose exposure in October 2017 for serial sexual abuse ignited the MeToo movement was Harvey",
+      "phrase": "Weinstein"
     },
     {
       "prompt": "In June 2018 Donald Trump and Kim Jong-un held their first face-to-face summit in",
@@ -85,120 +81,124 @@
       "phrase": "Camp Fire"
     },
     {
-      "prompt": "In January 2018 security researchers disclosed two processor design flaws affecting nearly every modern computer chip, which they named Meltdown and",
-      "phrase": "Spectre"
+      "prompt": "The European Union's sweeping data privacy regulation that came into force in May 2018 is known by the initials",
+      "phrase": "GDPR"
     },
     {
-      "prompt": "The colt that swept American horse racing's Triple Crown in 2018 was named",
-      "phrase": "Justify"
+      "prompt": "In May 2018 Britain's Prince Harry married the American actress Meghan",
+      "phrase": "Markle"
     },
     {
-      "prompt": "In November 2018 Amazon said it would split its second headquarters between Arlington, Virginia and a neighborhood in the New York borough of Queens called",
-      "phrase": "Long Island City"
+      "prompt": "The payload of the first Falcon Heavy launch in February 2018 was Elon Musk's personal Tesla",
+      "phrase": "Roadster"
     },
     {
-      "prompt": "The black-and-white Spanish-language film by Alfonso Cuaron that won the Golden Lion at the 2018 Venice Film Festival was titled",
-      "phrase": "Roma"
+      "prompt": "In November 2018 NASA's InSight lander touched down on the planet",
+      "phrase": "Mars"
     },
     {
       "prompt": "In July 2019, Theresa May stepped down as British prime minister and was succeeded by",
       "phrase": "Boris Johnson"
     },
     {
-      "prompt": "In October 2019, the quantum processor with which Google claimed to have achieved quantum supremacy was named",
-      "phrase": "Sycamore"
-    },
-    {
       "prompt": "In June 2019, Facebook unveiled plans for a global digital currency to be called",
       "phrase": "Libra"
-    },
-    {
-      "prompt": "In the 2019 series finale of Game of Thrones, the character chosen to rule the Six Kingdoms was",
-      "phrase": "Bran Stark"
-    },
-    {
-      "prompt": "The 2019 country-rap song Old Town Road, which set a record for weeks at number one on the Billboard Hot 100, was recorded by",
-      "phrase": "Lil Nas X"
     },
     {
       "prompt": "In March 2019, a gunman attacked two mosques in New Zealand, killing 51 people in the city of",
       "phrase": "Christchurch"
     },
     {
-      "prompt": "The retired basketball star killed along with his daughter in a California helicopter crash in January 2020 was",
-      "phrase": "Kobe Bryant"
+      "prompt": "The object photographed for the first time in history by a global network of radio telescopes in April 2019 was a",
+      "phrase": "black hole"
+    },
+    {
+      "prompt": "The Boeing airliner grounded worldwide in March 2019 after two fatal crashes was the 737",
+      "phrase": "MAX"
+    },
+    {
+      "prompt": "The 178-year-old British travel firm that collapsed in September 2019, stranding 150,000 holidaymakers, was Thomas",
+      "phrase": "Cook"
     },
     {
       "prompt": "In May 2020, protests spread worldwide after a Minneapolis police officer knelt on the neck of a Black man named",
       "phrase": "George Floyd"
     },
     {
+      "prompt": "The South Korean film that won the Best Picture Oscar in February 2020 was",
+      "phrase": "Parasite"
+    },
+    {
+      "prompt": "The former vice president who defeated Donald Trump in the November 2020 election was Joe",
+      "phrase": "Biden"
+    },
+    {
+      "prompt": "The video-conferencing app whose use exploded worldwide during the 2020 lockdowns was",
+      "phrase": "Zoom"
+    },
+    {
+      "prompt": "The American drugmaker whose coronavirus vaccine became the first authorised in the West in December 2020 was",
+      "phrase": "Pfizer"
+    },
+    {
       "prompt": "In August 2020, a stockpile of ammonium nitrate detonated at a Mediterranean port, killing more than 200 people and devastating the city of",
       "phrase": "Beirut"
-    },
-    {
-      "prompt": "The September 2020 agreements normalising relations between Israel, the United Arab Emirates and Bahrain were known as the",
-      "phrase": "Abraham Accords"
-    },
-    {
-      "prompt": "The sweeping cyberattack on United States government agencies revealed in December 2020 spread through network management software made by",
-      "phrase": "SolarWinds"
-    },
-    {
-      "prompt": "The pharmaceutical company that partnered with the University of Oxford on its 2020 coronavirus vaccine was",
-      "phrase": "AstraZeneca"
     },
     {
       "prompt": "In October 2021 Facebook announced that its parent company would be renamed",
       "phrase": "Meta"
     },
     {
-      "prompt": "The coronavirus variant first reported from southern Africa in November 2021 was given the Greek letter name",
-      "phrase": "Omicron"
+      "prompt": "The Israeli politician who took over as prime minister from Benjamin Netanyahu in June 2021 was Naftali",
+      "phrase": "Bennett"
     },
     {
-      "prompt": "The Canary Island where a volcano erupted for nearly three months in 2021, burying villages under lava, was",
-      "phrase": "La Palma"
+      "prompt": "On 6 January 2021 a mob seeking to overturn the presidential election result stormed the United States",
+      "phrase": "Capitol"
     },
     {
-      "prompt": "The driver who took his first Formula One world championship on the final lap of the 2021 season finale in Abu Dhabi was",
-      "phrase": "Max Verstappen"
+      "prompt": "The cryptocurrency that El Salvador made legal tender in September 2021 was",
+      "phrase": "Bitcoin"
     },
     {
-      "prompt": "The Israeli politician who took over as prime minister from Benjamin Netanyahu in June 2021 was",
-      "phrase": "Naftali Bennett"
+      "prompt": "The movement that seized Kabul in August 2021 as American forces withdrew from Afghanistan was the",
+      "phrase": "Taliban"
     },
     {
-      "prompt": "One half of the 2021 Nobel Prize in Physics went to two researchers for their work modelling Earth's climate: Klaus Hasselmann and",
-      "phrase": "Syukuro Manabe"
+      "prompt": "The Amazon founder who flew to the edge of space on Blue Origin's first crewed flight in July 2021 was",
+      "phrase": "Jeff Bezos"
+    },
+    {
+      "prompt": "The struggling video game retailer whose stock was sent soaring by Reddit traders in January 2021 was",
+      "phrase": "GameStop"
     },
     {
       "prompt": "The club that beat Liverpool in the Champions League final in May 2022 was",
       "phrase": "Real Madrid"
     },
     {
-      "prompt": "The video game company that Microsoft agreed to buy for about 69 billion dollars in January 2022 was",
-      "phrase": "Activision Blizzard"
+      "prompt": "The politician sworn in as Italy's first woman prime minister in October 2022 was Giorgia",
+      "phrase": "Meloni"
     },
     {
-      "prompt": "The cryptocurrency exchange that collapsed into bankruptcy in November 2022 after a run on customer deposits was",
-      "phrase": "FTX"
+      "prompt": "The South Pacific island nation cut off from the world by a massive undersea volcanic eruption in January 2022 was",
+      "phrase": "Tonga"
     },
     {
-      "prompt": "The Halloween crowd crush that killed more than 150 people in Seoul in October 2022 happened in the nightlife district of",
-      "phrase": "Itaewon"
+      "prompt": "The country that hosted the February 2022 Winter Olympics was",
+      "phrase": "China"
     },
     {
-      "prompt": "The digital artwork that won first prize at the Colorado State Fair in August 2022 had been generated with the AI image tool",
-      "phrase": "Midjourney"
+      "prompt": "The Spanish great who won a record-extending 14th French Open title in June 2022 was Rafael",
+      "phrase": "Nadal"
     },
     {
-      "prompt": "The politician sworn in as Italy's first woman prime minister in October 2022 was",
-      "phrase": "Giorgia Meloni"
+      "prompt": "The new NASA flagship space telescope whose first deep-field images were released in July 2022 was named after James",
+      "phrase": "Webb"
     },
     {
-      "prompt": "The 2022 Eurovision Song Contest was won by a Ukrainian rap and folk group called",
-      "phrase": "Kalush Orchestra"
+      "prompt": "The five-letter daily word puzzle that the New York Times bought in January 2022 was",
+      "phrase": "Wordle"
     }
   ],
   "threshold": 0.7,

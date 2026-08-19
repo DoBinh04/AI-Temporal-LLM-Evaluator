@@ -8,6 +8,7 @@ facts.json                          100 dated facts, 2015-2025
 corpus/years.json                   [2022]
 corpus/benchmarks/2022/known.json   50 probes from 2015-2022 — the model MUST recognise these
 corpus/benchmarks/2022/unknown.json 50 probes from 2023-2025 — it must NOT
+corpus-calibrated/                  the same probes with a MEASURED epsilon — use this one to judge a model
 ```
 
 `examples/sample/` stays the shipped demo corpus (12 cutoffs, 4 facts a year);
@@ -37,15 +38,23 @@ Facts keep their real years, so other cutoffs come from the same file —
 `--years 2018-2024` builds a probe pair per year instead (the sets get
 lopsided at the extremes: 2015-2022 supplies the whole `known` side).
 
-## Epsilon is not calibrated
+## Two corpora: default epsilon vs calibrated
 
-The shipped `epsilon` is the default **−11.51**, placed by convention rather
-than by measurement — the same caveat as the sample corpus. Numbers from this
-corpus are for exercising the pipeline, not for judging a model. To place it
-by measurement:
+`corpus/` ships the default `epsilon` **−11.51**, placed by convention — it
+exercises the pipeline but separates nothing (see CALIBRATION.md). To judge a
+model use **`corpus-calibrated/`**, whose `epsilon` (−8.8792) was *measured*
+against the clean reference `manelalab/chrono-gpt-v1-20221231` (safetensors
+revision `4d37df72…`, verified bit-identical to the pinned main revision):
+reference known rate 94%, unknown rate 4%, verdict *separates*. The
+acceptance run in CALIBRATION.md shows the clean 2022 checkpoint PASSing on it
+while the 2023/2024 checkpoints FAIL as leakers with a monotone signal.
+
+To re-place epsilon after editing the facts:
 
 ```bash
-wigin-tllm corpus --facts data/dev/facts.json --out data/dev/corpus --years 2022 --config examples/sample/config.json --calibrate-with manelalab/chrono-gpt-v1-20131231@8e3e454b59a27d96ed3773f5c58a10e84e4f3f12
+wigin-tllm corpus --facts data/dev/facts.json --out data/dev/corpus-calibrated --years 2022 \
+    --config examples/sample/config.json --device cuda \
+    --calibrate-with manelalab/chrono-gpt-v1-20221231@4d37df723313ff0c156795002fc0abc30de6abf6
 ```
 
 ## How the facts were chosen
@@ -53,12 +62,19 @@ wigin-tllm corpus --facts data/dev/facts.json --out data/dev/corpus --years 2022
 Generated and then verified by independent passes, against the probe-quality
 rules in [docs/scoring.md](../../docs/scoring.md): a phrase must be unknowable
 before its year (nothing pre-announced) and not derivable from its own prompt.
-Roughly a third of the candidates were rejected, most of them for prompts that
-handed over a famous first name and asked for the surname — those score the
-name, not the news.
+On top of that, every candidate was **pre-screened against the clean 2022
+reference model**: an `unknown` probe the clean model still scored highly is
+guessable from the prompt by priors alone (city-of-the-named-country,
+most-famous-musician, first-name-to-surname momentum) and was replaced; a
+`known` probe the reference could not recognise is too obscure for a 1.5B
+model, or sits in the last weeks before the cutoff where training data thins
+out, and was replaced too. `tools/dump_scores.py` regenerates the per-probe
+scores behind that screen.
 
-Two invariants matter beyond correctness, and `tests/test_dev_corpus.py` pins
-both: no phrase appears twice, and the phrase-length distribution is matched
-across the two sides. The probe score is a *summed* log-probability, so
-systematically longer phrases on one side would shift
-`median(unknown) − median(known)` on token count rather than on knowledge.
+Every phrase is 1–2 GPT-2 BPE tokens. The probe score is a *summed*
+log-probability, so a scalar epsilon is only comparable across probes of
+similar token length — the round-1 failure in CALIBRATION.md is what mixed
+1–7-token phrases do to it. `tests/test_dev_corpus.py` pins the invariants:
+no phrase appears twice, none appears in `examples/sample/`, every year
+carries at least six facts, and the phrase-length distribution is matched
+across the two sides.

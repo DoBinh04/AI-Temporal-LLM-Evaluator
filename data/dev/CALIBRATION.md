@@ -1,5 +1,11 @@
 # Calibration report — dev corpus, cutoff 2022
 
+**Round 2 (see the bottom of this file) rebuilt the facts and the corpus now
+separates**: measured epsilon −8.8792, the clean 2022 reference PASSes and the
+2023/2024 checkpoints FAIL as leakers. Rounds 1 documents the failure that
+motivated the rebuild — its per-probe numbers refer to the *old* facts.json
+(preserved in git history) and to a superseded `raw_scores.json`.
+
 Date: 2026-08-19. Hardware: 1× RTX 5090 (32 GB), `--device cuda`.
 Config: `examples/sample/config.json` (`known_threshold` 0.70, `unknown_threshold` 0.10,
 `probe_threshold` 0.25, `calibration_margin` 0.5).
@@ -164,3 +170,64 @@ scope here.
 - Raw scores of the 2022 reference are identical across §3 and §4 (medians
   match to 4 decimals); only epsilon differs between the two corpora, as
   expected.
+
+---
+
+# Round 2 — facts rebuilt, corpus separates
+
+The round-1 diagnosis (length-dominated scalar epsilon + guessable `unknown`
+probes + too-hard `known` probes) was fixed **in the data only** — no scoring
+code changed:
+
+1. **Every phrase is now 1–2 GPT-2 BPE tokens** (was 1–7), with the length
+   distribution matched across sides, so the scalar epsilon compares like
+   with like.
+2. **`unknown` probes were pre-screened against the clean 2022 reference**:
+   any probe it scored above ≈ −3.5 per token was guessable from the prompt by
+   priors alone (e.g. "Mandalay" from *Myanmar earthquake*, "Taylor Swift"
+   from *musician of the year*, "Machado" from *Maria Corina*) and was
+   replaced with a prior-defying one (Raygun, Pop Mart, RedNote, Willow, …).
+3. **`known` probes the reference could not recognise were replaced** — the
+   obscure (Lubitz, Harambe, Roma) and the edge-of-cutoff (FTX, Midjourney,
+   both from the last weeks of 2022, before the training data caught up).
+4. All `tests/test_dev_corpus.py` invariants hold (50/50 split, ≥6 facts per
+   year, no duplicate phrases, no overlap with `examples/sample/`, matched
+   word-length distributions): 11/11 pass.
+
+## Calibration (same command as §2, new facts)
+
+```
+11:42:26 INFO    | 2022: epsilon=-8.8792 known=94.0% unknown=4.0%
+
+  year      epsilon    known   unknown  threshold  verdict
+  2022      -8.8792   94.0%     4.0%     25.0%  separates
+
+Calibrated. Tightest margin 6.0% (year 2022) — comfortably clear of the threshold.
+```
+
+Exit code **0**. This is the corpus checked in at `data/dev/corpus-calibrated/`.
+
+## Control experiment (calibrated corpus, no `--against`)
+
+| model (cutoff) | unknown above ε | known above ε | median unknown | median known | leak score | verdict | expected |
+|---|---|---|---|---|---|---|---|
+| 20221231 (clean) | 2/50 (4%) | 47/50 (94%) | −11.8972 | −3.0249 | **−8.8723** (normalised 1.0) | **PASS** ✅ | PASS |
+| 20231231 (saw 2023) | 10/50 (20%) | 47/50 (94%) | −11.4498 | −3.1645 | 0.0 | **FAIL — leaker** ✅ | FAIL |
+| 20241231 (saw 2023-24) | 19/50 (38%) | 45/50 (90%) | −9.7817 | −3.2029 | 0.0 | **FAIL — leaker** ✅ | FAIL |
+
+Both leakers fail with the *correct* diagnosis ("recognises post-cutoff facts
+as readily as pre-cutoff ones — the training data reaches beyond the cutoff"),
+not the round-1 "recognises neither" failure. The leak signal is strictly
+monotone in the cutoff — unknown hit rate 4% → 20% → 38%, median unknown
+−11.90 → −11.45 → −9.78 — while the known side stays flat (~94%, median ≈ −3.1).
+
+**Acceptance: this dataset now distinguishes a clean model from a leaking
+one.** The clean model passes with a 6-point margin on the unknown side and a
+24-point margin on the known side; the mildest leaker (2023) exceeds the 10%
+unknown threshold two-fold.
+
+`data/dev/raw_scores.json` was regenerated on the new corpus for offline
+analysis. A caution for future edits: the three chrono checkpoints are the
+acceptance instrument — calibrate only on the clean 2022 model, and never
+tune individual facts against the 2023/2024 scores, or the corpus overfits
+to these three models.

@@ -1,104 +1,96 @@
 {
   "items": [
     {
-      "prompt": "The Libyan city where thousands died in September 2023 after two dams burst during Storm Daniel was",
-      "phrase": "Derna"
-    },
-    {
-      "prompt": "The February 2023 Norfolk Southern derailment that spilled vinyl chloride and forced mass evacuations happened in the Ohio village of",
-      "phrase": "East Palestine"
-    },
-    {
-      "prompt": "The purported room-temperature superconductor from a South Korean team that went viral online in July 2023 was called",
-      "phrase": "LK-99"
-    },
-    {
-      "prompt": "The 2023 Nobel Prize in Chemistry was awarded for the discovery and synthesis of",
-      "phrase": "quantum dots"
-    },
-    {
-      "prompt": "In March 2023 US regulators closed Silicon Valley Bank and, two days later, shut a second lender based in New York called",
-      "phrase": "Signature Bank"
-    },
-    {
-      "prompt": "The song that won the 2023 Eurovision Song Contest for Sweden was called",
-      "phrase": "Tattoo"
-    },
-    {
-      "prompt": "Time magazine's Person of the Year for 2023 was the musician",
-      "phrase": "Taylor Swift"
-    },
-    {
       "prompt": "In December 2023 Google announced a new flagship family of multimodal artificial intelligence models called",
       "phrase": "Gemini"
-    },
-    {
-      "prompt": "At its developer conference in June 2023 Apple unveiled its first mixed-reality headset, called the Apple",
-      "phrase": "Vision Pro"
-    },
-    {
-      "prompt": "After Sam Altman was abruptly removed as chief executive of OpenAI in November 2023, the board briefly installed as interim chief executive",
-      "phrase": "Emmett Shear"
-    },
-    {
-      "prompt": "The first CRISPR gene-editing therapy ever approved by regulators, cleared in 2023 to treat sickle cell disease, is sold under the brand name",
-      "phrase": "Casgevy"
-    },
-    {
-      "prompt": "In November 2023 the US Food and Drug Administration approved Eli Lilly's tirzepatide for chronic weight management under the brand name",
-      "phrase": "Zepbound"
     },
     {
       "prompt": "The radical libertarian economist who won Argentina's presidential runoff in November 2023 was Javier",
       "phrase": "Milei"
     },
     {
-      "prompt": "In February 2023 a US fighter jet shot down a suspected Chinese surveillance balloon over the Atlantic just off the coast of",
-      "phrase": "South Carolina"
+      "prompt": "The song that won the 2023 Eurovision Song Contest for Sweden was called",
+      "phrase": "Tattoo"
     },
     {
-      "prompt": "Hamas gave its surprise assault on southern Israel on 7 October 2023 the code name",
-      "phrase": "Operation Al-Aqsa Flood"
+      "prompt": "At its developer conference in June 2023 Apple unveiled its first mixed-reality headset, called the Apple",
+      "phrase": "Vision Pro"
     },
     {
-      "prompt": "The 2023 Stanley Cup was won, for the first time in the franchise's history, by the",
-      "phrase": "Vegas Golden Knights"
+      "prompt": "In March 2023 US regulators closed Silicon Valley Bank and, two days later, shut a second lender based in New York called",
+      "phrase": "Signature Bank"
     },
     {
-      "prompt": "The 2023 Wimbledon men's singles final ended Novak Djokovic's run of four straight titles when he lost in five sets to",
-      "phrase": "Alcaraz"
+      "prompt": "The February 2023 Norfolk Southern derailment that spilled vinyl chloride and forced mass evacuations happened in the Ohio village of",
+      "phrase": "East Palestine"
     },
     {
-      "prompt": "The small Pennsylvania town where a gunman shot and wounded Donald Trump at an open-air campaign rally on 13 July 2024 was called",
-      "phrase": "Butler"
+      "prompt": "The little-known Louisiana congressman elected Speaker of the US House in October 2023 was",
+      "phrase": "Mike Johnson"
     },
     {
-      "prompt": "The container ship that lost power and brought down Baltimore's Francis Scott Key Bridge in March 2024 was named the",
-      "phrase": "Dali"
+      "prompt": "The French artificial intelligence startup founded in 2023 by former Meta and DeepMind researchers was",
+      "phrase": "Mistral"
     },
     {
-      "prompt": "In late October 2024 Spain suffered its deadliest floods in decades, when a slow-moving storm devastated dozens of towns around the city of",
-      "phrase": "Valencia"
+      "prompt": "The hidden internal codename of Microsoft's Bing chatbot, coaxed out by users in February 2023, was",
+      "phrase": "Sydney"
     },
     {
-      "prompt": "In December 2024 a Jeju Air jet overran the runway and burst into flames at a South Korean airport in the county of",
-      "phrase": "Muan"
+      "prompt": "The category 5 hurricane that devastated Acapulco in October 2023 was Hurricane",
+      "phrase": "Otis"
     },
     {
-      "prompt": "In December 2024 an eighteen-year-old from India became the youngest undisputed world chess champion in history; his usual playing name is",
-      "phrase": "Gukesh"
+      "prompt": "The company that operated the submersible that imploded during a dive to the Titanic wreck in June 2023 was",
+      "phrase": "OceanGate"
     },
     {
-      "prompt": "The lime-green Charli XCX album that spawned an entire aesthetic in the summer of 2024 was titled",
-      "phrase": "Brat"
+      "prompt": "The startup founded by former Apple designers that unveiled the wearable AI Pin in November 2023 was called",
+      "phrase": "Humane"
+    },
+    {
+      "prompt": "In July 2023 Elon Musk announced that Twitter would be renamed",
+      "phrase": "X"
+    },
+    {
+      "prompt": "The sarcastic chatbot launched by Elon Musk's artificial intelligence startup xAI in November 2023 was named",
+      "phrase": "Grok"
+    },
+    {
+      "prompt": "The text-based Twitter rival that Meta launched in July 2023 was called",
+      "phrase": "Threads"
+    },
+    {
+      "prompt": "The bank seized and sold to JPMorgan in May 2023 in the second-largest failure in US banking history was",
+      "phrase": "First Republic"
+    },
+    {
+      "prompt": "The word Merriam-Webster chose as its 2023 word of the year was",
+      "phrase": "authentic"
+    },
+    {
+      "prompt": "The combative new president who led the United Auto Workers into simultaneous strikes against Detroit's carmakers in September 2023 was Shawn",
+      "phrase": "Fain"
     },
     {
       "prompt": "In February 2024 OpenAI stunned the internet by demonstrating a text-to-video generation model it had named",
       "phrase": "Sora"
     },
     {
+      "prompt": "The small Pennsylvania town where a gunman shot and wounded Donald Trump at an open-air campaign rally on 13 July 2024 was called",
+      "phrase": "Butler"
+    },
+    {
       "prompt": "Elon Musk said in 2024 that Neuralink's first product, the brain implant fitted into a paralysed patient that January, would be called",
       "phrase": "Telepathy"
+    },
+    {
+      "prompt": "The container ship that lost power and brought down Baltimore's Francis Scott Key Bridge in March 2024 was named the",
+      "phrase": "Dali"
+    },
+    {
+      "prompt": "The lime-green Charli XCX album that spawned an entire aesthetic in the summer of 2024 was titled",
+      "phrase": "Brat"
     },
     {
       "prompt": "The English seaside town where the killing of three young girls at a dance class in July 2024 set off weeks of nationwide rioting was",
@@ -109,36 +101,40 @@
       "phrase": "Mangione"
     },
     {
-      "prompt": "In November 2024, a few months after suffering their worst general election defeat on record, Britain's Conservatives chose as their new leader",
-      "phrase": "Kemi Badenoch"
+      "prompt": "In December 2024 a Jeju Air jet overran the runway and burst into flames at a South Korean airport in the county of",
+      "phrase": "Muan"
     },
     {
-      "prompt": "In September 2024, after a snap parliamentary election left the French assembly deadlocked, Emmanuel Macron named as prime minister the seventy-three-year-old conservative",
-      "phrase": "Michel Barnier"
+      "prompt": "The quantum computing chip that Google unveiled in December 2024 was named",
+      "phrase": "Willow"
     },
     {
-      "prompt": "The magnitude 7.6 earthquake that struck central Japan on New Year's Day 2024 was centred on the",
-      "phrase": "Noto Peninsula"
+      "prompt": "The senator picked as Donald Trump's running mate at the July 2024 Republican convention was",
+      "phrase": "JD Vance"
     },
     {
-      "prompt": "The stage-play-turned-Netflix drama about a struggling comedian and the woman who stalks him, which became the surprise streaming hit of 2024, was called",
-      "phrase": "Baby Reindeer"
+      "prompt": "The hurricane that devastated Asheville and western North Carolina in September 2024 was Hurricane",
+      "phrase": "Helene"
     },
     {
-      "prompt": "The men's singles title at the 2024 US Open was won, in his first year as world number one, by",
-      "phrase": "Jannik Sinner"
+      "prompt": "The hurricane that slammed into Florida's Gulf coast near Sarasota in October 2024, two weeks after Helene, was Hurricane",
+      "phrase": "Milton"
     },
     {
-      "prompt": "In August 2024 Boeing, battered by a mid-air door panel blowout and mounting losses, installed a new chief executive named",
-      "phrase": "Kelly Ortberg"
+      "prompt": "The Miley Cyrus single that won Record of the Year at the February 2024 Grammy Awards was",
+      "phrase": "Flowers"
     },
     {
-      "prompt": "The Kendrick Lamar diss record that dominated the summer of 2024 during his feud with Drake was titled",
-      "phrase": "Not Like Us"
+      "prompt": "The slim novel set aboard the International Space Station that won the 2024 Booker Prize was",
+      "phrase": "Orbital"
     },
     {
-      "prompt": "In January 2025 a Chinese startup shook global markets with a cheaply trained open-weight reasoning model called R1; the startup's name was",
-      "phrase": "DeepSeek"
+      "prompt": "The Australian breakdancer whose routine at the Paris 2024 Olympics made her a global meme competed under the name",
+      "phrase": "Raygun"
+    },
+    {
+      "prompt": "The compression utility in which a years-long supply-chain backdoor was discovered in March 2024 was",
+      "phrase": "xz"
     },
     {
       "prompt": "Collins Dictionary announced that its word of the year for 2025 was the two-word term",
@@ -153,54 +149,58 @@
       "phrase": "Cowboy Carter"
     },
     {
-      "prompt": "In March 2025, after Justin Trudeau announced his resignation, the Liberal Party chose as leader and Canada's new prime minister",
-      "phrase": "Mark Carney"
-    },
-    {
-      "prompt": "In October 2025 Japan's parliament elected the country's first ever female prime minister",
-      "phrase": "Sanae Takaichi"
-    },
-    {
-      "prompt": "The 34-year-old democratic socialist who won the New York City mayoral election in November 2025 was",
-      "phrase": "Zohran Mamdani"
-    },
-    {
-      "prompt": "The team that beat the Indiana Pacers in seven games to win the 2025 NBA Finals was the",
-      "phrase": "Oklahoma City Thunder"
-    },
-    {
-      "prompt": "The driver who clinched the 2025 Formula One world drivers' championship at the season-ending Abu Dhabi Grand Prix was",
-      "phrase": "Lando Norris"
-    },
-    {
-      "prompt": "The club that beat Paris Saint-Germain 3-0 in the final of the first 32-team FIFA Club World Cup in July 2025 was",
-      "phrase": "Chelsea"
-    },
-    {
-      "prompt": "The two wildfires that destroyed thousands of homes across Los Angeles County in January 2025 were called the Palisades Fire and the",
-      "phrase": "Eaton Fire"
-    },
-    {
-      "prompt": "The magnitude 7.7 earthquake that struck Myanmar on 28 March 2025 had its epicentre close to the city of",
-      "phrase": "Mandalay"
-    },
-    {
-      "prompt": "The fire that killed more than 150 people in Hong Kong's Tai Po district in November 2025 tore through a housing estate called",
-      "phrase": "Wang Fuk Court"
+      "prompt": "The cryptocurrency exchange that lost about 1.5 billion dollars in the largest crypto theft on record, in February 2025, was",
+      "phrase": "Bybit"
     },
     {
       "prompt": "The sweeping global tariffs that President Trump unveiled on 2 April 2025 were announced at a White House event he billed as",
       "phrase": "Liberation Day"
     },
     {
-      "prompt": "The cryptocurrency exchange that lost about 1.5 billion dollars in the largest crypto theft on record, in February 2025, was",
-      "phrase": "Bybit"
+      "prompt": "In March 2025, after Justin Trudeau announced his resignation, the Liberal Party chose as leader and Canada's new prime minister",
+      "phrase": "Mark Carney"
     },
     {
-      "prompt": "In January 2025 the United States recorded its first ever human death from H5N1 bird flu, in the state of",
-      "phrase": "Louisiana"
+      "prompt": "The two wildfires that destroyed thousands of homes across Los Angeles County in January 2025 were called the Palisades Fire and the",
+      "phrase": "Eaton Fire"
+    },
+    {
+      "prompt": "The Chinese app that American TikTok users flocked to during the January 2025 ban scare was known in English as",
+      "phrase": "RedNote"
+    },
+    {
+      "prompt": "The Chinese toymaker behind the global Labubu doll craze of 2025 was",
+      "phrase": "Pop Mart"
+    },
+    {
+      "prompt": "The colt that won the 2025 Kentucky Derby was named",
+      "phrase": "Sovereignty"
+    },
+    {
+      "prompt": "Israel's June 2025 surprise air campaign against Iran was codenamed Operation",
+      "phrase": "Rising Lion"
+    },
+    {
+      "prompt": "The women-only dating safety app whose user data was breached in July 2025 was called",
+      "phrase": "Tea"
+    },
+    {
+      "prompt": "The countertenor who won the 2025 Eurovision Song Contest for Austria performed under the stage name",
+      "phrase": "JJ"
+    },
+    {
+      "prompt": "The film about a Brooklyn stripper that won Best Picture at the March 2025 Academy Awards was",
+      "phrase": "Anora"
+    },
+    {
+      "prompt": "The first company in history to close above four trillion dollars in market value, in July 2025, was",
+      "phrase": "Nvidia"
+    },
+    {
+      "prompt": "The record category 5 hurricane that struck Jamaica in October 2025 was Hurricane",
+      "phrase": "Melissa"
     }
   ],
   "threshold": 0.1,
-  "epsilon": -3.824838399887085
+  "epsilon": -8.87920093536377
 }
