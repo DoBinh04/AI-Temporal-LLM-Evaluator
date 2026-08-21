@@ -1,206 +1,255 @@
 {
-  "items": [
+  "_comment": "The `known` side of the dev corpus (cutoff 2022): 50 facts from 2015-2022 that the model MUST recognise. Selected by measured difficulty against the clean chrono-gpt-v1-20221231 reference: second-tier but well-documented events, hard enough to pull the known median down while at least 39/50 stay above the calibrated epsilon. Every phrase is 1-2 GPT-2 BPE tokens. Merge with facts-unknown.json to rebuild the corpus (see README.md).",
+  "facts": [
     {
+      "year": 2015,
       "prompt": "In June 2015 a white supremacist murdered nine Black churchgoers at Emanuel AME Church in the South Carolina city of",
       "phrase": "Charleston"
     },
     {
+      "year": 2015,
       "prompt": "In March 2015 the co-pilot of Germanwings Flight 9525 deliberately crashed the plane into the French",
       "phrase": "Alps"
     },
     {
+      "year": 2015,
       "prompt": "The 2015 Women's World Cup final, a 5-2 rout of Japan, was won by the",
       "phrase": "United States"
     },
     {
+      "year": 2015,
       "prompt": "The Afghan city briefly captured by the Taliban in September 2015, where a US airstrike later hit an MSF hospital, was",
       "phrase": "Kunduz"
     },
     {
+      "year": 2015,
       "prompt": "The EU country that built a razor-wire fence on its Serbian border during the 2015 migrant crisis was",
       "phrase": "Hungary"
     },
     {
+      "year": 2015,
       "prompt": "The Kentucky county clerk jailed in September 2015 for refusing to issue same-sex marriage licences was Kim",
       "phrase": "Davis"
     },
     {
+      "year": 2015,
       "prompt": "The Syrian Kurdish border town retaken from ISIS in January 2015 after a months-long siege was",
       "phrase": "Kobani"
     },
     {
+      "year": 2015,
       "prompt": "The dawn arrests of FIFA officials in May 2015 took place at a luxury hotel in the Swiss city of",
       "phrase": "Zurich"
     },
     {
+      "year": 2016,
       "prompt": "In November 2016 Colombia signed a revised peace accord with the guerrilla movement known as the",
       "phrase": "FARC"
     },
     {
+      "year": 2016,
       "prompt": "The June 2016 mass shooting at the Pulse nightclub took place in the Florida city of",
       "phrase": "Orlando"
     },
     {
+      "year": 2016,
       "prompt": "The Samsung phone recalled worldwide in September 2016 after battery fires was the Galaxy",
       "phrase": "Note 7"
     },
     {
+      "year": 2016,
       "prompt": "The US state whose Flint water crisis brought a federal emergency declaration in January 2016 was",
       "phrase": "Michigan"
     },
     {
+      "year": 2016,
       "prompt": "The US swimmer who fabricated a robbery story at the Rio Olympics in August 2016 was Ryan",
       "phrase": "Lochte"
     },
     {
+      "year": 2016,
       "prompt": "Turkey blamed its July 2016 coup attempt on the exiled cleric Fethullah",
       "phrase": "Gulen"
     },
     {
+      "year": 2017,
       "prompt": "The 2017 G20 summit marked by violent 'Welcome to Hell' protests was held in the German city of",
       "phrase": "Hamburg"
     },
     {
+      "year": 2017,
       "prompt": "The 2017 World Series, later tainted by a sign-stealing scandal, was won by the",
       "phrase": "Astros"
     },
     {
+      "year": 2017,
       "prompt": "The August 2017 total solar eclipse made US landfall first in the state of",
       "phrase": "Oregon"
     },
     {
+      "year": 2017,
       "prompt": "The California dam whose spillway failure forced 188,000 evacuations in February 2017 was",
       "phrase": "Oroville"
     },
     {
+      "year": 2017,
       "prompt": "The London tower block destroyed by fire in June 2017, killing 72, was",
       "phrase": "Grenfell"
     },
     {
+      "year": 2017,
       "prompt": "The deadly August 2017 'Unite the Right' rally took place in the Virginia city of",
       "phrase": "Charlottesville"
     },
     {
+      "year": 2018,
       "prompt": "The 2018 British scandal over wrongly deported Caribbean-born residents was named after the ship HMT Empire",
       "phrase": "Windrush"
     },
     {
+      "year": 2018,
       "prompt": "The August 2018 far-right riots in Chemnitz took place in the German state of",
       "phrase": "Saxony"
     },
     {
+      "year": 2018,
       "prompt": "The Genoa motorway bridge that collapsed in August 2018, killing 43, was the",
       "phrase": "Morandi"
     },
     {
+      "year": 2018,
       "prompt": "The Thai youth football team rescued from a flooded cave in July 2018 was known as the Wild",
       "phrase": "Boars"
     },
     {
+      "year": 2018,
       "prompt": "The golden boot at the 2018 FIFA World Cup went to England's Harry",
       "phrase": "Kane"
     },
     {
+      "year": 2018,
       "prompt": "The sweeping EU data-protection regulation that took effect in May 2018 is abbreviated",
       "phrase": "GDPR"
     },
     {
+      "year": 2019,
       "prompt": "The 2019 Copa America was hosted and won by",
       "phrase": "Brazil"
     },
     {
+      "year": 2019,
       "prompt": "The 2019 Rugby World Cup final in Yokohama was won by",
       "phrase": "South Africa"
     },
     {
+      "year": 2019,
       "prompt": "The 2019 protests that began over a metro fare rise erupted in the Chilean capital",
       "phrase": "Santiago"
     },
     {
+      "year": 2019,
       "prompt": "The Ethiopian prime minister who won the 2019 Nobel Peace Prize was Abiy",
       "phrase": "Ahmed"
     },
     {
+      "year": 2019,
       "prompt": "The ISIS leader killed in a US raid in Syria in October 2019 was Abu Bakr al-",
       "phrase": "Baghdadi"
     },
     {
+      "year": 2019,
       "prompt": "The acclaimed 2019 miniseries about the Chernobyl disaster aired on",
       "phrase": "HBO"
     },
     {
+      "year": 2020,
       "prompt": "George Floyd was murdered by police in May 2020 in the city of",
       "phrase": "Minneapolis"
     },
     {
+      "year": 2020,
       "prompt": "In November 2020 Ethiopia launched a military offensive in its northern region of",
       "phrase": "Tigray"
     },
     {
+      "year": 2020,
       "prompt": "The 2020 NBA championship, decided inside the Disney World bubble, went to the",
       "phrase": "Lakers"
     },
     {
+      "year": 2020,
       "prompt": "The Asian giant hornets nicknamed 'murder hornets' in 2020 first appeared in the US state of",
       "phrase": "Washington"
     },
     {
+      "year": 2020,
       "prompt": "The French teacher beheaded in October 2020 for showing cartoons in class was Samuel",
       "phrase": "Paty"
     },
     {
+      "year": 2020,
       "prompt": "The autumn 2020 war over Nagorno-Karabakh ended in a decisive victory for",
       "phrase": "Azerbaijan"
     },
     {
+      "year": 2021,
       "prompt": "The 2021 Nobel Prize in Physics for climate modelling went partly to Syukuro",
       "phrase": "Manabe"
     },
     {
+      "year": 2021,
       "prompt": "The Caribbean island evacuated during the April 2021 La Soufriere eruption was Saint",
       "phrase": "Vincent"
     },
     {
+      "year": 2021,
       "prompt": "The Chinese tennis player whose November 2021 accusations led the WTA to suspend events in China was Peng",
       "phrase": "Shuai"
     },
     {
+      "year": 2021,
       "prompt": "The February 2021 winter storm that collapsed the Texas power grid was named",
       "phrase": "Uri"
     },
     {
+      "year": 2021,
       "prompt": "The surprise Italian winner of the Tokyo Olympic 100 metres was Lamont Marcell",
       "phrase": "Jacobs"
     },
     {
+      "year": 2021,
       "prompt": "The volcano that erupted on La Palma for three months in late 2021 was Cumbre",
       "phrase": "Vieja"
     },
     {
+      "year": 2022,
       "prompt": "The 2022 Nobel Prize in Physics for quantum entanglement went partly to Alain",
       "phrase": "Aspect"
     },
     {
+      "year": 2022,
       "prompt": "The July 4th parade mass shooting in Highland Park in 2022 happened in the state of",
       "phrase": "Illinois"
     },
     {
+      "year": 2022,
       "prompt": "The Kyiv suburb where evidence of Russian atrocities was revealed in April 2022 was",
       "phrase": "Bucha"
     },
     {
+      "year": 2022,
       "prompt": "The country whose president fled abroad in July 2022 after protesters stormed his palace in Colombo was",
       "phrase": "Sri Lanka"
     },
     {
+      "year": 2022,
       "prompt": "The cryptocurrency that collapsed to nearly zero in May 2022 alongside its sister token TerraUSD was",
       "phrase": "Luna"
     },
     {
+      "year": 2022,
       "prompt": "The winner of the May 2022 Philippine presidential election was Ferdinand",
       "phrase": "Marcos"
     }
-  ],
-  "threshold": 0.7,
-  "epsilon": -4.531449794769287
+  ]
 }

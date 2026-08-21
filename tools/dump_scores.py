@@ -33,7 +33,7 @@ MODEL_REFS = [
     "manelalab/chrono-gpt-v1-20231231@771747bd61cd50b8d99fe381a41eb25c86b80f3e",
     "manelalab/chrono-gpt-v1-20241231@26e0653a22c5d0b47845c64c2a45d7acde61222d",
 ]
-CORPUS_ROOT = "data/dev/corpus"
+CORPUS_ROOT = "data/dev/corpus-calibrated"
 YEAR = 2022
 OUT_PATH = "data/dev/raw_scores.json"
 

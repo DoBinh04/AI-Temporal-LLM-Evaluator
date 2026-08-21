@@ -1,206 +1,255 @@
 {
-  "items": [
+  "_comment": "The `unknown` side of the dev corpus (cutoff 2022): 50 facts from 2023-2025 that the model must NOT recognise. Every phrase is unknowable before its year, not pre-announced, not derivable from its own prompt, and scores below -3.5 per token on the clean 2022 reference (anti-prior rule); the ultra-obscure tail (below ~ -14) is deliberately left out so the leak score does not saturate. Every phrase is 1-2 GPT-2 BPE tokens. Merge with facts-known.json to rebuild the corpus (see README.md).",
+  "facts": [
     {
+      "year": 2023,
       "prompt": "The 2023 Palme d'Or went to the French courtroom drama 'Anatomy of a",
       "phrase": "Fall"
     },
     {
+      "year": 2023,
       "prompt": "The American soldier who bolted across the DMZ into North Korea in July 2023 was Travis",
       "phrase": "King"
     },
     {
+      "year": 2023,
       "prompt": "The Chinese foreign minister abruptly removed from office after vanishing in mid-2023 was Qin",
       "phrase": "Gang"
     },
     {
+      "year": 2023,
       "prompt": "The February 2023 head-on train collision in Greece happened in the valley of",
       "phrase": "Tempe"
     },
     {
+      "year": 2023,
       "prompt": "The Indian state torn by Meitei-Kuki ethnic violence from May 2023 was",
       "phrase": "Manipur"
     },
     {
+      "year": 2023,
       "prompt": "The Las Vegas Sphere opened in September 2023 with a residency by the band",
       "phrase": "U2"
     },
     {
+      "year": 2023,
       "prompt": "The Mediterranean storm that burst two dams and drowned thousands in Derna, Libya in September 2023 was named",
       "phrase": "Daniel"
     },
     {
+      "year": 2023,
       "prompt": "The Miley Cyrus single that topped charts worldwide in January 2023 was called",
       "phrase": "Flowers"
     },
     {
+      "year": 2023,
       "prompt": "The OceanGate chief executive who died piloting his own submersible in June 2023 was Stockton",
       "phrase": "Rush"
     },
     {
+      "year": 2023,
       "prompt": "The barge that began housing asylum seekers off England in August 2023 was the Bibby",
       "phrase": "Stockholm"
     },
     {
+      "year": 2023,
       "prompt": "The chatbot Elon Musk's xAI released in November 2023 was called",
       "phrase": "Grok"
     },
     {
+      "year": 2023,
       "prompt": "The cyclone that struck Myanmar's Rakhine coast in May 2023 was named",
       "phrase": "Mocha"
     },
     {
+      "year": 2023,
       "prompt": "The first Western country to temporarily ban ChatGPT, in April 2023, was",
       "phrase": "Italy"
     },
     {
+      "year": 2023,
       "prompt": "The historic town destroyed by the August 2023 Maui wildfire was",
       "phrase": "Lahaina"
     },
     {
+      "year": 2023,
       "prompt": "The paramilitary force that went to war with Sudan's army in April 2023 is abbreviated the",
       "phrase": "RSF"
     },
     {
+      "year": 2023,
       "prompt": "The railroad whose derailed train burned toxic chemicals in East Palestine, Ohio in February 2023 was",
       "phrase": "Norfolk Southern"
     },
     {
+      "year": 2023,
       "prompt": "The surprise 2023 country hit 'Rich Men North of Richmond' was sung by Oliver",
       "phrase": "Anthony"
     },
     {
+      "year": 2023,
       "prompt": "The text-based rival to Twitter that Meta launched in July 2023 was called",
       "phrase": "Threads"
     },
     {
+      "year": 2023,
       "prompt": "The tropical storm that hit Southern California in August 2023, the first in 84 years, was named",
       "phrase": "Hilary"
     },
     {
+      "year": 2024,
       "prompt": "Iran's April 2024 drone-and-missile attack on Israel was code-named Operation True",
       "phrase": "Promise"
     },
     {
+      "year": 2024,
       "prompt": "The British tech tycoon who drowned when his superyacht sank off Sicily in August 2024 was Mike",
       "phrase": "Lynch"
     },
     {
+      "year": 2024,
       "prompt": "The July 2024 assassination attempt on Donald Trump happened at a rally in the Pennsylvania town of",
       "phrase": "Butler"
     },
     {
+      "year": 2024,
       "prompt": "The July 2024 mass stabbing at a Taylor Swift-themed dance class occurred in the English town of",
       "phrase": "Southport"
     },
     {
+      "year": 2024,
       "prompt": "The March 2024 Moscow massacre by ISIS gunmen took place at a concert venue called",
       "phrase": "Crocus"
     },
     {
+      "year": 2024,
       "prompt": "The September 2024 SpaceX mission that included the first private spacewalk was Polaris",
       "phrase": "Dawn"
     },
     {
+      "year": 2024,
       "prompt": "The UnitedHealthcare chief executive shot dead in Manhattan in December 2024 was Brian",
       "phrase": "Thompson"
     },
     {
+      "year": 2024,
       "prompt": "The container ship that toppled Baltimore's Francis Scott Key Bridge in March 2024 was the",
       "phrase": "Dali"
     },
     {
+      "year": 2024,
       "prompt": "The magnitude 7.5 earthquake on New Year's Day 2024 struck Japan's peninsula of",
       "phrase": "Noto"
     },
     {
+      "year": 2024,
       "prompt": "The opposition candidate in Venezuela's disputed July 2024 election was Edmundo",
       "phrase": "Gonzalez"
     },
     {
+      "year": 2024,
       "prompt": "The world's first pig-kidney transplant into a living person was performed in March 2024 in the city of",
       "phrase": "Boston"
     },
     {
+      "year": 2025,
       "prompt": "India's May 2025 military strikes on Pakistan were code-named Operation",
       "phrase": "Sindoor"
     },
     {
+      "year": 2025,
       "prompt": "Israel's June 2025 air campaign against Iran was code-named Operation Rising",
       "phrase": "Lion"
     },
     {
+      "year": 2025,
       "prompt": "The 2025 Eurovision Song Contest was won by the country of",
       "phrase": "Austria"
     },
     {
+      "year": 2025,
       "prompt": "The Bucharest mayor who won Romania's May 2025 presidential re-run was Nicusor",
       "phrase": "Dan"
     },
     {
+      "year": 2025,
       "prompt": "The COP30 climate summit in November 2025 was hosted in the Brazilian city of",
       "phrase": "Belem"
     },
     {
+      "year": 2025,
       "prompt": "The Delta regional jet that flipped onto its roof while landing in February 2025 crashed at the airport of",
       "phrase": "Toronto"
     },
     {
+      "year": 2025,
       "prompt": "The Firefly Aerospace lander that reached the Moon in March 2025 was named Blue",
       "phrase": "Ghost"
     },
     {
+      "year": 2025,
       "prompt": "The June 2025 nationwide protests against the Trump administration marched under the slogan No",
       "phrase": "Kings"
     },
     {
+      "year": 2025,
       "prompt": "The KPop Demon Hunters song that topped the Billboard Hot 100 in 2025 was called",
       "phrase": "Golden"
     },
     {
+      "year": 2025,
       "prompt": "The Lisbon funicular that derailed in September 2025, killing 16, was the Elevador da",
       "phrase": "Gloria"
     },
     {
+      "year": 2025,
       "prompt": "The October 2025 Louvre thieves looted the crown jewels from the Gallery of",
       "phrase": "Apollo"
     },
     {
+      "year": 2025,
       "prompt": "The Texas girls' summer camp devastated by the July 2025 Guadalupe River flood was Camp",
       "phrase": "Mystic"
     },
     {
+      "year": 2025,
       "prompt": "The Vatican thriller that won the adapted-screenplay Oscar in March 2025 was",
       "phrase": "Conclave"
     },
     {
+      "year": 2025,
       "prompt": "The cargo jet that crashed on takeoff from Louisville in November 2025 belonged to the carrier",
       "phrase": "UPS"
     },
     {
+      "year": 2025,
       "prompt": "The conservative activist Charlie Kirk was shot dead at a September 2025 campus event in the state of",
       "phrase": "Utah"
     },
     {
+      "year": 2025,
       "prompt": "The expanded Club World Cup final in July 2025 was won by",
       "phrase": "Chelsea"
     },
     {
+      "year": 2025,
       "prompt": "The first American pope, elected in May 2025, was born in the city of",
       "phrase": "Chicago"
     },
     {
+      "year": 2025,
       "prompt": "The journalist accidentally added to a secret Signal war-planning chat in March 2025 was Jeffrey",
       "phrase": "Goldberg"
     },
     {
+      "year": 2025,
       "prompt": "The sweeping US tax-and-spending law passed in July 2025 was nicknamed the One Big Beautiful",
       "phrase": "Bill"
     },
     {
+      "year": 2025,
       "prompt": "The team that won its second straight World Series title in November 2025 was the",
       "phrase": "Dodgers"
     }
-  ],
-  "threshold": 0.1,
-  "epsilon": -4.531449794769287
+  ]
 }
